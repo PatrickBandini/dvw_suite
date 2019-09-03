@@ -19,14 +19,15 @@ public class View {
 	
 	private MyFrame frame;
 	private JLabel filename = new JLabel("---");
-	private File file;
+	private JButton open;
+	private JPanel header;
 	
 	public View() {
 		// Creo il frame e imposto titolo e layout
 		this.frame = new MyFrame("DVW Suite", new BorderLayout());
 		
 		//Creo pannello HEADER
-		JPanel header = new JPanel(new FlowLayout());
+		header = new JPanel(new FlowLayout());
 		
 		//Creo pannello PRE
 		JPanel panelPre = new JPanel(new FlowLayout());
@@ -48,26 +49,7 @@ public class View {
 		icon = new ImageIcon(newimg);
 		JLabel label = new JLabel(icon);
 		
-		JButton open = new JButton("Carica DVW");
-		
-		open.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				final JFileChooser fc = new JFileChooser();
-				fc.setFileFilter(new FileNameExtensionFilter("*.dvw", "dvw"));
-				fc.setAcceptAllFileFilterUsed(false);
-				int rVal = fc.showOpenDialog(header);
-				if (rVal == JFileChooser.APPROVE_OPTION) {
-					try {
-						file = fc.getSelectedFile();
-						filename.setText(file.getName());
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}
-			}
-		});
+		open = new JButton("Carica DVW");
 		
 		
 		header.add(label);
@@ -77,5 +59,26 @@ public class View {
 		panelPost.add(new JButton("Prova di pulsante"));
 		
 		frame.setVisible(true);
+	}
+	
+	public JButton getOpenButton() {
+		return this.open;
+	}
+	
+	public File chooseFile() {
+		final JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("*.dvw", "dvw"));
+		fc.setAcceptAllFileFilterUsed(false);
+		int rVal = fc.showOpenDialog(header);
+		if (rVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				File file = fc.getSelectedFile();
+				filename.setText(file.getName());
+				return file;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return null;
 	}
 }
