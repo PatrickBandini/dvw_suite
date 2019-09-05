@@ -10,16 +10,18 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.DVW;
+import model.Riga;
 import view.View;
 
 public class Controller {
 	private View view;
 	private DVW model;
 	
-	private File file;
+	private File originalFile;
 	
 	public Controller(View view, DVW model) {
 		this.view = view;
@@ -33,10 +35,10 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file = null;
-				file = view.chooseFile();
-				if (null != file) {
-					readFile(file);
+				originalFile = null;
+				originalFile = view.chooseFile();
+				if (null != originalFile) {
+					readFile(originalFile);
 				}
 			}
 		});
@@ -64,10 +66,17 @@ public class Controller {
 	
 	private void readFile(File f) {
 		try {
+			this.model = new DVW(f);
 			List<String> rows = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.ISO_8859_1);
-			System.out.println(f.getPath());
-			for(String r:rows) {
-				System.out.println(r);
+			List<Riga> righe = new ArrayList<Riga>();
+			for(int i=0;i<rows.size(); i++) {
+				if ("[3SCOUT]".equals(rows.get(i))) {
+					List<String> intestazione = rows.subList(0, i+1);
+					model.setIntestazione(intestazione, i+1);
+				}
+				if (i >= model.getIndexFineIntestazione()) {
+					righe.add(new Riga(rows.get(i)));
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,7 +86,7 @@ public class Controller {
 	private void writeFile(File toSave) {
 		try {
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(toSave), StandardCharsets.ISO_8859_1);
-			List<String> rows = Files.readAllLines(Paths.get(file.getPath()), StandardCharsets.ISO_8859_1);
+			List<String> rows = Files.readAllLines(Paths.get(model.getFile().getPath()), StandardCharsets.ISO_8859_1);
 			for(String r:rows) {
 				osw.write(r + "\n");
 			}
