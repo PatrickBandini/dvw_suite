@@ -11,15 +11,27 @@ public class Campo0 {
 		return this.stringa;
 	}
 	
+	public String toString() {
+		return getStringa();
+	}
+	
 	public void setStringa(String s) {
 		this.stringa = s;
 	}
 	
 	public boolean isAlzata() {
-		return stringa.charAt(1) == 'E';
+		try {
+			return stringa.charAt(3) == 'E';
+		} catch (StringIndexOutOfBoundsException ex) {
+			return false;
+		}
 	}
 	
 	public boolean isRicezione() {
-		return stringa.charAt(1) == 'R';
+		try {
+			return stringa.charAt(3) == 'R';
+		} catch (StringIndexOutOfBoundsException ex) {
+			return false;
+		}
 	}
 }

@@ -28,8 +28,20 @@ public class DVW {
 		this.righe = righe;
 	}
 	
-	public File getFile() {
-		return this.file;
+	public String printRighe() {
+		String s="";
+		for(Riga r: this.righe) {
+			s+=r.toString()+"\n";
+		}
+		return s;
+	}
+	
+	public String printIntestazione() {
+		String s="";
+		for(String r: this.intestazione) {
+			s+=r+"\n";
+		}
+		return s;
 	}
 	
 	public int getIndexFineIntestazione() {
@@ -55,6 +67,7 @@ public class DVW {
 			Riga prev = getPrevious(r);
 			if (r.isAlzataCP(prev)) {
 				r.setTimecode(prev.getTimecode());
+				System.out.println(r.toString());
 			}
 		}
 		System.out.println("OK - Tempi Alzata Cambio Palla");

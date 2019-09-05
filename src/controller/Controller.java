@@ -88,10 +88,8 @@ public class Controller {
 	private void writeFile(File toSave) {
 		try {
 			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(toSave), StandardCharsets.ISO_8859_1);
-			List<String> rows = Files.readAllLines(Paths.get(model.getFile().getPath()), StandardCharsets.ISO_8859_1);
-			for(String r:rows) {
-				osw.write(r + "\n");
-			}
+			osw.write(model.printIntestazione());
+			osw.write(model.printRighe());
 			osw.flush();
 			osw.close();
 		} catch (Exception ex) {

@@ -52,7 +52,7 @@ public class Riga {
 		str = campo0.getStringa() 
 				+ ";" + puntoCambioPalla 
 				+ ";" + attaccoDopoRicezioneDifesa
-				+ ";" + ";"
+				+ ";"
 				+ ";" + frecciaA
 				+ ";" + frecciaB
 				+ ";" + frecciaC
@@ -62,7 +62,7 @@ public class Riga {
 				+ ";" + pOspite
 				+ ";" + filmato
 				+ ";" + timecode
-				+ ";" + casa.toString()
+				+ ";;" + casa.toString()
 				+ ospite.toString();
 		return str;
 	}
