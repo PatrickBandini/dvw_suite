@@ -78,6 +78,8 @@ public class Controller {
 					righe.add(new Riga(rows.get(i)));
 				}
 			}
+			model.setRighe(righe);
+			model.tempiAlzataCambioPalla();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

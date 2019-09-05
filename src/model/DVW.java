@@ -36,6 +36,30 @@ public class DVW {
 		return this.indexFineIntestazione;
 	}
 	
+	public Riga getNext(Riga uid) {
+	    int idx = righe.indexOf(uid);
+	    if (idx < 0 || idx+1 == righe.size()) return null;
+	    return righe.get(idx + 1);
+	}
+
+	public Riga getPrevious(Riga uid) {
+	    int idx = righe.indexOf(uid);
+	    if (idx <= 0) return null;
+	    return righe.get(idx - 1);
+	}
+	
+	//QUERY
+	
+	public void tempiAlzataCambioPalla() {
+		for (Riga r: this.righe) {
+			Riga prev = getPrevious(r);
+			if (r.isAlzataCP(prev)) {
+				r.setTimecode(prev.getTimecode());
+			}
+		}
+		System.out.println("OK - Tempi Alzata Cambio Palla");
+	}
+	
 	
 
 }
