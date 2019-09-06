@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -66,7 +65,7 @@ public class Controller {
 	
 	private void readFile(File f) {
 		try {
-			this.model = new DVW(f);
+			this.model = new DVW();
 			List<String> rows = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.ISO_8859_1);
 			List<Riga> righe = new ArrayList<Riga>();
 			for(int i=0;i<rows.size(); i++) {
@@ -79,6 +78,8 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
+			model.tempiRicezione();
+			model.aggiungiLatoRicezione();
 			model.tempiAlzataCambioPalla();
 		} catch (IOException e) {
 			e.printStackTrace();

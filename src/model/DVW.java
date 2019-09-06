@@ -5,13 +5,12 @@ import java.util.List;
 
 public class DVW {
 	
-	private File file;
+	
 	private List<String> intestazione;
 	private List<Riga> righe;
 	private int indexFineIntestazione;
 	
-	public DVW(File file) {
-		this.file = file;
+	public DVW() {
 		this.indexFineIntestazione=100000;
 	}
 
@@ -67,10 +66,37 @@ public class DVW {
 			Riga prev = getPrevious(r);
 			if (r.isAlzataCP(prev)) {
 				r.setTimecode(prev.getTimecode());
-				System.out.println(r.toString());
 			}
 		}
 		System.out.println("OK - Tempi Alzata Cambio Palla");
+	}
+	
+	public void tempiRicezione() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isRicezione()) {
+				r.setTimecode(getPrevious(r).getTimecode());
+			}
+		}
+		System.out.println("OK - Tempi Ricezione");
+	}
+	
+	public void aggiungiLatoRicezione() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isRicezione()) {
+				char type = r.getCampo0().getType().charAt(0);
+				switch (type) {
+					case 'Q': 
+						break;
+					case 'M':
+						break;
+					case 'T':
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		//System.out.println("OK - Lato Ricezione");
 	}
 	
 	
