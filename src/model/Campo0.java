@@ -58,6 +58,8 @@ public class Campo0 {
 	}
 	
 	public String getStringa() {
+		String str = this.main;
+		//stampare bene con eventuali modifiche
 		return this.stringa;
 	}
 	
@@ -105,6 +107,15 @@ public class Campo0 {
 	
 	public void setSkillType(char skillType) {
 		this.skillType = skillType;
+		this.comb = "~~";
+		this.target = '~';
+		if (this.start == ' ') start = '~';
+		if (this.end == ' ') end = '~';
+		if (this.subEnd == ' ') subEnd = '~';
+	}
+	
+	public char getSkillType() {
+		return this.skillType;
 	}
 	
 	public String toString() {

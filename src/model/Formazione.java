@@ -45,5 +45,26 @@ public class Formazione {
 	public String toString() {
 		return z1 + ";" + z2 + ";" + z3 + ";" + z4 + ";" + z5 + ";" + z6 + ";";
 	}
+	
+	/**
+	 * true se il giocatore in input è in prima linea
+	 * @param g
+	 * @return
+	 */
+	public boolean isPrimaLinea(String g) {
+		if (g.equals(z2) || g.equals(z3) || g.equals(z4)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * true se il giocatore in input è in seconda linea
+	 * @param g
+	 * @return
+	 */
+	public boolean isSecondaLinea(String g) {
+		return !isPrimaLinea(g);
+	}
 
 }

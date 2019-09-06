@@ -83,20 +83,41 @@ public class DVW {
 	public void aggiungiLatoRicezione() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isRicezione()) {
-				char type = r.getCampo0().getType().charAt(0);
-				switch (type) {
+				Campo0 campo0 = r.getCampo0();
+				char type = campo0.getType().charAt(0);
+				if (campo0.getSkillType()==' ' || campo0.getSkillType()=='~') {
+					switch (type) {
 					case 'Q': 
+						campo0.setSkillType('M');
 						break;
-					case 'M':
+					case 'M': 
+						String numero = campo0.getNumero();
+						if ("*".equals(campo0.getTeam())) {
+							if (r.getCasa().isPrimaLinea(numero)) {
+								campo0.setSkillType('O');
+							} else {
+								campo0.setSkillType('M');
+							}
+						} else {
+							if (r.getOspite().isPrimaLinea(numero)) {
+								campo0.setSkillType('O');
+							} else {
+								campo0.setSkillType('M');
+							}
+						}
 						break;
 					case 'T':
+						campo0.setSkillType('W');
 						break;
 					default:
+						campo0.setSkillType('M');
 						break;
 				}
+				}
+				
 			}
 		}
-		//System.out.println("OK - Lato Ricezione");
+		System.out.println("OK - Lato Ricezione");
 	}
 	
 	
