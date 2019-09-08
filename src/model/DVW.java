@@ -112,7 +112,7 @@ public class DVW {
 					default:
 						campo0.setSkillType('M');
 						break;
-				}
+					}
 				}
 				
 			}
@@ -120,6 +120,49 @@ public class DVW {
 		System.out.println("OK - Lato Ricezione");
 	}
 	
+	public void aggiungiLatoRicettore() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isRicezione()) {
+				Campo0 campo0 = r.getCampo0();
+				if (campo0.getPlayer()==' ' || campo0.getPlayer()=='~') {
+					Formazione squadra = r.getCasa();
+					String p = r.getpCasa();
+					if(campo0.getTeam().equals("a")) {
+						squadra = r.getOspite();
+						p = r.getpOspite();
+					}
+					String giocatore = campo0.getNumero();
+					
+					if (!squadra.isInCampo(giocatore)) {
+						//LIBERO
+						if ("1".equals(p) || "6".equals(p) || "3".equals(p)) {
+							campo0.setPlayer('4');
+						} else {
+							campo0.setPlayer('5');
+						}
+					} else {
+						//SCHIACCIATORE
+						if (squadra.isPrimaLinea(giocatore)) {
+							if ("1".equals(p)) {
+								campo0.setPlayer('5');
+							} else {
+								campo0.setPlayer('3');
+							}
+						} else {
+							if ("1".equals(p)) {
+								campo0.setPlayer('3');
+							} else if ("6".equals(p) || "3".equals(p)){
+								campo0.setPlayer('5');
+							} else {
+								campo0.setPlayer('4');
+							}
+						}
+					}
+				}
+			}
+		}
+		System.out.println("OK - Lato Ricettore");
+	}
 	
 
 }

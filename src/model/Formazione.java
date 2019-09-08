@@ -52,6 +52,7 @@ public class Formazione {
 	 * @return
 	 */
 	public boolean isPrimaLinea(String g) {
+		g = remove0(g);
 		if (g.equals(z2) || g.equals(z3) || g.equals(z4)) {
 			return true;
 		}
@@ -64,7 +65,35 @@ public class Formazione {
 	 * @return
 	 */
 	public boolean isSecondaLinea(String g) {
+		g = remove0(g);
 		return !isPrimaLinea(g);
+	}
+	
+	/**
+	 * true se il giocatore in input è in campo
+	 * @param g
+	 * @return
+	 */
+	public boolean isInCampo(String g) {
+		g = remove0(g);
+		if (
+			g.equals(z1) ||
+			g.equals(z2) ||
+			g.equals(z3) ||
+			g.equals(z4) ||
+			g.equals(z5) ||
+			g.equals(z6) 
+		) {
+			return true;
+		}
+		return false;
+	}
+	
+	private String remove0(String str) {
+		if (str.charAt(0) == '0') {
+			return str.substring(1);
+		}
+		return str;
 	}
 
 }

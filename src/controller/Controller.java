@@ -80,6 +80,7 @@ public class Controller {
 			model.setRighe(righe);
 			model.tempiRicezione();
 			model.aggiungiLatoRicezione();
+			model.aggiungiLatoRicettore();
 			model.tempiAlzataCambioPalla();
 		} catch (IOException e) {
 			e.printStackTrace();

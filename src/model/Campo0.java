@@ -212,6 +212,22 @@ public class Campo0 {
 		return this.skillType;
 	}
 	
+	public void setPlayer(char player) {
+		this.player = player;
+		this.comb = "~~";
+		this.target = '~';
+		if (this.start == ' ') start = '~';
+		if (this.end == ' ') end = '~';
+		if (this.subEnd == ' ') subEnd = '~';
+		if (this.skillType == ' ') skillType = '~';
+	}
+	
+	public char getPlayer() {
+		return this.player;
+	}
+	
+	// -- METODI GENERICI --
+	
 	public String toString() {
 		return getStringa();
 	}
