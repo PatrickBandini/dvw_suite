@@ -258,4 +258,8 @@ public class Campo0 {
 	public boolean isRicezione() {
 		return this.skill == 'R';
 	}
+	
+	public boolean isAttacco() {
+		return this.skill == 'A';
+	}
 }

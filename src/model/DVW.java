@@ -80,6 +80,18 @@ public class DVW {
 		System.out.println("OK - Tempi Ricezione");
 	}
 	
+	public void tempiAttacco() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAttacco()) {
+				Riga prev = getPrevious(r);
+				if (prev.getCampo0().isAlzata() && !prev.isAlzataCP(getPrevious(prev))) {
+					r.setTimecode(prev.getTimecode());
+				}
+			}
+		}
+		System.out.println("OK - Tempi Attacco");
+	}
+	
 	public void aggiungiLatoRicezione() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isRicezione()) {

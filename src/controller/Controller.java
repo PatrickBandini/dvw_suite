@@ -82,6 +82,7 @@ public class Controller {
 			model.aggiungiLatoRicezione();
 			model.aggiungiLatoRicettore();
 			model.tempiAlzataCambioPalla();
+			model.tempiAttacco();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
