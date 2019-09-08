@@ -3,9 +3,9 @@ package model;
 public class Campo0 {
 	private String stringa;
 	private String main;
-	private String advanced;
-	private String extended;
-	private String custom;
+	private String advanced = "";
+	private String extended = "";
+	private String custom = "";
 	
 	//main
 	private char team = ' ';
@@ -52,15 +52,109 @@ public class Campo0 {
 			this.skill = main.charAt(3);
 			this.type = main.charAt(4);
 			this.val = main.charAt(5);
+			
+			if (!"".equals(advanced) && isSkill(main.charAt(3))) {
+				this.comb = advanced.substring(0,2);
+				if (advanced.length()>=3) {
+					this.target = advanced.charAt(2);
+				}
+				if (advanced.length()>=4) {
+					this.start = advanced.charAt(3);
+				}
+				if (advanced.length()>=5) {
+					this.end = advanced.charAt(4);
+				}
+				if (advanced.length()>=6) {
+					this.subEnd = advanced.charAt(5);
+				}
+			}
+			
+			if (!"".equals(extended) && isSkill(main.charAt(3))) {
+				this.skillType = extended.charAt(0);
+				if (extended.length()>=2) {
+					this.player = extended.charAt(1);
+				}
+				if (extended.length()>=3) {
+					this.special = extended.charAt(2);
+				}
+			}
 		}
-		
-		
 	}
 	
 	public String getStringa() {
 		String str = this.main;
-		//stampare bene con eventuali modifiche
-		return this.stringa;
+		
+		//se è una skill
+		if (this.main.length() >= 6 && isSkill(this.skill)) {
+			// 2 campi combinazione
+			if ("".equals(this.comb)) {
+				str += "~~";
+			} else {
+				str += this.comb;
+			}
+			
+			//1 camppo target
+			if (' ' == this.target) {
+				str += '~';
+			} else {
+				str += this.target;
+			}
+			
+			//1 campo start
+			if (' ' == this.start) {
+				str += '~';
+			} else {
+				str += this.start;
+			}
+			
+			//1 campo end
+			if (' ' == this.end) {
+				str += '~';
+			} else {
+				str += this.end;
+			}
+			
+			//1 campo sotto zona
+			if (' ' == this.subEnd) {
+				str += '~';
+			} else {
+				str += this.subEnd;
+			}
+			
+			//1 campo skill type
+			if (' ' == this.skillType) {
+				str += '~';
+			} else {
+				str += this.skillType;
+			}
+			
+			//1 campo player
+			if (' ' == this.player) {
+				str += '~';
+			} else {
+				str += this.player;
+			}
+			
+			// 1 campo special
+			if (' ' == this.special) {
+				str += '~';
+			} else {
+				str += this.special;
+			}
+			
+			//5 campi custom
+			if (!"".equals(this.custom)) {
+				str += this.custom;
+			}
+		} else {
+			str += this.advanced;
+			str += this.extended;
+			str += this.custom;
+		}
+		
+		
+		
+		return str;
 	}
 	
 	public String getMain() {
@@ -122,6 +216,20 @@ public class Campo0 {
 		return getStringa();
 	}
 	
+	public boolean isSkill(char c) {
+		if (
+			'S' == c ||
+			'R' == c ||
+			'E' == c ||
+			'A' == c ||
+			'B' == c ||
+			'F' == c ||
+			'D' == c
+		) {
+			return true;
+		}
+		return false;
+	}
 	
 	public void setStringa(String s) {
 		this.stringa = s;
