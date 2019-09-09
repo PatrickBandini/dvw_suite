@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +25,14 @@ public class View {
 	private JButton open, buttonPre, buttonPost;
 	private JPanel header, panelPre, panelPost;
 	private String lastOpenDir = "";
+	
+	private JCheckBox checkStep1;
+	private JCheckBox checkTempiRicezione;
+	private JCheckBox checkTempiAlzateCambioPalla;
+	private JCheckBox checkLatoRicezione;
+	private JCheckBox checkLatoRicettore;
+	
+	private JCheckBox checkTempiAttacchi;
 	
 	public View() {
 		// Creo il frame e imposto titolo e layout
@@ -67,6 +76,14 @@ public class View {
 		return this.open;
 	}
 	
+	public JCheckBox getStep1() {
+		return checkStep1;
+	}
+	
+	public JCheckBox getTempiAttacchi() {
+		return checkTempiAttacchi;
+	}
+	
 	public File chooseFile() {
 		final JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("*.dvw", "dvw"));
@@ -79,6 +96,11 @@ public class View {
 				if ("---" != filename.getText()) {
 					buttonPre.setText("Elabora &pre-" + filename.getText().substring(1));
 					buttonPost.setText("Elabora &post-" + filename.getText().substring(1));
+					initCheckbox();
+					
+					
+					
+					
 					panelPre.add(buttonPre);
 					panelPost.add(buttonPost);
 				}
@@ -144,5 +166,23 @@ public class View {
 	
 	public JButton getPost() {
 		return buttonPost;
+	}
+	
+	private void initCheckbox() {
+		checkStep1 = new JCheckBox("ESEGUI STEP 1 (tempi ricezione - tempi alzate CP - lato ricezione - lato ricettore)");
+		panelPre.add(checkStep1);
+		/*checkTempiRicezione = new JCheckBox("Tempi Ricezione (come servizio)");
+		panelPre.add(checkTempiRicezione);
+		checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate Cambio Palla (come servizio)");
+		panelPre.add(checkTempiAlzateCambioPalla);
+		checkLatoRicezione = new JCheckBox("Inserisci lato ricezione (M-O-W)");
+		panelPre.add(checkLatoRicezione);
+		checkLatoRicettore = new JCheckBox("Inserisci lato ricettore (3-4-5)");
+		panelPre.add(checkLatoRicettore);*/
+		
+		
+		
+		checkTempiAttacchi = new JCheckBox("Tempi Attacchi (come alzata)");
+		panelPre.add(checkTempiAttacchi);
 	}
 }

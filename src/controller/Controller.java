@@ -46,6 +46,15 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (view.getStep1().isSelected()) {
+					model.tempiRicezione();
+					model.aggiungiLatoRicezione();
+					model.aggiungiLatoRicettore();
+					model.tempiAlzataCambioPalla();
+				}
+				if (view.getTempiAttacchi().isSelected()) {
+					model.tempiAttacco();
+				}
 				String filename = view.getPre().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
@@ -78,11 +87,6 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
-			model.tempiRicezione();
-			model.aggiungiLatoRicezione();
-			model.aggiungiLatoRicettore();
-			model.tempiAlzataCambioPalla();
-			model.tempiAttacco();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
