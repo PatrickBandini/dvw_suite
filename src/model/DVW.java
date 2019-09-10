@@ -270,5 +270,31 @@ public class DVW {
 		System.out.println("OK - servizio dopo interruzione");
 	}
 	
+	/**
+	 * imposta P-C-O nel 1° custom della ricezione
+	 */
+	public void ricezioneEstranei() {
+		for (Riga r: this.righe) {
+			Campo0 c = r.getCampo0();
+			if (c.isRicezione()) {
+				Formazione f = r.getCasa();;
+				int p = Integer.valueOf(r.getpCasa());
+				if (c.getTeam().equals("a")) {
+					f = r.getOspite();
+					p = Integer.valueOf(r.getpOspite());
+				}
+				String numero = c.getNumero();
+				if (f.isCentrale(numero, p)) {
+					c.updateCustom(0, 1, "C");
+				} else if (f.isOpposto(numero, p)) {
+					c.updateCustom(0, 1, "O");
+				} else if (f.isPalleggiatore(numero, p)) {
+					c.updateCustom(0, 1, "P");
+				}
+			}
+		}
+		System.out.println("OK - ricezione estranei");
+	}
+	
 
 }

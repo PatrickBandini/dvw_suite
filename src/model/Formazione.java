@@ -96,6 +96,7 @@ public class Formazione {
 	 * @return
 	 */
 	public boolean isSchiacciatore(String g, int p) {
+		g = remove0(g);
 		if (g.equals(getNextAntiorario(p)) || g.equals(getDiagonale(p+1))) {
 			return true;
 		}
@@ -103,6 +104,7 @@ public class Formazione {
 	}
 	
 	public boolean isPalleggiatore(String g, int p) {
+		g = remove0(g);
 		if (g.equals(getByZona(p))) {
 			return true;
 		}
@@ -110,6 +112,7 @@ public class Formazione {
 	}
 	
 	public boolean isOpposto(String g, int p) {
+		g = remove0(g);
 		if (g.equals(getDiagonale(p))) {
 			return true;
 		}
@@ -117,6 +120,7 @@ public class Formazione {
 	}
 	
 	public boolean isCentrale(String g, int p) {
+		g = remove0(g);
 		if (g.equals(getNextOrario(p)) || g.equals(getDiagonale(p-1))) {
 			return true;
 		}

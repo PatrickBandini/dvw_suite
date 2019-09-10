@@ -54,6 +54,7 @@ public class Controller {
 					model.conteggioBattute();
 					model.differenzaPunteggio();
 					model.servizioDopoInterruzione();
+					model.ricezioneEstranei();
 				}
 				if (view.getTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
