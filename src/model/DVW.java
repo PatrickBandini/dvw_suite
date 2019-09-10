@@ -220,7 +220,6 @@ public class DVW {
 	 * modifica il 2° e 3° custom del servizio
 	 */
 	public void differenzaPunteggio() {
-		
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isServizio()) {
 				Riga punto = getPunto(righe, r);
@@ -246,6 +245,29 @@ public class DVW {
 			}
 		}
 		System.out.println("OK - differenza punteggio");
+	}
+	
+	/**
+	 * modifica il 4° custom del servizio
+	 */
+	public void servizioDopoInterruzione() {
+		for (Riga r: this.righe) {
+			Riga servizio;
+			if (r.getCampo0().isTempo()) {
+				servizio = getNext(righe, r);
+				while(!servizio.getCampo0().isServizio()) {
+					servizio = getNext(righe, servizio);
+				}
+				servizio.getCampo0().updateCustom(3, 1, "T");
+			} else if (r.getCampo0().isCambio()) {
+				servizio = getNext(righe, r);
+				while(!servizio.getCampo0().isServizio()) {
+					servizio = getNext(righe, servizio);
+				}
+				servizio.getCampo0().updateCustom(3, 1, "C");
+			}
+		}
+		System.out.println("OK - servizio dopo interruzione");
 	}
 	
 

@@ -169,7 +169,7 @@ public class View {
 	}
 	
 	private void initCheckbox() {
-		checkStep1 = new JCheckBox("ESEGUI STEP 1 (tempi ricezione - tempi alzate CP - lato ricezione - lato ricettore - conteggio battute)");
+		checkStep1 = new JCheckBox("ESEGUI STEP 1");
 		panelPre.add(checkStep1);
 		/*checkTempiRicezione = new JCheckBox("Tempi Ricezione (come servizio)");
 		panelPre.add(checkTempiRicezione);

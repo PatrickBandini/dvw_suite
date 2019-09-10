@@ -53,6 +53,7 @@ public class Controller {
 					model.tempiAlzataCambioPalla();
 					model.conteggioBattute();
 					model.differenzaPunteggio();
+					model.servizioDopoInterruzione();
 				}
 				if (view.getTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
@@ -89,7 +90,6 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

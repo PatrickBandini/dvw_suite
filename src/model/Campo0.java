@@ -5,7 +5,7 @@ public class Campo0 {
 	private String main;
 	private String advanced = "";
 	private String extended = "";
-	private String custom = "~~~~~";
+	private String custom = "";
 	
 	//main
 	private char team = ' ';
@@ -285,6 +285,22 @@ public class Campo0 {
 	public boolean isPunto() {
 		String s = stringa.substring(0,2);
 		if ("*p".equals(s) || "ap".equals(s)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isTempo() {
+		String s = stringa.substring(0,2);
+		if ("*T".equals(s) || "aT".equals(s)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isCambio() {
+		String s = stringa.substring(0,2);
+		if ("*c".equals(s) || "ac".equals(s)) {
 			return true;
 		}
 		return false;
