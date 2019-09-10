@@ -281,4 +281,12 @@ public class Campo0 {
 	public boolean isAttacco() {
 		return this.skill == 'A';
 	}
+	
+	public boolean isPunto() {
+		String s = stringa.substring(0,2);
+		if ("*p".equals(s) || "ap".equals(s)) {
+			return true;
+		}
+		return false;
+	}
 }

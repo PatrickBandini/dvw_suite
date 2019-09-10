@@ -60,6 +60,16 @@ public class DVW {
 	    return list.get(idx - 1);
 	}
 	
+	public Riga getPunto(List<Riga> list, Riga uid) {
+		Riga prev = getPrevious(list, uid);
+		while(!prev.getCampo0().isPunto()) {
+			prev = getPrevious(list, prev);
+			if(prev == null) break;
+			if(prev.getCampo0().toString().contains("**")) return null;
+		}
+		return prev;
+	}
+	
 	//QUERY
 	
 	public void tempiAlzataCambioPalla() {
@@ -206,7 +216,37 @@ public class DVW {
 		System.out.println("OK - conteggio battute");
 	}
 	
-	
+	/**
+	 * modifica il 2° e 3° custom del servizio
+	 */
+	public void differenzaPunteggio() {
+		
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isServizio()) {
+				Riga punto = getPunto(righe, r);
+				if (null == punto) {
+					r.getCampo0().updateCustom(1, 2, "00");
+				} else {
+					String str = punto.getCampo0().getStringa();
+					Integer casa = Integer.valueOf(str.substring(2,4));
+					Integer ospite = Integer.valueOf(str.substring(5,7));
+					Integer differenza = casa-ospite;
+					if (differenza == 0) {
+						r.getCampo0().updateCustom(1, 2, "00");
+					} else if (differenza > 0 && differenza <= 9) {
+						r.getCampo0().updateCustom(1, 2, "+" + String.valueOf(differenza));
+					} else if (differenza > 9) {
+						r.getCampo0().updateCustom(1, 2, "+9");
+					} else if (differenza < -9) {
+						r.getCampo0().updateCustom(1, 2, "-9");
+					} else {
+						r.getCampo0().updateCustom(1, 2, String.valueOf(differenza));
+					}
+				}
+			}
+		}
+		System.out.println("OK - differenza punteggio");
+	}
 	
 
 }

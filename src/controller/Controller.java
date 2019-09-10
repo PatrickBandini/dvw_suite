@@ -52,6 +52,7 @@ public class Controller {
 					model.aggiungiLatoRicettore();
 					model.tempiAlzataCambioPalla();
 					model.conteggioBattute();
+					model.differenzaPunteggio();
 				}
 				if (view.getTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
