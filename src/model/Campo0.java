@@ -5,7 +5,7 @@ public class Campo0 {
 	private String main;
 	private String advanced = "";
 	private String extended = "";
-	private String custom = "";
+	private String custom = "~~~~~";
 	
 	//main
 	private char team = ' ';
@@ -84,7 +84,7 @@ public class Campo0 {
 	public String getStringa() {
 		String str = this.main;
 		
-		//se è una skill
+		//se ï¿½ una skill
 		if (this.main.length() >= 6 && isSkill(this.skill)) {
 			// 2 campi combinazione
 			if ("".equals(this.comb)) {
@@ -249,6 +249,25 @@ public class Campo0 {
 	
 	public void setStringa(String s) {
 		this.stringa = s;
+	}
+	/**
+	 * Da quale index iniziare a modificare, per quanti caratteri, e cosa sostituire
+	 * @param index
+	 * @param numeroCaratteri
+	 */
+	public void updateCustom(int index, int numeroCaratteri, String str) {
+		if ("".equals(custom)) {
+			custom = "~~~~~";
+		}
+		char[] chars = custom.toCharArray();
+		for (int i=0;i<numeroCaratteri; i++) {
+			chars[index+i] = str.charAt(i);
+		}
+		this.custom = String.valueOf(chars);
+	}
+	
+	public boolean isServizio() {
+		return this.skill == 'S';
 	}
 	
 	public boolean isAlzata() {

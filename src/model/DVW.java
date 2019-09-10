@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DVW {
@@ -47,23 +48,23 @@ public class DVW {
 		return this.indexFineIntestazione;
 	}
 	
-	public Riga getNext(Riga uid) {
-	    int idx = righe.indexOf(uid);
-	    if (idx < 0 || idx+1 == righe.size()) return null;
-	    return righe.get(idx + 1);
+	public Riga getNext(List<Riga> list, Riga uid) {
+	    int idx = list.indexOf(uid);
+	    if (idx < 0 || idx+1 == list.size()) return null;
+	    return list.get(idx + 1);
 	}
 
-	public Riga getPrevious(Riga uid) {
-	    int idx = righe.indexOf(uid);
+	public Riga getPrevious(List<Riga> list, Riga uid) {
+	    int idx = list.indexOf(uid);
 	    if (idx <= 0) return null;
-	    return righe.get(idx - 1);
+	    return list.get(idx - 1);
 	}
 	
 	//QUERY
 	
 	public void tempiAlzataCambioPalla() {
 		for (Riga r: this.righe) {
-			Riga prev = getPrevious(r);
+			Riga prev = getPrevious(righe, r);
 			if (r.isAlzataCP(prev)) {
 				r.setTimecode(prev.getTimecode());
 			}
@@ -74,7 +75,7 @@ public class DVW {
 	public void tempiRicezione() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isRicezione()) {
-				r.setTimecode(getPrevious(r).getTimecode());
+				r.setTimecode(getPrevious(righe, r).getTimecode());
 			}
 		}
 		System.out.println("OK - Tempi Ricezione");
@@ -83,8 +84,8 @@ public class DVW {
 	public void tempiAttacco() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAttacco()) {
-				Riga prev = getPrevious(r);
-				if (prev.getCampo0().isAlzata() && !prev.isAlzataCP(getPrevious(prev))) {
+				Riga prev = getPrevious(righe, r);
+				if (prev.getCampo0().isAlzata() && !prev.isAlzataCP(getPrevious(righe, prev))) {
 					r.setTimecode(prev.getTimecode());
 				}
 			}
@@ -175,6 +176,37 @@ public class DVW {
 		}
 		System.out.println("OK - Lato Ricettore");
 	}
+	
+	/**
+	 * modifica il 1° custom del servizio
+	 */
+	public void conteggioBattute() {
+		List<Riga> battute = new ArrayList<Riga>();
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isServizio()) {
+				battute.add(r);
+			}
+		}
+		for (Riga r: battute) {
+			Riga p = getPrevious(battute, r);
+			Integer cont;
+			if (p != null) {
+				Campo0 prev = p.getCampo0();
+				if (r.getCampo0().getNumero().equals(prev.getNumero())) {
+					cont = Integer.valueOf(prev.getCustom().substring(0, 1));
+					cont++;
+				} else {
+					cont = 1;
+				}
+			} else {
+				cont = 1;
+			}
+			r.getCampo0().updateCustom(0, 1, String.valueOf(cont));
+		}
+		System.out.println("OK - conteggio battute");
+	}
+	
+	
 	
 
 }

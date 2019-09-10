@@ -51,6 +51,7 @@ public class Controller {
 					model.aggiungiLatoRicezione();
 					model.aggiungiLatoRicettore();
 					model.tempiAlzataCambioPalla();
+					model.conteggioBattute();
 				}
 				if (view.getTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
@@ -87,6 +88,7 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
