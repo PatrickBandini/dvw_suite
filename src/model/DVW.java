@@ -88,6 +88,7 @@ public class DVW {
 				}
 			}
 		}
+		System.out.println("OK - Numero persone a muro sull'attacco");
 	}
 	
 	public void pulisciCustom(String fondamentale) {
@@ -156,12 +157,24 @@ public class DVW {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAttacco()) {
 				Riga prev = getPrevious(righe, r);
-				if (prev.getCampo0().isAlzata() && !prev.isAlzataCP(getPrevious(righe, prev))) {
+				if (prev.getCampo0().isAlzata()) {
 					r.setTimecode(prev.getTimecode());
 				}
 			}
 		}
 		System.out.println("OK - Tempi Attacco");
+	}
+	
+	public void tempiDifesa() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isDifesa()) {
+				Riga prev = getPrevious(righe, r);
+				if (prev.getCampo0().isAttacco() || prev.getCampo0().isMuro()) {
+					r.setTimecode(prev.getTimecode());
+				}
+			}
+		}
+		System.out.println("OK - Tempi Difesa");
 	}
 	
 	public void aggiungiLatoRicezione() {

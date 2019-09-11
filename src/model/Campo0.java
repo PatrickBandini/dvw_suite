@@ -213,12 +213,14 @@ public class Campo0 {
 	// EXTENDED
 	
 	public void setSkillType(char skillType) {
-		this.skillType = skillType;
-		this.comb = "~~";
-		this.target = '~';
-		if (this.start == ' ') start = '~';
-		if (this.end == ' ') end = '~';
-		if (this.subEnd == ' ') subEnd = '~';
+		if (this.skillType == ' ' || this.skillType == '~') {
+			this.skillType = skillType;
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (this.target == ' ') this.target = '~';
+			if (this.start == ' ') start = '~';
+			if (this.end == ' ') end = '~';
+			if (this.subEnd == ' ') subEnd = '~';
+		}
 	}
 	
 	public char getSkillType() {
@@ -226,10 +228,10 @@ public class Campo0 {
 	}
 	
 	public void setPlayer(char player) {
-		if (this.player == ' ') {
+		if (this.player == ' ' || this.player == '~') {
 			this.player = player;
-			this.comb = "~~";
-			this.target = '~';
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (this.target == ' ') this.target = '~';
 			if (this.start == ' ') start = '~';
 			if (this.end == ' ') end = '~';
 			if (this.subEnd == ' ') subEnd = '~';
@@ -239,6 +241,23 @@ public class Campo0 {
 	
 	public char getPlayer() {
 		return this.player;
+	}
+	
+	public void setSpecial(char special) {
+		if (this.special == ' ' || this.special == '~') {
+			this.special = special;
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (this.target == ' ') this.target = '~';
+			if (this.start == ' ') this.start = '~';
+			if (this.end == ' ') this.end = '~';
+			if (this.subEnd == ' ') this.subEnd = '~';
+			if (this.skillType == ' ') this.skillType = '~';
+			if (this.player == ' ') this.player = '~';
+		}
+	}
+	
+	public char getSpecial() {
+		return this.special;
 	}
 	
 	// -- METODI GENERICI --
