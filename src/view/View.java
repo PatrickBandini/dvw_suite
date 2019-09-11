@@ -1,11 +1,14 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.lang.reflect.Method;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,17 +25,34 @@ public class View {
 	
 	private MyFrame frame;
 	private JLabel filename = new JLabel("---");
-	private JButton open, buttonPre, buttonPost;
-	private JPanel header, panelPre, panelPost;
+	private JButton open, buttonPre;
+	private JPanel header, panelCenter, panelBottom, panelRight, panelLeft;
 	private String lastOpenDir = "";
 	
+	//step by step
 	private JCheckBox checkStep1;
 	private JCheckBox checkTempiRicezione;
 	private JCheckBox checkTempiAlzateCambioPalla;
 	private JCheckBox checkLatoRicezione;
 	private JCheckBox checkLatoRicettore;
+	private JCheckBox checkConteggioBattute;
+	private JCheckBox checkDifferenzaPunteggio;
+	private JCheckBox checkServizioDopoInterruzione;
+	private JCheckBox checkRicezioneEstranei;
+	private JCheckBox checkNumeroPersoneAMuro;
+	
+	//Indipendenti
+	private JCheckBox checkPulisciCustomServizio;
+	private JCheckBox checkPulisciCustomRicezione;
+	private JCheckBox checkPulisciCustomAlzata;
+	private JCheckBox checkPulisciCustomAttacco;
+	private JCheckBox checkPulisciCustomMuro;
+	private JCheckBox checkPulisciCustomDifesa;
+	private JCheckBox checkPulisciCustomFree;
 	
 	private JCheckBox checkTempiAttacchi;
+	
+	private static boolean inizializzati = false;
 	
 	public View() {
 		// Creo il frame e imposto titolo e layout
@@ -41,19 +61,35 @@ public class View {
 		//Creo pannello HEADER
 		header = new JPanel(new FlowLayout());
 		
-		//Creo pannello PRE
-		panelPre = new JPanel(new FlowLayout());
-		panelPre.setBorder(new TitledBorder("PRE correzione"));
-		panelPre.setSize(800, 400);
+		//Creo pannello MAIN
+		panelCenter = new JPanel(new GridLayout(0,2));
+		panelCenter.setBorder(new TitledBorder("SINGOLI"));
+		panelCenter.setSize(600, 400);
 		
-		//Creo pannello POST
-		panelPost = new JPanel(new FlowLayout());
-		panelPost.setBorder(new TitledBorder("POST correzione"));
-		panelPost.setSize(800, 200);
+		//Creo pannello STEP
+		panelBottom = new JPanel();
+		panelBottom.setBorder(new TitledBorder("STEP BY STEP"));
+		panelBottom.setSize(800, 200);
+		panelBottom.setLayout(new BoxLayout(panelBottom, BoxLayout.Y_AXIS));
+		
+		//Creo pannello Custom • right
+		panelRight = new JPanel();
+		panelRight.setBorder(new TitledBorder("CUSTOM"));
+		panelRight.setSize(100, 400);
+		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+		
+		//Creo pannello Indipendenti • left
+		panelLeft = new JPanel();
+		panelLeft.setBorder(new TitledBorder("INDIPENDENTI"));
+		panelLeft.setSize(100, 400);
+		panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
 		
 		frame.getMainPanel().add(header, BorderLayout.NORTH);
-		frame.getMainPanel().add(panelPre, BorderLayout.CENTER);
-		frame.getMainPanel().add(panelPost, BorderLayout.SOUTH);
+		frame.getMainPanel().add(panelCenter, BorderLayout.CENTER);
+		frame.getMainPanel().add(panelBottom, BorderLayout.SOUTH);
+		frame.getMainPanel().add(panelRight, BorderLayout.EAST);
+		frame.getMainPanel().add(panelLeft, BorderLayout.WEST);
+		
 		
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/prc.png"));
 		Image image = icon.getImage(); // transform it 
@@ -63,7 +99,6 @@ public class View {
 		
 		open = new JButton("Carica DVW");
 		buttonPre = new JButton();
-		buttonPost = new JButton();
 		
 		header.add(label);
 		header.add(open);
@@ -76,14 +111,6 @@ public class View {
 		return this.open;
 	}
 	
-	public JCheckBox getStep1() {
-		return checkStep1;
-	}
-	
-	public JCheckBox getTempiAttacchi() {
-		return checkTempiAttacchi;
-	}
-	
 	public File chooseFile() {
 		final JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("*.dvw", "dvw"));
@@ -94,15 +121,11 @@ public class View {
 				File file = fc.getSelectedFile();
 				filename.setText(file.getName());
 				if ("---" != filename.getText()) {
-					buttonPre.setText("Elabora &pre-" + filename.getText().substring(1));
-					buttonPost.setText("Elabora &post-" + filename.getText().substring(1));
+					float seconds = System.currentTimeMillis() / 1000F;
+					buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ".dvw");
+					buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
 					initCheckbox();
-					
-					
-					
-					
-					panelPre.add(buttonPre);
-					panelPost.add(buttonPost);
+					panelBottom.add(buttonPre);
 				}
 				return file;
 			} catch (Exception ex) {
@@ -160,29 +183,144 @@ public class View {
 		return null;
 	}
 	
-	public JButton getPre() {
+	public JButton getButtonEsegui() {
 		return buttonPre;
 	}
 	
-	public JButton getPost() {
-		return buttonPost;
+	private void initCheckbox() {
+		if (!View.inizializzati) {
+			//INDIPENDENTI
+			checkPulisciCustomServizio = new JCheckBox("Pulisci custom SERVIZIO");
+			checkPulisciCustomRicezione = new JCheckBox("Pulisci custom RICEZIONE");
+			checkPulisciCustomAlzata = new JCheckBox("Pulisci custom ALZATA");
+			checkPulisciCustomAttacco = new JCheckBox("Pulisci custom ATTACCO");
+			checkPulisciCustomMuro = new JCheckBox("Pulisci custom MURO");
+			checkPulisciCustomDifesa = new JCheckBox("Pulisci custom DIFESA");
+			checkPulisciCustomFree = new JCheckBox("Pulisci custom FREE");
+			panelLeft.add(checkPulisciCustomServizio);
+			panelLeft.add(checkPulisciCustomRicezione);
+			panelLeft.add(checkPulisciCustomAlzata);
+			panelLeft.add(checkPulisciCustomAttacco);
+			panelLeft.add(checkPulisciCustomMuro);
+			panelLeft.add(checkPulisciCustomDifesa);
+			panelLeft.add(checkPulisciCustomFree);
+			
+			
+			//MAIN
+			checkTempiRicezione = new JCheckBox("Tempi Ricezioni");
+			panelCenter.add(checkTempiRicezione);
+			
+			checkLatoRicezione = new JCheckBox("+ Lato ricezione (M-O-W)");
+			panelCenter.add(checkLatoRicezione);
+			
+			checkLatoRicettore = new JCheckBox("+ Lato ricettore (3-4-5)");
+			panelCenter.add(checkLatoRicettore);
+			
+			checkTempiAttacchi = new JCheckBox("Tempi Attacchi");
+			panelCenter.add(checkTempiAttacchi);
+			
+			checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate CP");
+			panelCenter.add(checkTempiAlzateCambioPalla);
+			
+			checkNumeroPersoneAMuro = new JCheckBox("Numero persone a muro");
+			panelCenter.add(checkNumeroPersoneAMuro);
+			
+			
+			//CUSTOM
+			checkConteggioBattute = new JCheckBox("Conteggio Battute");
+			panelRight.add(checkConteggioBattute);
+			
+			checkDifferenzaPunteggio = new JCheckBox("Differenza Punteggio");
+			panelRight.add(checkDifferenzaPunteggio);
+			
+			checkServizioDopoInterruzione = new JCheckBox("Servizio dopo interruzione");
+			panelRight.add(checkServizioDopoInterruzione);
+			
+			checkRicezioneEstranei = new JCheckBox("Ricezione extra linea");
+			panelRight.add(checkRicezioneEstranei);
+			
+			
+			
+			//STEP BY STEP
+			checkStep1 = new JCheckBox("ESEGUI STEP 1");
+			checkStep1.setAlignmentX(Component.CENTER_ALIGNMENT);
+			panelBottom.add(checkStep1);
+			View.inizializzati = true;
+		}
+		
+	}
+
+	public JCheckBox getCheckStep1() {
+		return checkStep1;
+	}
+
+	public JCheckBox getCheckTempiRicezione() {
+		return checkTempiRicezione;
+	}
+
+	public JCheckBox getCheckTempiAlzateCambioPalla() {
+		return checkTempiAlzateCambioPalla;
+	}
+
+	public JCheckBox getCheckLatoRicezione() {
+		return checkLatoRicezione;
+	}
+
+	public JCheckBox getCheckLatoRicettore() {
+		return checkLatoRicettore;
+	}
+
+	public JCheckBox getCheckConteggioBattute() {
+		return checkConteggioBattute;
+	}
+
+	public JCheckBox getCheckDifferenzaPunteggio() {
+		return checkDifferenzaPunteggio;
+	}
+
+	public JCheckBox getCheckServizioDopoInterruzione() {
+		return checkServizioDopoInterruzione;
+	}
+
+	public JCheckBox getCheckRicezioneEstranei() {
+		return checkRicezioneEstranei;
+	}
+
+	public JCheckBox getCheckNumeroPersoneAMuro() {
+		return checkNumeroPersoneAMuro;
+	}
+
+	public JCheckBox getCheckPulisciCustomServizio() {
+		return checkPulisciCustomServizio;
+	}
+
+	public JCheckBox getCheckPulisciCustomRicezione() {
+		return checkPulisciCustomRicezione;
+	}
+
+	public JCheckBox getCheckPulisciCustomAlzata() {
+		return checkPulisciCustomAlzata;
+	}
+
+	public JCheckBox getCheckPulisciCustomAttacco() {
+		return checkPulisciCustomAttacco;
+	}
+
+	public JCheckBox getCheckPulisciCustomMuro() {
+		return checkPulisciCustomMuro;
+	}
+
+	public JCheckBox getCheckPulisciCustomDifesa() {
+		return checkPulisciCustomDifesa;
+	}
+
+	public JCheckBox getCheckPulisciCustomFree() {
+		return checkPulisciCustomFree;
+	}
+
+	public JCheckBox getCheckTempiAttacchi() {
+		return checkTempiAttacchi;
 	}
 	
-	private void initCheckbox() {
-		checkStep1 = new JCheckBox("ESEGUI STEP 1");
-		panelPre.add(checkStep1);
-		/*checkTempiRicezione = new JCheckBox("Tempi Ricezione (come servizio)");
-		panelPre.add(checkTempiRicezione);
-		checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate Cambio Palla (come servizio)");
-		panelPre.add(checkTempiAlzateCambioPalla);
-		checkLatoRicezione = new JCheckBox("Inserisci lato ricezione (M-O-W)");
-		panelPre.add(checkLatoRicezione);
-		checkLatoRicettore = new JCheckBox("Inserisci lato ricettore (3-4-5)");
-		panelPre.add(checkLatoRicettore);*/
-		
-		
-		
-		checkTempiAttacchi = new JCheckBox("Tempi Attacchi (come alzata)");
-		panelPre.add(checkTempiAttacchi);
-	}
+	
 }

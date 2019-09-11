@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Campo0;
 import model.DVW;
 import model.Riga;
 import view.View;
@@ -42,11 +43,11 @@ public class Controller {
 			}
 		});
 		
-		view.getPre().addActionListener(new ActionListener() {
+		view.getButtonEsegui().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (view.getStep1().isSelected()) {
+				if (view.getCheckStep1().isSelected()) {
 					model.tempiRicezione();
 					model.aggiungiLatoRicezione();
 					model.aggiungiLatoRicettore();
@@ -58,24 +59,63 @@ public class Controller {
 					model.ricezioneEstranei();
 					model.numeroPersoneAMuro();
 				}
-				if (view.getTempiAttacchi().isSelected()) {
+				if (view.getCheckTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
 				}
-				String filename = view.getPre().getText().substring(8);
+				if (view.getCheckPulisciCustomServizio().isSelected()) {
+					model.pulisciCustom(Campo0.SERVIZIO);
+				}
+				if (view.getCheckPulisciCustomRicezione().isSelected()) {
+					model.pulisciCustom(Campo0.RICEZIONE);
+				}
+				if (view.getCheckPulisciCustomAlzata().isSelected()) {
+					model.pulisciCustom(Campo0.ALZATA);
+				}
+				if (view.getCheckPulisciCustomAttacco().isSelected()) {
+					model.pulisciCustom(Campo0.ATTACCO);
+				}
+				if (view.getCheckPulisciCustomMuro().isSelected()) {
+					model.pulisciCustom(Campo0.MURO);
+				}
+				if (view.getCheckPulisciCustomDifesa().isSelected()) {
+					model.pulisciCustom(Campo0.DIFESA);
+				}
+				if (view.getCheckPulisciCustomFree().isSelected()) {
+					model.pulisciCustom(Campo0.FREE);
+				}
+				if (view.getCheckTempiRicezione().isSelected()) {
+					model.tempiRicezione();
+				}
+				if (view.getCheckLatoRicezione().isSelected()) {
+					model.aggiungiLatoRicezione();
+				}
+				if (view.getCheckLatoRicettore().isSelected()) {
+					model.aggiungiLatoRicettore();
+				}
+				if (view.getCheckTempiAlzateCambioPalla().isSelected()) {
+					model.tempiAlzataCambioPalla();
+				}
+				if (view.getCheckNumeroPersoneAMuro().isSelected()) {
+					model.numeroPersoneAMuro();
+				}
+				if (view.getCheckConteggioBattute().isSelected()) {
+					model.conteggioBattute();
+				}
+				if (view.getCheckDifferenzaPunteggio().isSelected()) {
+					model.differenzaPunteggio();
+				}
+				if (view.getCheckServizioDopoInterruzione().isSelected()) {
+					model.servizioDopoInterruzione();
+				}
+				if (view.getCheckRicezioneEstranei().isSelected()) {
+					model.ricezioneEstranei();
+				}
+				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
 			}
 		});
 		
-		view.getPost().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String filename = view.getPost().getText().substring(8);
-				System.out.println(filename);
-				
-			}
-		});
 	}
 	
 	private void readFile(File f) {
