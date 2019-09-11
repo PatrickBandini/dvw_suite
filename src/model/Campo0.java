@@ -292,7 +292,12 @@ public class Campo0 {
 	public void updateCustom(int index, int numeroCaratteri, String str) {
 		if ("".equals(custom)) {
 			custom = "~~~~~";
+		}else if (custom.length()<5) {
+			for (int i=custom.length();i<5;i++) {
+				custom += "~";
+			}
 		}
+		
 		char[] chars = custom.toCharArray();
 		for (int i=0;i<numeroCaratteri; i++) {
 			chars[index+i] = str.charAt(i);
