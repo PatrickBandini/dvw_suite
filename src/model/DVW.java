@@ -72,6 +72,67 @@ public class DVW {
 	
 	//QUERY
 	
+	public void numeroPersoneAMuro() {
+		for (Riga r: this.righe) {
+			Campo0 c = r.getCampo0();
+			if (c.isAttacco()) {
+				String t = c.getType();
+				if ("T".equals(t) || "X7".equals(c.getCombination())) {
+					c.setPlayer('4');
+				} else if ("Q".equals(t) || "M".equals(t)) {
+					c.setPlayer('1');
+				} else if ("H".equals(t)) {
+					c.setPlayer('3');
+				} else {
+					c.setPlayer('2');
+				}
+			}
+		}
+	}
+	
+	public void pulisciCustom(String fondamentale) {
+		for (Riga r: this.righe) {
+			Campo0 c = r.getCampo0();
+			switch (fondamentale) {
+			case Campo0.SERVIZIO: 
+				if (c.isServizio()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.RICEZIONE:
+				if (c.isRicezione()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.ALZATA:
+				if (c.isAlzata()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.ATTACCO:
+				if (c.isAttacco()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.MURO:
+				if (c.isMuro()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.DIFESA:
+				if (c.isDifesa()) {
+					c.pulisciCustom();
+				}
+				break;
+			case Campo0.FREE:
+				if (c.isFree()) {
+					c.pulisciCustom();
+				}
+				break;
+			}
+		}
+	}
+	
 	public void tempiAlzataCambioPalla() {
 		for (Riga r: this.righe) {
 			Riga prev = getPrevious(righe, r);

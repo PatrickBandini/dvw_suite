@@ -1,6 +1,15 @@
 package model;
 
 public class Campo0 {
+	
+	public static final String ALZATA = "ALZATA";
+	public static final String SERVIZIO = "SERVIZIO";
+	public static final String RICEZIONE = "RICEZIONE";
+	public static final String ATTACCO = "ATTACCO";
+	public static final String MURO = "MURO";
+	public static final String DIFESA = "DIFESA";
+	public static final String FREE = "FREE";
+	
 	private String stringa;
 	private String main;
 	private String advanced = "";
@@ -197,6 +206,10 @@ public class Campo0 {
 	
 	// ADVANCED
 	
+	public String getCombination() {
+		return this.comb;
+	}
+	
 	// EXTENDED
 	
 	public void setSkillType(char skillType) {
@@ -213,13 +226,15 @@ public class Campo0 {
 	}
 	
 	public void setPlayer(char player) {
-		this.player = player;
-		this.comb = "~~";
-		this.target = '~';
-		if (this.start == ' ') start = '~';
-		if (this.end == ' ') end = '~';
-		if (this.subEnd == ' ') subEnd = '~';
-		if (this.skillType == ' ') skillType = '~';
+		if (this.player == ' ') {
+			this.player = player;
+			this.comb = "~~";
+			this.target = '~';
+			if (this.start == ' ') start = '~';
+			if (this.end == ' ') end = '~';
+			if (this.subEnd == ' ') subEnd = '~';
+			if (this.skillType == ' ') skillType = '~';
+		}
 	}
 	
 	public char getPlayer() {
@@ -282,6 +297,18 @@ public class Campo0 {
 		return this.skill == 'A';
 	}
 	
+	public boolean isMuro() {
+		return this.skill == 'B';
+	}
+	
+	public boolean isDifesa() {
+		return this.skill == 'D';
+	}
+	
+	public boolean isFree() {
+		return this.skill == 'F';
+	}
+	
 	public boolean isPunto() {
 		String s = stringa.substring(0,2);
 		if ("*p".equals(s) || "ap".equals(s)) {
@@ -304,5 +331,9 @@ public class Campo0 {
 			return true;
 		}
 		return false;
+	}
+	
+	public void pulisciCustom() {
+		this.custom = "~~~~~";
 	}
 }

@@ -50,11 +50,13 @@ public class Controller {
 					model.tempiRicezione();
 					model.aggiungiLatoRicezione();
 					model.aggiungiLatoRicettore();
+					model.tempiAttacco();
 					model.tempiAlzataCambioPalla();
 					model.conteggioBattute();
 					model.differenzaPunteggio();
 					model.servizioDopoInterruzione();
 					model.ricezioneEstranei();
+					model.numeroPersoneAMuro();
 				}
 				if (view.getTempiAttacchi().isSelected()) {
 					model.tempiAttacco();
