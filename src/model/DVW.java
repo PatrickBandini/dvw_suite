@@ -449,10 +449,13 @@ public class DVW {
 				String numero = c.getNumero();
 				if (f.isCentrale(numero, p)) {
 					c.updateCustom(0, 1, "C");
+					c.setPlayer('~');
 				} else if (f.isOpposto(numero, p)) {
 					c.updateCustom(0, 1, "O");
+					c.setPlayer('~');
 				} else if (f.isPalleggiatore(numero, p)) {
 					c.updateCustom(0, 1, "P");
+					c.setPlayer('~');
 				}
 			}
 		}
