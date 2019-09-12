@@ -38,56 +38,7 @@ public class Campo0 {
 
 	
 	public Campo0(String s) {
-		this.stringa = s;
-		if(s.length() > 6) {
-			this.main = s.substring(0,6);
-			if (s.length() > 12) {
-				this.advanced = s.substring(6,12);
-				if (s.length()>15) {
-					this.extended = s.substring(12, 15);
-					this.custom = s.substring(15);
-				} else {
-					this.extended = s.substring(12);
-				}
-			} else {
-				this.advanced = s.substring(6);
-			}
-		} else {
-			this.main = s;
-		}
-		if (main.length() >= 6) {
-			this.team = main.charAt(0);
-			this.numero = main.substring(1,3);
-			this.skill = main.charAt(3);
-			this.type = main.charAt(4);
-			this.val = main.charAt(5);
-			
-			if (!"".equals(advanced) && isSkill(main.charAt(3))) {
-				this.comb = advanced.substring(0,2);
-				if (advanced.length()>=3) {
-					this.target = advanced.charAt(2);
-				}
-				if (advanced.length()>=4) {
-					this.start = advanced.charAt(3);
-				}
-				if (advanced.length()>=5) {
-					this.end = advanced.charAt(4);
-				}
-				if (advanced.length()>=6) {
-					this.subEnd = advanced.charAt(5);
-				}
-			}
-			
-			if (!"".equals(extended) && isSkill(main.charAt(3))) {
-				this.skillType = extended.charAt(0);
-				if (extended.length()>=2) {
-					this.player = extended.charAt(1);
-				}
-				if (extended.length()>=3) {
-					this.special = extended.charAt(2);
-				}
-			}
-		}
+		elaboraStringa(s);
 	}
 	
 	public String getStringa() {
@@ -204,6 +155,36 @@ public class Campo0 {
 		return String.valueOf(this.main.charAt(5));
 	}
 	
+	public void setTeam(char c) {
+		if (' ' == this.team || '~' == this.team) {
+			this.team = c;
+		}
+	}
+	
+	public void setNumero(String s) {
+		if ("".equals(this.numero) || "~~".equals(this.numero) || "$$".equals(this.numero)) {
+			this.numero = s;
+		}
+	}
+	
+	public void setSkill(char c) {
+		if (' ' == c || '~' == c) {
+			this.skill = c;
+		}
+	}
+	
+	public void setType(char c) {
+		if (' ' == c || '~' == c) {
+			this.type = c;
+		}
+	}
+	
+	public void setVal(char c) {
+		if (' ' == c || '~' == c) {
+			this.val = c;
+		}
+	}
+	
 	// ADVANCED
 	
 	public String getCombination() {
@@ -301,7 +282,8 @@ public class Campo0 {
 	}
 	
 	public void setStringa(String s) {
-		this.stringa = s;
+		clearValues();
+		elaboraStringa(s);
 	}
 	/**
 	 * Da quale index iniziare a modificare, per quanti caratteri, e cosa sostituire
@@ -378,5 +360,78 @@ public class Campo0 {
 	
 	public void pulisciCustom() {
 		this.custom = "~~~~~";
+	}
+	
+	private void elaboraStringa(String s) {
+		this.stringa = s;
+		if(s.length() > 6) {
+			this.main = s.substring(0,6);
+			if (s.length() > 12) {
+				this.advanced = s.substring(6,12);
+				if (s.length()>15) {
+					this.extended = s.substring(12, 15);
+					this.custom = s.substring(15);
+				} else {
+					this.extended = s.substring(12);
+				}
+			} else {
+				this.advanced = s.substring(6);
+			}
+		} else {
+			this.main = s;
+		}
+		if (main.length() >= 6) {
+			this.team = main.charAt(0);
+			this.numero = main.substring(1,3);
+			this.skill = main.charAt(3);
+			this.type = main.charAt(4);
+			this.val = main.charAt(5);
+			
+			if (!"".equals(advanced) && isSkill(main.charAt(3))) {
+				this.comb = advanced.substring(0,2);
+				if (advanced.length()>=3) {
+					this.target = advanced.charAt(2);
+				}
+				if (advanced.length()>=4) {
+					this.start = advanced.charAt(3);
+				}
+				if (advanced.length()>=5) {
+					this.end = advanced.charAt(4);
+				}
+				if (advanced.length()>=6) {
+					this.subEnd = advanced.charAt(5);
+				}
+			}
+			
+			if (!"".equals(extended) && isSkill(main.charAt(3))) {
+				this.skillType = extended.charAt(0);
+				if (extended.length()>=2) {
+					this.player = extended.charAt(1);
+				}
+				if (extended.length()>=3) {
+					this.special = extended.charAt(2);
+				}
+			}
+		}
+	}
+	
+	private void clearValues() {
+		this.main = "";
+		this.advanced = "";
+		this.extended = "";
+		this.custom = "";
+		this.team = ' ';
+		this.numero = "";
+		this.skill = ' ';
+		this.type = ' ';
+		this.val =  ' ';
+		this.comb = "";
+		this.target = ' ';
+		this.start = ' ';
+		this.end = ' ';
+		this.subEnd = ' ';
+		this.skillType = ' ';
+		this.player = ' ';
+		this.special = ' ';
 	}
 }

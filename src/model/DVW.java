@@ -70,7 +70,62 @@ public class DVW {
 		return prev;
 	}
 	
+	
 	//QUERY
+	public void inserisciDifese() {
+		System.out.println("size: " +this.righe.size());
+		for (int i=0;i<this.righe.size();i++) {
+			System.out.println("size: " +this.righe.size());
+			System.out.println("i:"+i);
+			
+			Riga r = this.righe.get(i);
+			if (r.getCampo0().isAttacco()) {
+				System.out.println(r.toString());
+				if (r.getCampo0().getSpecial() != 'X') {
+					Riga attacco = r;
+					Riga muro = null;
+					String teamAttacco = r.getCampo0().getTeam();
+					Riga nextR = getNext(righe, r);
+					Campo0 next = nextR.getCampo0();
+					if (next.isMuro()) {
+						muro = nextR;
+						nextR = getNext(righe, nextR);
+						next = nextR.getCampo0();
+						i++;
+					}
+					System.out.println(nextR.toString());
+					if (next.isAlzata() || next.isAttacco() || next.isFree()) {
+						//inserisco difesa
+						Riga difesa = new Riga(attacco.toString());
+						char team;
+						String numero;
+						char skill;
+						char type;
+						char val;
+						difesa.setPuntoCambioPalla("");
+						difesa.setAttaccoDopoRicezioneDifesa("");
+						if (attacco.getCampo0().getVal().equals("!")) {
+							team = attacco.getCampo0().getTeam().charAt(0);
+						} else {
+							if ("*".equals(teamAttacco)) {
+								team = 'a';
+							} else {
+								team = '*';
+							}
+						}
+						numero = "$$";
+						skill = 'D';
+						type = attacco.getCampo0().getType().charAt(0);
+						val = '+';
+						difesa.setCampo0(team + numero + skill + type + val);
+						i++;
+						this.righe.add(i, difesa);
+						System.out.println(righe.get(i));
+					}
+				}
+			}
+		}
+	}
 	
 	public void inserisciMuroOpzioneLettura() {
 		for (Riga r:this.righe) {

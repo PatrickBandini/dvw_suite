@@ -147,6 +147,7 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
+			model.inserisciDifese();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
