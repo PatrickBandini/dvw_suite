@@ -47,21 +47,6 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (view.getCheckStep1().isSelected()) {
-					model.tempiRicezione();
-					model.aggiungiLatoRicezione();
-					model.aggiungiLatoRicettore();
-					model.tempiAttacco();
-					model.tempiAlzataCambioPalla();
-					model.conteggioBattute();
-					model.differenzaPunteggio();
-					model.servizioDopoInterruzione();
-					model.ricezioneEstranei();
-					model.numeroPersoneAMuro();
-				}
-				if (view.getCheckTempiAttacchi().isSelected()) {
-					model.tempiAttacco();
-				}
 				if (view.getCheckPulisciCustomServizio().isSelected()) {
 					model.pulisciCustom(Campo0.SERVIZIO);
 				}
@@ -83,6 +68,26 @@ public class Controller {
 				if (view.getCheckPulisciCustomFree().isSelected()) {
 					model.pulisciCustom(Campo0.FREE);
 				}
+				if (view.getCheckStep1().isSelected()) {
+					model.tempiRicezione();
+					model.aggiungiLatoRicezione();
+					model.aggiungiLatoRicettore();
+					model.tempiAttaccoCP();
+					model.tempiAttaccoContrattacco();
+					model.tempiAlzataCambioPalla();
+					model.conteggioBattute();
+					model.differenzaPunteggio();
+					model.servizioDopoInterruzione();
+					model.ricezioneEstranei();
+					model.numeroPersoneAMuro();
+				}
+				if (view.getCheckTempiAttacchi().isSelected()) {
+					model.tempiAttaccoContrattacco();
+				}
+				if (view.getCheckTempiAttacchiCP().isSelected()) {
+					model.tempiAttaccoCP();
+				}
+				
 				if (view.getCheckTempiRicezione().isSelected()) {
 					model.tempiRicezione();
 				}
@@ -109,6 +114,9 @@ public class Controller {
 				}
 				if (view.getCheckRicezioneEstranei().isSelected()) {
 					model.ricezioneEstranei();
+				}
+				if (view.getCheckAttaccoDopoRicezione().isSelected()) {
+					model.attaccoDopoRicezione();
 				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);

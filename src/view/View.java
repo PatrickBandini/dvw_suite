@@ -40,6 +40,7 @@ public class View {
 	private JCheckBox checkServizioDopoInterruzione;
 	private JCheckBox checkRicezioneEstranei;
 	private JCheckBox checkNumeroPersoneAMuro;
+	private JCheckBox checkAttaccoDopoRicezione;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -51,6 +52,7 @@ public class View {
 	private JCheckBox checkPulisciCustomFree;
 	
 	private JCheckBox checkTempiAttacchi;
+	private JCheckBox checkTempiAttacchiCP;
 	
 	private static boolean inizializzati = false;
 	
@@ -216,8 +218,11 @@ public class View {
 			checkLatoRicettore = new JCheckBox("+ Lato ricettore (3-4-5)");
 			panelCenter.add(checkLatoRicettore);
 			
-			checkTempiAttacchi = new JCheckBox("Tempi Attacchi");
+			checkTempiAttacchi = new JCheckBox("Tempi Attacchi di contrattacco");
 			panelCenter.add(checkTempiAttacchi);
+			
+			checkTempiAttacchiCP = new JCheckBox("Tempi Attacchi CP");
+			panelCenter.add(checkTempiAttacchiCP);
 			
 			checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate CP");
 			panelCenter.add(checkTempiAlzateCambioPalla);
@@ -238,6 +243,9 @@ public class View {
 			
 			checkRicezioneEstranei = new JCheckBox("Ricezione extra linea");
 			panelRight.add(checkRicezioneEstranei);
+			
+			checkAttaccoDopoRicezione = new JCheckBox("Attacco dopo ricezione");
+			panelRight.add(checkAttaccoDopoRicezione);
 			
 			
 			
@@ -322,5 +330,12 @@ public class View {
 		return checkTempiAttacchi;
 	}
 	
+	public JCheckBox getCheckTempiAttacchiCP() {
+		return checkTempiAttacchiCP;
+	}
+	
+	public JCheckBox getCheckAttaccoDopoRicezione() {
+		return checkAttaccoDopoRicezione;
+	}
 	
 }

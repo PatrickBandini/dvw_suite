@@ -72,6 +72,21 @@ public class DVW {
 	
 	//QUERY
 	
+	public void attaccoDopoRicezione() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAttacco()) {
+				Riga alzata = getPrevious(righe, r);
+				Riga ricezione = getPrevious(righe, alzata);
+				if (alzata.isAlzataCP(ricezione)) {
+					if(ricezione.getCampo0().getNumero().equals(r.getCampo0().getNumero())) {
+						r.getCampo0().updateCustom(0, 1, "R");
+						System.out.println(r.toString());
+					}
+				}
+			}
+		}
+	}
+	
 	public void numeroPersoneAMuro() {
 		for (Riga r: this.righe) {
 			Campo0 c = r.getCampo0();
@@ -153,16 +168,28 @@ public class DVW {
 		System.out.println("OK - Tempi Ricezione");
 	}
 	
-	public void tempiAttacco() {
+	public void tempiAttaccoContrattacco() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAttacco()) {
 				Riga prev = getPrevious(righe, r);
-				if (prev.getCampo0().isAlzata()) {
+				if (prev.getCampo0().isAlzata() && !prev.isAlzataCP(getPrevious(righe, prev))) {
 					r.setTimecode(prev.getTimecode());
 				}
 			}
 		}
-		System.out.println("OK - Tempi Attacco");
+		System.out.println("OK - Tempi Attacco Contrattacco");
+	}
+	
+	public void tempiAttaccoCP() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAttacco()) {
+				Riga prev = getPrevious(righe, r);
+				if (prev.isAlzataCP(getPrevious(righe, prev))) {
+					r.setTimecode(prev.getTimecode());
+				}
+			}
+		}
+		System.out.println("OK - Tempi Attacco CP");
 	}
 	
 	public void tempiDifesa() {
