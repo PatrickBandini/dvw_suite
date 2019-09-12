@@ -41,6 +41,7 @@ public class View {
 	private JCheckBox checkRicezioneEstranei;
 	private JCheckBox checkNumeroPersoneAMuro;
 	private JCheckBox checkAttaccoDopoRicezione;
+	private JCheckBox checkInserisciBasi;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -230,6 +231,9 @@ public class View {
 			checkNumeroPersoneAMuro = new JCheckBox("Numero persone a muro");
 			panelCenter.add(checkNumeroPersoneAMuro);
 			
+			checkInserisciBasi = new JCheckBox("+ Basi");
+			panelCenter.add(checkInserisciBasi);
+			
 			
 			//CUSTOM
 			checkConteggioBattute = new JCheckBox("Conteggio Battute");
@@ -336,6 +340,10 @@ public class View {
 	
 	public JCheckBox getCheckAttaccoDopoRicezione() {
 		return checkAttaccoDopoRicezione;
+	}
+	
+	public JCheckBox getCheckInserisciBasi() {
+		return checkInserisciBasi;
 	}
 	
 }

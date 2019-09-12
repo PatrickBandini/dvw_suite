@@ -118,6 +118,9 @@ public class Controller {
 				if (view.getCheckAttaccoDopoRicezione().isSelected()) {
 					model.attaccoDopoRicezione();
 				}
+				if (view.getCheckInserisciBasi().isSelected()) {
+					model.inserisciBasi();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);

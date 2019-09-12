@@ -72,6 +72,68 @@ public class DVW {
 	
 	//QUERY
 	
+	public void inserisciBasi() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAlzata()) {
+				Campo0 c = r.getCampo0();
+				Riga attacco = getNext(righe, r);
+				//Base
+				if (c.getType().equals("H")) {
+					c.setCombination("KE");
+				} else if (attacco.getCampo0().isAttacco()) {
+					String comb = attacco.getCampo0().getCombination();
+					if (comb.equals("X2")) {
+						c.setCombination("K2");
+					} else if (comb.equals("X7") || comb.equals("XD") || comb.equals("XP")) {
+						c.setCombination("K7");
+					} else {
+						c.setCombination("K1");
+					}
+				} else {
+					c.setCombination("K1");
+				}
+				//Distribuzione
+				if (attacco.getCampo0().isAttacco()) {
+					switch(attacco.getCampo0().getCombination()) {
+					case "X1":
+					case "X2":
+					case "XC":
+					case "XD":
+					case "X7":
+					case "V3":
+						c.setTarget('C');
+						break;
+					case "X5":
+					case "X9":
+					case "C5":
+					case "V5":
+					case "VE":
+						c.setTarget('F');
+						break;
+					case "X6":
+					case "X8":
+					case "C6":
+					case "C8":
+					case "X4":
+					case "V6":
+					case "V8":
+					case "VD":
+						c.setTarget('B');
+						break;
+					case "XP":
+					case "XR":
+					case "XB":
+					case "VP":
+						c.setTarget('P');
+						break;
+					case "PP":
+						c.setTarget('S');
+					}
+				}
+			}
+		}
+	}
+	
 	public void attaccoDopoRicezione() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAttacco()) {

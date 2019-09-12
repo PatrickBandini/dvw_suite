@@ -210,6 +210,25 @@ public class Campo0 {
 		return this.comb;
 	}
 	
+	public void setCombination(String combinazione) {
+		if ("".equals(this.comb) || "~~".equals(this.comb)) this.comb = combinazione;
+	}
+	
+	public void setTarget(char target) {
+		if (this.target == ' ' || this.target == '~') {
+			this.target = target;
+			if ("".equals(this.comb)) this.comb = "~~";
+		}
+	}
+	
+	public char getTarget() {
+		return this.target;
+	}
+	
+	public char getStart() {
+		return this.start;
+	}
+	
 	// EXTENDED
 	
 	public void setSkillType(char skillType) {
