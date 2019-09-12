@@ -94,7 +94,7 @@ public class DVW {
 						i++;
 					}
 					System.out.println(nextR.toString());
-					if (next.isAlzata() || next.isAttacco() || next.isFree()) {
+					if (next.isAlzata() || next.isAttacco() || next.isFree() || ("#".equals(attacco.getCampo0().getVal()) && muro != null && !"=".equals(muro.getCampo0().getVal())) || ("#".equals(attacco.getCampo0().getVal()) && muro == null)) {
 						//inserisco difesa
 						Riga difesa = new Riga(attacco.toString());
 						char team;
@@ -104,6 +104,8 @@ public class DVW {
 						char val;
 						difesa.setPuntoCambioPalla("");
 						difesa.setAttaccoDopoRicezioneDifesa("");
+						
+						//TEAM
 						if (attacco.getCampo0().getVal().equals("!")) {
 							team = attacco.getCampo0().getTeam().charAt(0);
 						} else {
@@ -112,11 +114,34 @@ public class DVW {
 							} else {
 								team = '*';
 							}
+							if (attacco.getCampo0().getVal().equals("-") && "+".equals(muro.getCampo0().getVal())) {
+								Riga n2 = getNext(righe, muro);
+								if (n2.getCampo0().isFree() || (n2.getCampo0().isAttacco() && "PR".equals(n2.getCampo0().getCombination()))) {
+									team = attacco.getCampo0().getTeam().charAt(0);
+								}
+							}
 						}
+						
 						numero = "$$";
 						skill = 'D';
 						type = attacco.getCampo0().getType().charAt(0);
 						val = '+';
+						if (attacco.getCampo0().getVal().equals("#")) {
+							val = '=';
+						} else if (next.isAlzata()) {
+							if ("H".equals(next.getType())) {
+								val = '-';
+							}
+							if ("K1".equals(next.getCombination()) || "K2".equals(next.getCombination()) || "K7".equals(next.getCombination())) {
+								val = '#';
+							}
+							if (attacco.getCampo0().getVal().equals("!")) {
+								val = '!';
+							}
+						} else if (next.isFree() || (next.isAttacco() && "PR".equals(next.getCombination()))) {
+							val = '/';
+						}
+						
 						difesa.setCampo0(team + numero + skill + type + val);
 						i++;
 						this.righe.add(i, difesa);
