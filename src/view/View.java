@@ -42,6 +42,7 @@ public class View {
 	private JCheckBox checkNumeroPersoneAMuro;
 	private JCheckBox checkAttaccoDopoRicezione;
 	private JCheckBox checkInserisciBasi;
+	private JCheckBox checkMuroOpzioneLettura;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -234,6 +235,9 @@ public class View {
 			checkInserisciBasi = new JCheckBox("+ Basi");
 			panelCenter.add(checkInserisciBasi);
 			
+			checkMuroOpzioneLettura = new JCheckBox("+ Muro Opzione/Lettura");
+			panelCenter.add(checkMuroOpzioneLettura);
+			
 			
 			//CUSTOM
 			checkConteggioBattute = new JCheckBox("Conteggio Battute");
@@ -344,6 +348,10 @@ public class View {
 	
 	public JCheckBox getCheckInserisciBasi() {
 		return checkInserisciBasi;
+	}
+	
+	public JCheckBox getCheckMuroOpzioneLettura() {
+		return checkMuroOpzioneLettura;
 	}
 	
 }

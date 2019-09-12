@@ -121,6 +121,9 @@ public class Controller {
 				if (view.getCheckInserisciBasi().isSelected()) {
 					model.inserisciBasi();
 				}
+				if (view.getCheckMuroOpzioneLettura().isSelected()) {
+					model.inserisciMuroOpzioneLettura();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);

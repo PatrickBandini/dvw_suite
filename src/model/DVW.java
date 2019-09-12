@@ -72,6 +72,26 @@ public class DVW {
 	
 	//QUERY
 	
+	public void inserisciMuroOpzioneLettura() {
+		for (Riga r:this.righe) {
+			if (r.getCampo0().isMuro()) {
+				Riga attacco = getPrevious(righe, r);
+				if (attacco.getCampo0().isAttacco()) {
+					Campo0 a = attacco.getCampo0();
+					if (a.getTarget() == 'C' && !a.getCombination().equals("V3")) {
+						if (r.getCampo0().getVal().equals("#") || "!".equals(r.getCampo0().getVal())) {
+							r.getCampo0().setSkillType('T');
+						} else {
+							if (!r.getCampo0().getVal().equals("=")) {
+								r.getCampo0().setSkillType('A');
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public void inserisciBasi() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAlzata()) {
