@@ -210,6 +210,14 @@ public class Campo0 {
 		return this.start;
 	}
 	
+	public char getEnd() {
+		return this.end;
+	}
+	
+	public char getSubEnd() {
+		return this.subEnd;
+	}
+	
 	// EXTENDED
 	
 	public void setSkillType(char skillType) {

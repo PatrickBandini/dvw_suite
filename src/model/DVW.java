@@ -102,6 +102,7 @@ public class DVW {
 						char skill;
 						char type;
 						char val;
+						String advanced="";
 						difesa.setPuntoCambioPalla("");
 						difesa.setAttaccoDopoRicezioneDifesa("");
 						
@@ -142,7 +143,22 @@ public class DVW {
 							val = '/';
 						}
 						
-						difesa.setCampo0(team + numero + skill + type + val);
+						if (attacco.getCampo0().getStart() != ' ') {
+							advanced = "~~~";
+							advanced += attacco.getCampo0().getStart();
+							if (attacco.getCampo0().getEnd() != ' ') {
+								advanced += attacco.getCampo0().getEnd();
+							} else {
+								advanced += "~";
+							}
+							if (attacco.getCampo0().getSubEnd() != ' ') {
+								advanced += attacco.getCampo0().getSubEnd();
+							} else {
+								advanced += "~";
+							}
+						} 
+						
+						difesa.setCampo0(team + numero + skill + type + val + advanced);
 						i++;
 						this.righe.add(i, difesa);
 						System.out.println(righe.get(i));

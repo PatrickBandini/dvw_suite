@@ -124,6 +124,9 @@ public class Controller {
 				if (view.getCheckMuroOpzioneLettura().isSelected()) {
 					model.inserisciMuroOpzioneLettura();
 				}
+				if (view.getCheckInserisciDifese().isSelected()) {
+					model.inserisciDifese();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
@@ -147,7 +150,6 @@ public class Controller {
 				}
 			}
 			model.setRighe(righe);
-			model.inserisciDifese();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
