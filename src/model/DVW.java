@@ -265,6 +265,14 @@ public class DVW {
 		}
 	}
 	
+	public void inserisciToccoAMuro() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAttacco() && getNext(righe, r).getCampo0().isMuro()) {
+				r.getCampo0().setSpecial('C');
+			}
+		}
+	}
+	
 	public void numeroPersoneAMuro() {
 		for (Riga r: this.righe) {
 			Campo0 c = r.getCampo0();

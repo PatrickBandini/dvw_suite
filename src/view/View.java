@@ -44,6 +44,7 @@ public class View {
 	private JCheckBox checkInserisciBasi;
 	private JCheckBox checkMuroOpzioneLettura;
 	private JCheckBox checkInserisciDifese;
+	private JCheckBox checkInserisciToccoAMuro;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -242,6 +243,9 @@ public class View {
 			checkInserisciDifese = new JCheckBox("+ Difese");
 			panelCenter.add(checkInserisciDifese);
 			
+			checkInserisciToccoAMuro = new JCheckBox("+ Tocchi a muro");
+			panelCenter.add(checkInserisciToccoAMuro);
+			
 			
 			//CUSTOM
 			checkConteggioBattute = new JCheckBox("Conteggio Battute");
@@ -360,6 +364,10 @@ public class View {
 	
 	public JCheckBox getCheckInserisciDifese() {
 		return checkInserisciDifese;
+	}
+	
+	public JCheckBox getCheckInserisciToccoAMuro() {
+		return checkInserisciToccoAMuro;
 	}
 	
 }

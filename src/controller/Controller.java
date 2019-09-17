@@ -127,6 +127,9 @@ public class Controller {
 				if (view.getCheckInserisciDifese().isSelected()) {
 					model.inserisciDifese();
 				}
+				if (view.getCheckInserisciToccoAMuro().isSelected()) {
+					model.inserisciToccoAMuro();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
