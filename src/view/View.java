@@ -48,6 +48,7 @@ public class View {
 	private JCheckBox checkInserisciToccoAMuro;
 	private JCheckBox checkCopiaPersoneAMuro;
 	private JCheckBox checkSpecialErroreServizio;
+	private JCheckBox checkPuntiRete;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -279,6 +280,9 @@ public class View {
 			checkAttaccoDopoRicezione = new JCheckBox("Attacco dopo ricezione");
 			panelRight.add(checkAttaccoDopoRicezione);
 			
+			checkPuntiRete = new JCheckBox("Inserisci Punti Rete");
+			panelRight.add(checkPuntiRete);
+			
 			
 			
 			//STEP BY STEP
@@ -400,6 +404,10 @@ public class View {
 	
 	public JCheckBox getCheckSpecialErroreServizio() {
 		return checkSpecialErroreServizio;
+	}
+
+	public JCheckBox getCheckPuntiRete() {
+		return checkPuntiRete;
 	}
 	
 }

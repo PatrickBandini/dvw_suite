@@ -118,7 +118,65 @@ public class DVW {
 	 * 1° custom alzata
 	 */
 	public void inserisciPuntiRete() {
-		
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isAlzata()) {
+				String comb = r.getCampo0().getCombination();
+				char end = r.getCampo0().getEnd();
+				if ("K1".equals(comb) || "K2".equals(comb) || "K7".equals(comb) || end == '4' || end == '3' || end == '2') {
+					Campo0 primoTocco = getPrevious(righe, r).getCampo0();
+					if (primoTocco.isRicezione() || primoTocco.isFree()) {
+						Campo0 alzata = r.getCampo0();
+						switch(end) {
+						case '2':
+							if (primoTocco.getVal().equals("#")) {
+								alzata.updateCustom(0, 1, "1");
+							} else if (primoTocco.getVal().equals("+")) {
+								alzata.updateCustom(0, 1, "5");
+							} else if (primoTocco.getVal().equals("!")) {
+								alzata.updateCustom(0, 1, "A");
+							} else {
+								alzata.updateCustom(0, 1, "Y");
+							}
+							break;
+						case '3':
+							if (primoTocco.getVal().equals("#")) {
+								alzata.updateCustom(0, 1, "2");
+							} else if (primoTocco.getVal().equals("+")) {
+								alzata.updateCustom(0, 1, "6");
+							} else if (primoTocco.getVal().equals("!")) {
+								alzata.updateCustom(0, 1, "B");
+							} else {
+								alzata.updateCustom(0, 1, "7");
+							}
+							break;
+						case '4':
+							if (primoTocco.getVal().equals("#")) {
+								alzata.updateCustom(0, 1, "3");
+							} else if (primoTocco.getVal().equals("+")) {
+								alzata.updateCustom(0, 1, "4");
+							} else if (primoTocco.getVal().equals("!")) {
+								alzata.updateCustom(0, 1, "D");
+							} else {
+								alzata.updateCustom(0, 1, "X");
+							}
+							break;
+						default:
+							if (primoTocco.getVal().equals("#")) {
+								alzata.updateCustom(0, 1, "2");
+							} else if (primoTocco.getVal().equals("+")) {
+								alzata.updateCustom(0, 1, "6");
+							} else if (primoTocco.getVal().equals("!")) {
+								alzata.updateCustom(0, 1, "B");
+							} else {
+								alzata.updateCustom(0, 1, "0");
+							}
+							break;
+						}
+					}
+					
+				}
+			}
+		}
 	}
 	
 	/**

@@ -142,6 +142,9 @@ public class Controller {
 				if (view.getCheckSpecialErroreServizio().isSelected()) {
 					model.inserisciEstensioneErroreServizio();
 				}
+				if (view.getCheckPuntiRete().isSelected()) {
+					model.inserisciPuntiRete();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
