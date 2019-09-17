@@ -14,12 +14,15 @@ import java.util.List;
 
 import model.Campo0;
 import model.DVW;
+import model.NumeroLettera;
 import model.Riga;
 import view.View;
 
 public class Controller {
 	private View view;
 	private DVW model;
+	private List<NumeroLettera> letteraCasa = new ArrayList<NumeroLettera>();
+	private List<NumeroLettera> letteraOspite = new ArrayList<NumeroLettera>();
 	
 	private File originalFile;
 	
@@ -36,10 +39,26 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				originalFile = null;
-				originalFile = view.chooseFile();
+				originalFile = view.chooseFile("*.dvw", "dvw", ".dvw");
 				if (null != originalFile) {
 					readFile(originalFile);
 				}
+			}
+		});
+		
+		view.getLetteraCasaButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				readFileNumeroLettera(view.chooseFile("*.txt", "txt", ".txt"), true);
+			}
+		});
+		
+		view.getLetteraOspiteButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				readFileNumeroLettera(view.chooseFile("*.txt", "txt", ".txt"), false);
 			}
 		});
 		
@@ -80,6 +99,19 @@ public class Controller {
 					model.servizioDopoInterruzione();
 					model.ricezioneEstranei();
 					model.numeroPersoneAMuro();
+				}
+				if (view.getCheckStep2().isSelected()) {
+					model.inserisciBasi();
+					model.copiaPersoneAMuro();
+					model.inserisciMuroOpzioneLettura();
+					model.inserisciToccoAMuro();
+					model.attaccoDopoRicezione();
+					model.inserisciCustomGiocatoriAMuro();
+				}
+				if (view.getCheckStep3().isSelected()) {
+					model.inserisciPuntiRete();
+					model.tempiMuro();
+					model.inserisciDifese();
 				}
 				if (view.getCheckTempiAttacchi().isSelected()) {
 					model.tempiAttaccoContrattacco();
@@ -151,6 +183,25 @@ public class Controller {
 			}
 		});
 		
+	}
+	
+	private void readFileNumeroLettera(File f, boolean casa) {
+		try {
+			List<String> rows = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.ISO_8859_1);
+			for(int i=0;i<rows.size(); i++) {
+				String[] str = rows.get(i).split(";");
+				if (casa) {
+					letteraCasa.add(new NumeroLettera(str[0], str[1].charAt(0)));
+				} else {
+					letteraOspite.add(new NumeroLettera(str[0], str[1].charAt(0)));
+				}
+			}
+			for (NumeroLettera nl: letteraCasa) {
+				System.out.println(nl.toString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void readFile(File f) {

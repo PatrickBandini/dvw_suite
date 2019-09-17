@@ -25,12 +25,14 @@ public class View {
 	
 	private MyFrame frame;
 	private JLabel filename = new JLabel("---");
-	private JButton open, buttonPre;
+	private JButton open, buttonPre, letteraCasa, letteraOspite;
 	private JPanel header, panelCenter, panelBottom, panelRight, panelLeft;
 	private String lastOpenDir = "";
 	
 	//step by step
 	private JCheckBox checkStep1;
+	private JCheckBox checkStep2;
+	private JCheckBox checkStep3;
 	private JCheckBox checkTempiRicezione;
 	private JCheckBox checkTempiAlzateCambioPalla;
 	private JCheckBox checkLatoRicezione;
@@ -109,11 +111,16 @@ public class View {
 		JLabel label = new JLabel(icon);
 		
 		open = new JButton("Carica DVW");
+		letteraCasa = new JButton("Carica LetteraSquadraCasa.txt");
+		letteraOspite = new JButton("Carica LetteraSquadraOspite.txt");
 		buttonPre = new JButton();
 		
 		header.add(label);
 		header.add(open);
 		header.add(filename);
+		
+		panelLeft.add(letteraCasa);
+		panelLeft.add(letteraOspite);
 		
 		frame.setVisible(true);
 	}
@@ -122,9 +129,17 @@ public class View {
 		return this.open;
 	}
 	
-	public File chooseFile() {
+	public JButton getLetteraCasaButton() {
+		return this.letteraCasa;
+	}
+	
+	public JButton getLetteraOspiteButton() {
+		return this.letteraOspite;
+	}
+	
+	public File chooseFile(String ext1, String ext2, String ext3) {
 		final JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new FileNameExtensionFilter("*.dvw", "dvw"));
+		fc.setFileFilter(new FileNameExtensionFilter(ext1, ext2));
 		fc.setAcceptAllFileFilterUsed(false);
 		int rVal = fc.showOpenDialog(header);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
@@ -133,7 +148,7 @@ public class View {
 				filename.setText(file.getName());
 				if ("---" != filename.getText()) {
 					float seconds = System.currentTimeMillis() / 1000F;
-					buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ".dvw");
+					buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ext3);
 					buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
 					initCheckbox();
 					panelBottom.add(buttonPre);
@@ -289,6 +304,12 @@ public class View {
 			checkStep1 = new JCheckBox("ESEGUI STEP 1");
 			checkStep1.setAlignmentX(Component.CENTER_ALIGNMENT);
 			panelBottom.add(checkStep1);
+			checkStep2 = new JCheckBox("ESEGUI STEP 2");
+			checkStep2.setAlignmentX(Component.CENTER_ALIGNMENT);
+			panelBottom.add(checkStep2);
+			checkStep3 = new JCheckBox("ESEGUI STEP 3");
+			checkStep3.setAlignmentX(Component.CENTER_ALIGNMENT);
+			panelBottom.add(checkStep3);
 			View.inizializzati = true;
 		}
 		
@@ -296,6 +317,14 @@ public class View {
 
 	public JCheckBox getCheckStep1() {
 		return checkStep1;
+	}
+	
+	public JCheckBox getCheckStep2() {
+		return checkStep2;
+	}
+	
+	public JCheckBox getCheckStep3() {
+		return checkStep3;
 	}
 
 	public JCheckBox getCheckTempiRicezione() {
