@@ -102,7 +102,8 @@ public class DVW {
 						char skill;
 						char type;
 						char val;
-						String advanced="";
+						String advanced = "~~~";
+						String extended="";
 						difesa.setPuntoCambioPalla("");
 						difesa.setAttaccoDopoRicezioneDifesa("");
 						
@@ -123,7 +124,38 @@ public class DVW {
 							}
 						}
 						
+						//NUMERO
 						numero = "$$";
+						if (null != muro && muro.getCampo0().getVal().equals("!")) {
+							//da assegnare al libero della squadra che attacca
+						} else {
+							char end = attacco.getCampo0().getEnd();
+							if (team == '*') {
+								if (null == muro) {
+									if (end == '5' || end == '7') {
+										 //da assegnare al libero
+									} else if (end == '6' || end == '8') {
+										numero = difesa.getCasa().getZ6();
+									} else if (end == '9' || end == '1') {
+										numero = difesa.getCasa().getZ1();
+									}
+								}
+							} else {
+								if (null == muro) {
+									if (end == '5' || end == '7') {
+										 //da assegnare al libero
+									} else if (end == '6' || end == '8') {
+										numero = difesa.getOspite().getZ6();
+									} else if (end == '9' || end == '1') {
+										numero = difesa.getOspite().getZ1();
+									}
+								}
+							}
+							
+						}
+						
+						
+						
 						skill = 'D';
 						type = attacco.getCampo0().getType().charAt(0);
 						val = '+';
@@ -143,8 +175,9 @@ public class DVW {
 							val = '/';
 						}
 						
+						
+						//DIREZIONE
 						if (attacco.getCampo0().getStart() != ' ') {
-							advanced = "~~~";
 							advanced += attacco.getCampo0().getStart();
 							if (attacco.getCampo0().getEnd() != ' ') {
 								advanced += attacco.getCampo0().getEnd();
@@ -156,9 +189,23 @@ public class DVW {
 							} else {
 								advanced += "~";
 							}
-						} 
+						}
 						
-						difesa.setCampo0(team + numero + skill + type + val + advanced);
+						//EXTENDED
+						while (advanced.length()<6) {
+							advanced += "~";
+						}
+						extended = "S";
+						if (null != muro) {
+							if (muro.getCampo0().getVal().equals("!")) {
+								extended = "C";
+							} else {
+								extended = "B";
+							}
+						}
+						
+						
+						difesa.setCampo0(team + numero + skill + type + val + advanced + extended);
 						i++;
 						this.righe.add(i, difesa);
 						System.out.println(righe.get(i));
