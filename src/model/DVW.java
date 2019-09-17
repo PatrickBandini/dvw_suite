@@ -73,6 +73,33 @@ public class DVW {
 	
 	//QUERY
 	
+	public void inserisciEstensioneErroreServizio() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isServizio()) {
+				Campo0 servizio = r.getCampo0();
+				if (servizio.getVal().equals("=")) {
+					if (servizio.getSpecial() == ' ' || servizio.getSpecial() == '~') {
+						servizio.setSpecial('O');
+						switch (servizio.getEnd()) {
+						case '1':
+						case '9':
+							if (servizio.getSubEnd() == 'A' || servizio.getSubEnd() == 'B') {
+								servizio.setSpecial('R');
+							}
+							break;
+						case '5':
+						case '7':
+							if (servizio.getSubEnd() == 'D' || servizio.getSubEnd() == 'C') {
+								servizio.setSpecial('L');
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * copia senza sovrascrivere il numero di persone a muro dall'attacco
 	 */

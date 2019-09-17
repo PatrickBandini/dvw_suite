@@ -139,6 +139,9 @@ public class Controller {
 				if (view.getCheckTempiMuro().isSelected()) {
 					model.tempiMuro();
 				}
+				if (view.getCheckSpecialErroreServizio().isSelected()) {
+					model.inserisciEstensioneErroreServizio();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);

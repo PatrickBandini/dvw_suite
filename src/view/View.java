@@ -47,6 +47,7 @@ public class View {
 	private JCheckBox checkInserisciDifese;
 	private JCheckBox checkInserisciToccoAMuro;
 	private JCheckBox checkCopiaPersoneAMuro;
+	private JCheckBox checkSpecialErroreServizio;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -218,6 +219,10 @@ public class View {
 			
 			
 			//MAIN
+			
+			checkSpecialErroreServizio = new JCheckBox("Inserisci Special Errore Servizio");
+			panelCenter.add(checkSpecialErroreServizio);
+			
 			checkTempiRicezione = new JCheckBox("Tempi Ricezioni");
 			panelCenter.add(checkTempiRicezione);
 			
@@ -391,6 +396,10 @@ public class View {
 	
 	public JCheckBox getCheckTempiMuro() {
 		return checkTempiMuro;
+	}
+	
+	public JCheckBox getCheckSpecialErroreServizio() {
+		return checkSpecialErroreServizio;
 	}
 	
 }
