@@ -136,6 +136,9 @@ public class Controller {
 				if (view.getCheckCopiaPersoneAMuro().isSelected()) {
 					model.copiaPersoneAMuro();
 				}
+				if (view.getCheckTempiMuro().isSelected()) {
+					model.tempiMuro();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);

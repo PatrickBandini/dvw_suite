@@ -35,6 +35,7 @@ public class View {
 	private JCheckBox checkTempiAlzateCambioPalla;
 	private JCheckBox checkLatoRicezione;
 	private JCheckBox checkLatoRicettore;
+	private JCheckBox checkTempiMuro;
 	private JCheckBox checkConteggioBattute;
 	private JCheckBox checkDifferenzaPunteggio;
 	private JCheckBox checkServizioDopoInterruzione;
@@ -235,6 +236,9 @@ public class View {
 			checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate CP");
 			panelCenter.add(checkTempiAlzateCambioPalla);
 			
+			checkTempiMuro = new JCheckBox("Tempi Muro");
+			panelCenter.add(checkTempiMuro);
+			
 			checkNumeroPersoneAMuro = new JCheckBox("Numero persone a muro");
 			panelCenter.add(checkNumeroPersoneAMuro);
 			
@@ -383,6 +387,10 @@ public class View {
 	
 	public JCheckBox getCheckCopiaPersoneAMuro() {
 		return checkCopiaPersoneAMuro;
+	}
+	
+	public JCheckBox getCheckTempiMuro() {
+		return checkTempiMuro;
 	}
 	
 }

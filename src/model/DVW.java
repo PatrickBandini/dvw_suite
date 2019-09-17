@@ -437,6 +437,15 @@ public class DVW {
 		System.out.println("OK - Tempi Ricezione");
 	}
 	
+	public void tempiMuro() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isMuro()) {
+				r.setTimecode(getPrevious(righe, r).getTimecode());
+			}
+		}
+		System.out.println("OK - Tempi Muro");
+	}
+	
 	public void tempiAttaccoContrattacco() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAttacco()) {
