@@ -54,6 +54,7 @@ public class View {
 	private JCheckBox checkPulisciCustomMuro;
 	private JCheckBox checkPulisciCustomDifesa;
 	private JCheckBox checkPulisciCustomFree;
+	private JCheckBox checkSovrascriviDirezioneServizio;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -210,6 +211,8 @@ public class View {
 			panelLeft.add(checkPulisciCustomMuro);
 			panelLeft.add(checkPulisciCustomDifesa);
 			panelLeft.add(checkPulisciCustomFree);
+			checkSovrascriviDirezioneServizio = new JCheckBox("Sovrascrivi direzione Servizio dalla Ricezione");
+			panelLeft.add(checkSovrascriviDirezioneServizio);
 			
 			
 			//MAIN
@@ -368,6 +371,10 @@ public class View {
 	
 	public JCheckBox getCheckInserisciToccoAMuro() {
 		return checkInserisciToccoAMuro;
+	}
+	
+	public JCheckBox getCheckSovrascriviDirezioneServizio() {
+		return checkSovrascriviDirezioneServizio;
 	}
 	
 }

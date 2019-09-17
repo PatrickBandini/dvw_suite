@@ -72,6 +72,28 @@ public class DVW {
 	
 	
 	//QUERY
+	
+	/**
+	 * sovrascrive direzione del servizio
+	 */
+	public void completaDirezioneServizio() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isRicezione()) {
+				Campo0 ricezione = r.getCampo0();
+				Campo0 servizio = getPrevious(righe, r).getCampo0();
+				if (servizio.getStart() != ricezione.getStart()) {
+					servizio.setStart(ricezione.getStart(), true);
+				}
+				if (servizio.getEnd() != ricezione.getEnd()) {
+					servizio.setEnd(ricezione.getEnd(), true);
+				}
+				if (servizio.getSubEnd() != ricezione.getSubEnd()) {
+					servizio.setSubEnd(ricezione.getSubEnd(), true);
+				}
+ 			}
+		}
+	}
+	
 	public void inserisciDifese() {
 		System.out.println("size: " +this.righe.size());
 		for (int i=0;i<this.righe.size();i++) {

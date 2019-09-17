@@ -202,6 +202,54 @@ public class Campo0 {
 		}
 	}
 	
+	public void setStart(char start, boolean force) {
+		if (force) {
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (' ' == this.target) this.target = '~';
+			this.start = start;
+		} else {
+			if (this.start == ' ' || this.start == '~') {
+				if ("".equals(this.comb)) this.comb = "~~";
+				if (' ' == this.target) this.target = '~';
+				this.start = start;
+			}
+		}
+	}
+	
+	public void setEnd(char end, boolean force) {
+		if (force) {
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (' ' == this.target) this.target = '~';
+			if (' ' == this.start) this.start = '~';
+			this.end = end;
+		} else {
+			if (this.end == ' ' || this.end == '~') {
+				if ("".equals(this.comb)) this.comb = "~~";
+				if (' ' == this.target) this.target = '~';
+				if (' ' == this.start) this.start = '~';
+				this.end = end;
+			}
+		}
+	}
+	
+	public void setSubEnd(char subend, boolean force) {
+		if (force) {
+			if ("".equals(this.comb)) this.comb = "~~";
+			if (' ' == this.target) this.target = '~';
+			if (' ' == this.start) this.start = '~';
+			if (' ' == this.end) this.end = '~';
+			this.subEnd = subend;
+		} else {
+			if (this.subEnd == ' ' || this.subEnd == '~') {
+				if ("".equals(this.comb)) this.comb = "~~";
+				if (' ' == this.target) this.target = '~';
+				if (' ' == this.start) this.start = '~';
+				if (' ' == this.end) this.end = '~';
+				this.subEnd = subend;
+			}
+		}
+	}
+	
 	public char getTarget() {
 		return this.target;
 	}
