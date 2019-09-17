@@ -177,6 +177,9 @@ public class Controller {
 				if (view.getCheckPuntiRete().isSelected()) {
 					model.inserisciPuntiRete();
 				}
+				if (view.getCheckNumeroLettera().isSelected()) {
+					model.inserisciCustomGiocatoriAMuro();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
@@ -195,9 +198,6 @@ public class Controller {
 				} else {
 					letteraOspite.add(new NumeroLettera(str[0], str[1].charAt(0)));
 				}
-			}
-			for (NumeroLettera nl: letteraCasa) {
-				System.out.println(nl.toString());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -53,6 +53,7 @@ public class View {
 	private JCheckBox checkCopiaPersoneAMuro;
 	private JCheckBox checkSpecialErroreServizio;
 	private JCheckBox checkPuntiRete;
+	private JCheckBox checkNumeroLettera;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -308,6 +309,9 @@ public class View {
 			checkPuntiRete = new JCheckBox("Inserisci Punti Rete");
 			panelRight.add(checkPuntiRete);
 			
+			checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
+			panelRight.add(checkNumeroLettera);
+			
 			
 			
 			//STEP BY STEP
@@ -447,6 +451,10 @@ public class View {
 
 	public JCheckBox getCheckPuntiRete() {
 		return checkPuntiRete;
+	}
+	
+	public JCheckBox getCheckNumeroLettera() {
+		return checkNumeroLettera;
 	}
 	
 }
