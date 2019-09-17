@@ -145,13 +145,15 @@ public class View {
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			try {
 				File file = fc.getSelectedFile();
-				filename.setText(file.getName());
-				if ("---" != filename.getText()) {
-					float seconds = System.currentTimeMillis() / 1000F;
-					buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ext3);
-					buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
-					initCheckbox();
-					panelBottom.add(buttonPre);
+				if (ext3.contains("dvw")) {
+					filename.setText(file.getName());
+					if ("---" != filename.getText()) {
+						float seconds = System.currentTimeMillis() / 1000F;
+						buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ext3);
+						buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
+						initCheckbox();
+						panelBottom.add(buttonPre);
+					}
 				}
 				return file;
 			} catch (Exception ex) {
