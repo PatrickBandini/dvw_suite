@@ -74,6 +74,20 @@ public class DVW {
 	//QUERY
 	
 	/**
+	 * copia senza sovrascrivere il numero di persone a muro dall'attacco
+	 */
+	public void copiaPersoneAMuro() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isMuro()) {
+				Campo0 attacco = getPrevious(righe, r).getCampo0();
+				if (r.getCampo0().getPlayer() == ' ' || r.getCampo0().getPlayer() == '~') {
+					r.getCampo0().setPlayer(attacco.getPlayer());
+				}
+			}
+		}
+	}
+	
+	/**
 	 * sovrascrive direzione del servizio
 	 */
 	public void completaDirezioneServizio() {

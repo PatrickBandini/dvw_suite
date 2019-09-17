@@ -133,6 +133,9 @@ public class Controller {
 				if (view.getCheckSovrascriviDirezioneServizio().isSelected()) {
 					model.completaDirezioneServizio();
 				}
+				if (view.getCheckCopiaPersoneAMuro().isSelected()) {
+					model.copiaPersoneAMuro();
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);

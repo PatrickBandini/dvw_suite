@@ -45,6 +45,7 @@ public class View {
 	private JCheckBox checkMuroOpzioneLettura;
 	private JCheckBox checkInserisciDifese;
 	private JCheckBox checkInserisciToccoAMuro;
+	private JCheckBox checkCopiaPersoneAMuro;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -249,6 +250,9 @@ public class View {
 			checkInserisciToccoAMuro = new JCheckBox("+ Tocchi a muro");
 			panelCenter.add(checkInserisciToccoAMuro);
 			
+			checkCopiaPersoneAMuro = new JCheckBox("Copia numero persone a muro (sul muro, dall'attacco)");
+			panelCenter.add(checkCopiaPersoneAMuro);
+			
 			
 			//CUSTOM
 			checkConteggioBattute = new JCheckBox("Conteggio Battute");
@@ -375,6 +379,10 @@ public class View {
 	
 	public JCheckBox getCheckSovrascriviDirezioneServizio() {
 		return checkSovrascriviDirezioneServizio;
+	}
+	
+	public JCheckBox getCheckCopiaPersoneAMuro() {
+		return checkCopiaPersoneAMuro;
 	}
 	
 }
