@@ -25,6 +25,8 @@ public class View {
 	
 	private MyFrame frame;
 	private JLabel filename = new JLabel("---");
+	private JLabel casaName = new JLabel("Casa: ---");
+	private JLabel ospiteName = new JLabel("Ospite: ---");
 	private JButton open, buttonPre, letteraCasa, letteraOspite;
 	private JPanel header, panelCenter, panelBottom, panelRight, panelLeft;
 	private String lastOpenDir = "";
@@ -121,6 +123,8 @@ public class View {
 		
 		panelLeft.add(letteraCasa);
 		panelLeft.add(letteraOspite);
+		panelLeft.add(casaName);
+		panelLeft.add(ospiteName);
 		
 		frame.setVisible(true);
 	}
@@ -154,6 +158,10 @@ public class View {
 						initCheckbox();
 						panelBottom.add(buttonPre);
 					}
+				} else if (ext3.contains("casa")) {
+					casaName.setText(file.getName());
+				} else if (ext3.contains("ospite")) {
+					ospiteName.setText(file.getName());
 				}
 				return file;
 			} catch (Exception ex) {

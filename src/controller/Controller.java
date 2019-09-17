@@ -50,7 +50,7 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readFileNumeroLettera(view.chooseFile("*.txt", "txt", ".txt"), true);
+				readFileNumeroLettera(view.chooseFile("*.txt", "txt", "casa"), true);
 			}
 		});
 		
@@ -58,7 +58,7 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readFileNumeroLettera(view.chooseFile("*.txt", "txt", ".txt"), false);
+				readFileNumeroLettera(view.chooseFile("*.txt", "txt", "ospite"), false);
 			}
 		});
 		
