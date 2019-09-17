@@ -73,6 +73,63 @@ public class DVW {
 	
 	//QUERY
 	
+	/**
+	 * Leggerà in input un file contentente: Set;puntoCasa-puntoOspite;Velocita; per ogni riga
+	 */
+	public void inserisciVelocitaServizio() {
+		
+	}
+	
+	public void spostaTimecodeFondamentale(char fondamentale, int secondi) {
+		
+	}
+	
+	public void rimuoviFrecce() {
+		
+	}
+	
+	public void convertiZoneInFrecce() {
+		
+	}
+	
+	/**
+	 * 3 secondi palla alta
+	 * 2 secondi default
+	 */
+	public void normalizzaTempiFineAzione() {
+		
+	}
+	
+	public boolean verificaCongruenzaCodiciComposti() {
+		return true;
+	}
+	
+	/**
+	 * SOLO se disponibile un primo tempo K1,2,7
+	 * 2° custom alzata: ripetizione azione corrente 1..9 (alzate consecutive)
+	 * 3° custom alzata: ripetizione azione precedente B E P 1..9 (prima alzata questa azione / ultima alzata azione precedente)
+	 * 4° custom alzata: ripetizione fase (P) precedente 1..9 (SOLO CP)
+	 */
+	public void inserisciRipetizioniAlzatore() {
+		
+	}
+	
+	/**
+	 * 1° custom alzata
+	 */
+	public void inserisciPuntiRete() {
+		
+	}
+	
+	/**
+	 * Sull'attacco inserisce una lettera abbinata ad ogni giocatore in ordine (per zona) 4-3-2 nel 2°,3° e 4° spazio custom dell'attacco
+	 * Leggerà in input 2 file per la corrispondenza numero-lettera, 1° squadra di casa, 2° squadra ospite
+	 * Il file sarà così composto: NumeroGiocatore;LetteraGiocatore;Ruolo;Nome e Cognome
+	 */
+	public void inserisciCustomGiocatoriAMuro() {
+		
+	}
+	
 	public void inserisciEstensioneErroreServizio() {
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isServizio()) {
