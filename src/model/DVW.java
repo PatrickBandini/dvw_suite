@@ -183,8 +183,31 @@ public class DVW {
 	 * Leggerà in input 2 file per la corrispondenza numero-lettera, 1° squadra di casa, 2° squadra ospite
 	 * Il file sarà così composto: NumeroGiocatore;LetteraGiocatore;Ruolo;Nome e Cognome
 	 */
-	public void inserisciCustomGiocatoriAMuro() {
+	public void inserisciCustomGiocatoriAMuro(List<NumeroLettera> casa, List<NumeroLettera> ospite) {
+		if (casa.size() > 0 && ospite.size() > 0) {
+			for (Riga r: this.righe) {
+				if (r.getCampo0().isAttacco()) {
+					char team = r.getCampo0().getTeam().charAt(0);
+					if (team == '*') {
+						r.getCampo0().updateCustom(1, 1, findLettera(ospite, r.getOspite().getZ4()));
+						r.getCampo0().updateCustom(2, 1, findLettera(ospite, r.getOspite().getZ3()));
+						r.getCampo0().updateCustom(3, 1, findLettera(ospite, r.getOspite().getZ2()));
+					} else {
+						r.getCampo0().updateCustom(1, 1, findLettera(casa, r.getCasa().getZ4()));
+						r.getCampo0().updateCustom(2, 1, findLettera(casa, r.getCasa().getZ3()));
+						r.getCampo0().updateCustom(3, 1, findLettera(casa, r.getCasa().getZ2()));
+					}
+				}
+			}
+		}
 		
+	}
+	
+	private char findLettera(List<NumeroLettera> lista, String numero) {
+		for (NumeroLettera nl:lista) {
+			if (nl.isStessoNumero(numero)) return nl.getLettera();
+		}
+		return '~';
 	}
 	
 	public void inserisciEstensioneErroreServizio() {

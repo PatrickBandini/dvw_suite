@@ -362,6 +362,10 @@ public class Campo0 {
 		this.custom = String.valueOf(chars);
 	}
 	
+	public void updateCustom(int index, int numeroCaratteri, char c) {
+		this.updateCustom(index, numeroCaratteri, String.valueOf(c));
+	}
+	
 	public boolean isServizio() {
 		return this.skill == 'S';
 	}

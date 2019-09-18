@@ -106,7 +106,7 @@ public class Controller {
 					model.inserisciMuroOpzioneLettura();
 					model.inserisciToccoAMuro();
 					model.attaccoDopoRicezione();
-					model.inserisciCustomGiocatoriAMuro();
+					model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
 				}
 				if (view.getCheckStep3().isSelected()) {
 					model.inserisciPuntiRete();
@@ -178,7 +178,7 @@ public class Controller {
 					model.inserisciPuntiRete();
 				}
 				if (view.getCheckNumeroLettera().isSelected()) {
-					model.inserisciCustomGiocatoriAMuro();
+					model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
 				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
