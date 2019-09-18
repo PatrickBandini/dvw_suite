@@ -194,6 +194,9 @@ public class Controller {
 					if (view.getInserisciVelocita().isSelected()) {
 						model.inserisciVelocitaServizio(velocita);
 					}
+					if (view.getNormalizzaTempiFineAzione().isSelected()) {
+						model.normalizzaTempiFineAzione();
+					}
 					String filename = view.getButtonEsegui().getText().substring(8);
 					File toSave = view.saveFile(filename);
 					writeFile(toSave);

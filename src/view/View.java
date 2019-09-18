@@ -68,6 +68,7 @@ public class View {
 	private JCheckBox checkPulisciCustomDifesa;
 	private JCheckBox checkPulisciCustomFree;
 	private JCheckBox checkSovrascriviDirezioneServizio;
+	private JCheckBox checkNormalizzaTempiFineAzione;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -255,6 +256,8 @@ public class View {
 			panelLeft.add(checkPulisciCustomMuro);
 			panelLeft.add(checkPulisciCustomDifesa);
 			panelLeft.add(checkPulisciCustomFree);
+			checkNormalizzaTempiFineAzione = new JCheckBox("Normalizza tempi fine azione");
+			panelLeft.add(checkNormalizzaTempiFineAzione);
 			checkSovrascriviDirezioneServizio = new JCheckBox("Sovrascrivi direzione Servizio dalla Ricezione");
 			panelLeft.add(checkSovrascriviDirezioneServizio);
 			
@@ -476,6 +479,10 @@ public class View {
 	
 	public JCheckBox getInserisciVelocita() {
 		return checkInserisciVelocita;
+	}
+	
+	public JCheckBox getNormalizzaTempiFineAzione() {
+		return checkNormalizzaTempiFineAzione;
 	}
 	
 	public void showError(String message) {

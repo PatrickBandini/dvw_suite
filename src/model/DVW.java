@@ -160,7 +160,42 @@ public class DVW {
 	 * 2 secondi default
 	 */
 	public void normalizzaTempiFineAzione() {
-		
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isPunto()) {
+				Riga prec = getPrevious(righe, r);
+				Riga p = prec;
+				while (!prec.getCampo0().isAttacco() && !prec.getCampo0().isPunto() && !prec.getCampo0().getStringa().contains("**")) {
+					prec = getPrevious(righe, prec);
+					if (null == prec) {
+						break;
+					}
+				}
+				while (!p.getCampo0().isSkill(p.getCampo0().getSkill().charAt(0))) {
+					p = getPrevious(righe, p);
+				}
+				Integer tempo = Integer.valueOf(p.getTimecode());
+				if (null!=prec && prec.getCampo0().isAttacco()) {
+					
+					
+					if (prec.getCampo0().getType().equals("H")) {
+						System.out.println(r.getSet() + ";" + r.getCampo0().getPunteggio());
+						System.out.println(prec.toString());
+						System.out.print(tempo+"");
+						tempo += 3;
+						r.setTimecode(String.valueOf(tempo));
+						
+					} else {
+						tempo+=2;
+						r.setTimecode(String.valueOf(tempo));
+					}
+				} else {
+					tempo+=2;
+					r.setTimecode(String.valueOf(tempo));
+				}
+				
+				
+			}
+		}
 	}
 	
 	public boolean verificaCongruenzaCodiciComposti() {
