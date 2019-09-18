@@ -108,7 +108,6 @@ public class DVW {
 		}
 		for (Velocita v:lista) {
 			if (v.getSet()==set && punteggio.equals(v.getPunteggio())) {
-				System.out.println("entra con " + v.getVelocita());
 				Integer vel = Integer.parseInt(v.getVelocita());
 				if (isBetween(vel, 40, 43)) return 'A';
 				if (isBetween(vel, 44, 47)) return 'B';
@@ -338,14 +337,9 @@ public class DVW {
 	}
 	
 	public void inserisciDifese() {
-		System.out.println("size: " +this.righe.size());
 		for (int i=0;i<this.righe.size();i++) {
-			System.out.println("size: " +this.righe.size());
-			System.out.println("i:"+i);
-			
 			Riga r = this.righe.get(i);
 			if (r.getCampo0().isAttacco()) {
-				System.out.println(r.toString());
 				if (r.getCampo0().getSpecial() != 'X') {
 					Riga attacco = r;
 					Riga muro = null;
@@ -358,7 +352,6 @@ public class DVW {
 						next = nextR.getCampo0();
 						i++;
 					}
-					System.out.println(nextR.toString());
 					if (next.isAlzata() || next.isAttacco() || next.isFree() || ("#".equals(attacco.getCampo0().getVal()) && muro != null && !"=".equals(muro.getCampo0().getVal())) || ("#".equals(attacco.getCampo0().getVal()) && muro == null)) {
 						//inserisco difesa
 						Riga difesa = new Riga(attacco.toString());
@@ -381,7 +374,7 @@ public class DVW {
 							} else {
 								team = '*';
 							}
-							if (attacco.getCampo0().getVal().equals("-") && "+".equals(muro.getCampo0().getVal())) {
+							if (attacco.getCampo0().getVal().equals("-") && null!=muro && "+".equals(muro.getCampo0().getVal())) {
 								Riga n2 = getNext(righe, muro);
 								if (n2.getCampo0().isFree() || (n2.getCampo0().isAttacco() && "PR".equals(n2.getCampo0().getCombination()))) {
 									team = attacco.getCampo0().getTeam().charAt(0);
@@ -473,7 +466,6 @@ public class DVW {
 						difesa.setCampo0(team + numero + skill + type + val + advanced + extended);
 						i++;
 						this.righe.add(i, difesa);
-						System.out.println(righe.get(i));
 					}
 				}
 			}
@@ -570,7 +562,6 @@ public class DVW {
 				if (alzata.isAlzataCP(ricezione)) {
 					if(ricezione.getCampo0().getNumero().equals(r.getCampo0().getNumero())) {
 						r.getCampo0().updateCustom(0, 1, "R");
-						System.out.println(r.toString());
 					}
 				}
 			}

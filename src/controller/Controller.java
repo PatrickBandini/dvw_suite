@@ -76,126 +76,137 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (view.getCheckPulisciCustomServizio().isSelected()) {
-					model.pulisciCustom(Campo0.SERVIZIO);
-				}
-				if (view.getCheckPulisciCustomRicezione().isSelected()) {
-					model.pulisciCustom(Campo0.RICEZIONE);
-				}
-				if (view.getCheckPulisciCustomAlzata().isSelected()) {
-					model.pulisciCustom(Campo0.ALZATA);
-				}
-				if (view.getCheckPulisciCustomAttacco().isSelected()) {
-					model.pulisciCustom(Campo0.ATTACCO);
-				}
-				if (view.getCheckPulisciCustomMuro().isSelected()) {
-					model.pulisciCustom(Campo0.MURO);
-				}
-				if (view.getCheckPulisciCustomDifesa().isSelected()) {
-					model.pulisciCustom(Campo0.DIFESA);
-				}
-				if (view.getCheckPulisciCustomFree().isSelected()) {
-					model.pulisciCustom(Campo0.FREE);
-				}
-				if (view.getCheckStep1().isSelected()) {
-					model.tempiRicezione();
-					model.aggiungiLatoRicezione();
-					model.aggiungiLatoRicettore();
-					model.tempiAttaccoCP();
-					model.tempiAttaccoContrattacco();
-					model.tempiAlzataCambioPalla();
-					model.conteggioBattute();
-					model.differenzaPunteggio();
-					model.servizioDopoInterruzione();
-					model.ricezioneEstranei();
-					model.numeroPersoneAMuro();
-				}
-				if (view.getCheckStep2().isSelected()) {
-					model.inserisciBasi();
-					model.copiaPersoneAMuro();
-					model.inserisciMuroOpzioneLettura();
-					model.inserisciToccoAMuro();
-					model.attaccoDopoRicezione();
-					model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
-				}
-				if (view.getCheckStep3().isSelected()) {
-					model.inserisciPuntiRete();
-					model.tempiMuro();
-					model.inserisciDifese();
-				}
-				if (view.getCheckTempiAttacchi().isSelected()) {
-					model.tempiAttaccoContrattacco();
-				}
-				if (view.getCheckTempiAttacchiCP().isSelected()) {
-					model.tempiAttaccoCP();
+				try {
+					if (view.getCheckPulisciCustomServizio().isSelected()) {
+						model.pulisciCustom(Campo0.SERVIZIO);
+					}
+					if (view.getCheckPulisciCustomRicezione().isSelected()) {
+						model.pulisciCustom(Campo0.RICEZIONE);
+					}
+					if (view.getCheckPulisciCustomAlzata().isSelected()) {
+						model.pulisciCustom(Campo0.ALZATA);
+					}
+					if (view.getCheckPulisciCustomAttacco().isSelected()) {
+						model.pulisciCustom(Campo0.ATTACCO);
+					}
+					if (view.getCheckPulisciCustomMuro().isSelected()) {
+						model.pulisciCustom(Campo0.MURO);
+					}
+					if (view.getCheckPulisciCustomDifesa().isSelected()) {
+						model.pulisciCustom(Campo0.DIFESA);
+					}
+					if (view.getCheckPulisciCustomFree().isSelected()) {
+						model.pulisciCustom(Campo0.FREE);
+					}
+					if (view.getCheckStep1().isSelected()) {
+						model.tempiRicezione();
+						model.aggiungiLatoRicezione();
+						model.aggiungiLatoRicettore();
+						model.tempiAttaccoCP();
+						model.tempiAttaccoContrattacco();
+						model.tempiAlzataCambioPalla();
+						model.conteggioBattute();
+						model.differenzaPunteggio();
+						model.servizioDopoInterruzione();
+						model.ricezioneEstranei();
+						model.numeroPersoneAMuro();
+					}
+					if (view.getCheckStep2().isSelected()) {
+						model.inserisciBasi();
+						model.copiaPersoneAMuro();
+						model.inserisciMuroOpzioneLettura();
+						model.inserisciToccoAMuro();
+						model.attaccoDopoRicezione();
+						model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
+					}
+					if (view.getCheckStep3().isSelected()) {
+						model.inserisciPuntiRete();
+						model.tempiMuro();
+						model.inserisciDifese();
+					}
+					if (view.getCheckTempiAttacchi().isSelected()) {
+						model.tempiAttaccoContrattacco();
+					}
+					if (view.getCheckTempiAttacchiCP().isSelected()) {
+						model.tempiAttaccoCP();
+					}
+					
+					if (view.getCheckTempiRicezione().isSelected()) {
+						model.tempiRicezione();
+					}
+					if (view.getCheckLatoRicezione().isSelected()) {
+						model.aggiungiLatoRicezione();
+					}
+					if (view.getCheckLatoRicettore().isSelected()) {
+						model.aggiungiLatoRicettore();
+					}
+					if (view.getCheckTempiAlzateCambioPalla().isSelected()) {
+						model.tempiAlzataCambioPalla();
+					}
+					if (view.getCheckNumeroPersoneAMuro().isSelected()) {
+						model.numeroPersoneAMuro();
+					}
+					if (view.getCheckConteggioBattute().isSelected()) {
+						model.conteggioBattute();
+					}
+					if (view.getCheckDifferenzaPunteggio().isSelected()) {
+						model.differenzaPunteggio();
+					}
+					if (view.getCheckServizioDopoInterruzione().isSelected()) {
+						model.servizioDopoInterruzione();
+					}
+					if (view.getCheckRicezioneEstranei().isSelected()) {
+						model.ricezioneEstranei();
+					}
+					if (view.getCheckAttaccoDopoRicezione().isSelected()) {
+						model.attaccoDopoRicezione();
+					}
+					if (view.getCheckInserisciBasi().isSelected()) {
+						model.inserisciBasi();
+					}
+					if (view.getCheckMuroOpzioneLettura().isSelected()) {
+						model.inserisciMuroOpzioneLettura();
+					}
+					if (view.getCheckInserisciDifese().isSelected()) {
+						model.inserisciDifese();
+					}
+					if (view.getCheckInserisciToccoAMuro().isSelected()) {
+						model.inserisciToccoAMuro();
+					}
+					if (view.getCheckSovrascriviDirezioneServizio().isSelected()) {
+						model.completaDirezioneServizio();
+					}
+					if (view.getCheckCopiaPersoneAMuro().isSelected()) {
+						model.copiaPersoneAMuro();
+					}
+					if (view.getCheckTempiMuro().isSelected()) {
+						model.tempiMuro();
+					}
+					if (view.getCheckSpecialErroreServizio().isSelected()) {
+						model.inserisciEstensioneErroreServizio();
+					}
+					if (view.getCheckPuntiRete().isSelected()) {
+						model.inserisciPuntiRete();
+					}
+					if (view.getCheckNumeroLettera().isSelected()) {
+						model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
+					}
+					if (view.getInserisciVelocita().isSelected()) {
+						model.inserisciVelocitaServizio(velocita);
+					}
+					String filename = view.getButtonEsegui().getText().substring(8);
+					File toSave = view.saveFile(filename);
+					writeFile(toSave);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					String str = "";
+					StackTraceElement[] ste = ex.getStackTrace();
+					for (StackTraceElement s: ste) {
+						str += s.toString() + "\n";
+					}
+					view.showError(str);
 				}
 				
-				if (view.getCheckTempiRicezione().isSelected()) {
-					model.tempiRicezione();
-				}
-				if (view.getCheckLatoRicezione().isSelected()) {
-					model.aggiungiLatoRicezione();
-				}
-				if (view.getCheckLatoRicettore().isSelected()) {
-					model.aggiungiLatoRicettore();
-				}
-				if (view.getCheckTempiAlzateCambioPalla().isSelected()) {
-					model.tempiAlzataCambioPalla();
-				}
-				if (view.getCheckNumeroPersoneAMuro().isSelected()) {
-					model.numeroPersoneAMuro();
-				}
-				if (view.getCheckConteggioBattute().isSelected()) {
-					model.conteggioBattute();
-				}
-				if (view.getCheckDifferenzaPunteggio().isSelected()) {
-					model.differenzaPunteggio();
-				}
-				if (view.getCheckServizioDopoInterruzione().isSelected()) {
-					model.servizioDopoInterruzione();
-				}
-				if (view.getCheckRicezioneEstranei().isSelected()) {
-					model.ricezioneEstranei();
-				}
-				if (view.getCheckAttaccoDopoRicezione().isSelected()) {
-					model.attaccoDopoRicezione();
-				}
-				if (view.getCheckInserisciBasi().isSelected()) {
-					model.inserisciBasi();
-				}
-				if (view.getCheckMuroOpzioneLettura().isSelected()) {
-					model.inserisciMuroOpzioneLettura();
-				}
-				if (view.getCheckInserisciDifese().isSelected()) {
-					model.inserisciDifese();
-				}
-				if (view.getCheckInserisciToccoAMuro().isSelected()) {
-					model.inserisciToccoAMuro();
-				}
-				if (view.getCheckSovrascriviDirezioneServizio().isSelected()) {
-					model.completaDirezioneServizio();
-				}
-				if (view.getCheckCopiaPersoneAMuro().isSelected()) {
-					model.copiaPersoneAMuro();
-				}
-				if (view.getCheckTempiMuro().isSelected()) {
-					model.tempiMuro();
-				}
-				if (view.getCheckSpecialErroreServizio().isSelected()) {
-					model.inserisciEstensioneErroreServizio();
-				}
-				if (view.getCheckPuntiRete().isSelected()) {
-					model.inserisciPuntiRete();
-				}
-				if (view.getCheckNumeroLettera().isSelected()) {
-					model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
-				}
-				if (view.getInserisciVelocita().isSelected()) {
-					model.inserisciVelocitaServizio(velocita);
-				}
-				String filename = view.getButtonEsegui().getText().substring(8);
-				File toSave = view.saveFile(filename);
-				writeFile(toSave);
 			}
 		});
 		

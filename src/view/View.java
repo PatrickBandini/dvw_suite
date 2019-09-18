@@ -21,6 +21,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.FileChooserUI;
 
+import main.main;
+
 public class View {
 	
 	private MyFrame frame;
@@ -474,6 +476,10 @@ public class View {
 	
 	public JCheckBox getInserisciVelocita() {
 		return checkInserisciVelocita;
+	}
+	
+	public void showError(String message) {
+		JOptionPane.showMessageDialog(frame, message, "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
 }
