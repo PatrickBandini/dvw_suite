@@ -402,6 +402,10 @@ public class Campo0 {
 		return false;
 	}
 	
+	public String getPunteggio() {
+		return this.stringa.substring(2, 7);
+	}
+	
 	public boolean isTempo() {
 		String s = stringa.substring(0,2);
 		if ("*T".equals(s) || "aT".equals(s)) {

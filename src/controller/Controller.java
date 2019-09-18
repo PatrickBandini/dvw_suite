@@ -16,6 +16,7 @@ import model.Campo0;
 import model.DVW;
 import model.NumeroLettera;
 import model.Riga;
+import model.Velocita;
 import view.View;
 
 public class Controller {
@@ -23,6 +24,7 @@ public class Controller {
 	private DVW model;
 	private List<NumeroLettera> letteraCasa = new ArrayList<NumeroLettera>();
 	private List<NumeroLettera> letteraOspite = new ArrayList<NumeroLettera>();
+	private List<Velocita> velocita = new ArrayList<Velocita>();
 	
 	private File originalFile;
 	
@@ -59,6 +61,14 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readFileNumeroLettera(view.chooseFile("*.txt", "txt", "ospite"), false);
+			}
+		});
+		
+		view.getButtonVelocita().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				readFileVelocita(view.chooseFile("*.txt", "txt", "velocita"));
 			}
 		});
 		
@@ -180,12 +190,26 @@ public class Controller {
 				if (view.getCheckNumeroLettera().isSelected()) {
 					model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
 				}
+				if (view.getInserisciVelocita().isSelected()) {
+					model.inserisciVelocitaServizio(velocita);
+				}
 				String filename = view.getButtonEsegui().getText().substring(8);
 				File toSave = view.saveFile(filename);
 				writeFile(toSave);
 			}
 		});
 		
+	}
+	
+	private void readFileVelocita(File f) {
+		try {
+			List<String> rows = Files.readAllLines(Paths.get(f.getPath()), StandardCharsets.ISO_8859_1);
+			for(int i=0;i<rows.size(); i++) {
+				velocita.add(new Velocita(rows.get(i)));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void readFileNumeroLettera(File f, boolean casa) {

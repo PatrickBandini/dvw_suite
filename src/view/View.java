@@ -27,7 +27,8 @@ public class View {
 	private JLabel filename = new JLabel("---");
 	private JLabel casaName = new JLabel("Casa: ---");
 	private JLabel ospiteName = new JLabel("Ospite: ---");
-	private JButton open, buttonPre, letteraCasa, letteraOspite;
+	private JLabel velocitaName = new JLabel("Velocità: ---");
+	private JButton open, buttonPre, letteraCasa, letteraOspite, buttonVelocita;
 	private JPanel header, panelCenter, panelBottom, panelRight, panelLeft;
 	private String lastOpenDir = "";
 	
@@ -54,6 +55,7 @@ public class View {
 	private JCheckBox checkSpecialErroreServizio;
 	private JCheckBox checkPuntiRete;
 	private JCheckBox checkNumeroLettera;
+	private JCheckBox checkInserisciVelocita;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -116,6 +118,7 @@ public class View {
 		open = new JButton("Carica DVW");
 		letteraCasa = new JButton("Carica LetteraSquadraCasa.txt");
 		letteraOspite = new JButton("Carica LetteraSquadraOspite.txt");
+		buttonVelocita = new JButton("Carica VelocitàServizio.txt");
 		buttonPre = new JButton();
 		
 		header.add(label);
@@ -126,6 +129,9 @@ public class View {
 		panelLeft.add(letteraOspite);
 		panelLeft.add(casaName);
 		panelLeft.add(ospiteName);
+		
+		panelRight.add(buttonVelocita);
+		panelRight.add(velocitaName);
 		
 		frame.setVisible(true);
 	}
@@ -140,6 +146,10 @@ public class View {
 	
 	public JButton getLetteraOspiteButton() {
 		return this.letteraOspite;
+	}
+	
+	public JButton getButtonVelocita() {
+		return this.buttonVelocita;
 	}
 	
 	public File chooseFile(String ext1, String ext2, String ext3) {
@@ -163,6 +173,8 @@ public class View {
 					casaName.setText(file.getName());
 				} else if (ext3.contains("ospite")) {
 					ospiteName.setText(file.getName());
+				} else if (ext3.contains("velocita")) {
+					velocitaName.setText(file.getName());
 				}
 				return file;
 			} catch (Exception ex) {
@@ -312,6 +324,9 @@ public class View {
 			checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
 			panelRight.add(checkNumeroLettera);
 			
+			checkInserisciVelocita = new JCheckBox("Inserisci velocita servizio");
+			panelRight.add(checkInserisciVelocita);
+			
 			
 			
 			//STEP BY STEP
@@ -455,6 +470,10 @@ public class View {
 	
 	public JCheckBox getCheckNumeroLettera() {
 		return checkNumeroLettera;
+	}
+	
+	public JCheckBox getInserisciVelocita() {
+		return checkInserisciVelocita;
 	}
 	
 }

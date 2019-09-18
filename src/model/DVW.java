@@ -74,9 +74,74 @@ public class DVW {
 	
 	/**
 	 * Leggerà in input un file contentente: Set;puntoCasa-puntoOspite;Velocita; per ogni riga
+	 * ES:
+	 * 1;00-00;85;
+	 * 1;00-01;125;
+	 * 1;01-01;115;
 	 */
-	public void inserisciVelocitaServizio() {
-		
+	public void inserisciVelocitaServizio(List<Velocita> velocita) {
+		if (velocita.size()>0) {
+			for (Riga r: this.righe) {
+				if (r.getCampo0().isServizio()) {
+					Riga punto = getPunto(righe, r);
+					if (null == punto) {
+						punto = r;
+					}
+					r.getCampo0().updateCustom(4, 1, findVelocita(velocita, punto));
+				}
+			}
+		}
+	}
+	
+	private char findVelocita(List<Velocita> lista, Riga punto) {
+		String punteggio;
+		char set;
+		if (null != punto && !punto.getCampo0().isServizio()) {
+			punteggio = punto.getCampo0().getPunteggio();
+			set = punto.getSet().charAt(0);
+		} else if (null != punto && punto.getCampo0().isServizio()) {
+			punteggio = "00:00";
+			set = punto.getSet().charAt(0);
+		} else {
+			punteggio = "00:00";
+			set = '0';
+		}
+		for (Velocita v:lista) {
+			if (v.getSet()==set && punteggio.equals(v.getPunteggio())) {
+				System.out.println("entra con " + v.getVelocita());
+				Integer vel = Integer.parseInt(v.getVelocita());
+				if (isBetween(vel, 40, 43)) return 'A';
+				if (isBetween(vel, 44, 47)) return 'B';
+				if (isBetween(vel, 48, 51)) return 'C';
+				if (isBetween(vel, 52, 55)) return 'D';
+				if (isBetween(vel, 56, 59)) return 'E';
+				if (isBetween(vel, 60, 63)) return 'F';
+				if (isBetween(vel, 64, 67)) return 'G';
+				if (isBetween(vel, 68, 71)) return 'H';
+				if (isBetween(vel, 72, 75)) return 'J';
+				if (isBetween(vel, 76, 79)) return 'K';
+				if (isBetween(vel, 80, 83)) return 'L';
+				if (isBetween(vel, 84, 87)) return 'M';
+				if (isBetween(vel, 88, 91)) return 'N';
+				if (isBetween(vel, 92, 95)) return 'O';
+				if (isBetween(vel, 96, 99)) return 'P';
+				if (isBetween(vel, 100, 103)) return 'Q';
+				if (isBetween(vel, 104, 107)) return 'R';
+				if (isBetween(vel, 108, 111)) return 'S';
+				if (isBetween(vel, 112, 115)) return 'T';
+				if (isBetween(vel, 116, 119)) return 'U';
+				if (isBetween(vel, 120, 123)) return 'V';
+				if (isBetween(vel, 124, 127)) return 'W';
+				if (isBetween(vel, 128, 131)) return 'X';
+				if (isBetween(vel, 132, 135)) return 'Y';
+				if (isBetween(vel, 136, 139)) return 'Z';
+			}
+		}
+		return '~';
+	}
+	
+	private boolean isBetween(int x, int lower, int upper) {
+		  return lower <= x && x <= upper;
 	}
 	
 	public void spostaTimecodeFondamentale(char fondamentale, int secondi) {
