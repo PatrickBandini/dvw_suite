@@ -69,6 +69,7 @@ public class View {
 	private JCheckBox checkPulisciCustomFree;
 	private JCheckBox checkSovrascriviDirezioneServizio;
 	private JCheckBox checkNormalizzaTempiFineAzione;
+	private JCheckBox checkRimuoviFrecce;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -256,10 +257,15 @@ public class View {
 			panelLeft.add(checkPulisciCustomMuro);
 			panelLeft.add(checkPulisciCustomDifesa);
 			panelLeft.add(checkPulisciCustomFree);
+			
 			checkNormalizzaTempiFineAzione = new JCheckBox("Normalizza tempi fine azione");
 			panelLeft.add(checkNormalizzaTempiFineAzione);
+			
 			checkSovrascriviDirezioneServizio = new JCheckBox("Sovrascrivi direzione Servizio dalla Ricezione");
 			panelLeft.add(checkSovrascriviDirezioneServizio);
+			
+			checkRimuoviFrecce = new JCheckBox("Rimuovi frecce");
+			panelLeft.add(checkRimuoviFrecce);
 			
 			
 			//MAIN
@@ -331,7 +337,6 @@ public class View {
 			
 			checkInserisciVelocita = new JCheckBox("Inserisci velocita servizio");
 			panelRight.add(checkInserisciVelocita);
-			
 			
 			
 			//STEP BY STEP
@@ -487,6 +492,10 @@ public class View {
 	
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(frame, message, "ERROR", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public JCheckBox getCheckRimuoviFrecce() {
+		return checkRimuoviFrecce;
 	}
 	
 }

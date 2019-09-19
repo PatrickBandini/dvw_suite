@@ -148,7 +148,13 @@ public class DVW {
 	}
 	
 	public void rimuoviFrecce() {
-		
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isSkill(r.getCampo0().getSkill().charAt(0))) {
+				r.setFrecciaA("");
+				r.setFrecciaB("");
+				r.setFrecciaC("");
+			}
+		}
 	}
 	
 	public void convertiZoneInFrecce() {
