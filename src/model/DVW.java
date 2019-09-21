@@ -162,8 +162,8 @@ public class DVW {
 	}
 	
 	/**
-	 * 3 secondi palla alta
-	 * 2 secondi default
+	 * 4 secondi palla alta e servizio/ace
+	 * 3 secondi default
 	 */
 	public void normalizzaTempiFineAzione() {
 		for (Riga r: this.righe) {
@@ -187,15 +187,18 @@ public class DVW {
 						System.out.println(r.getSet() + ";" + r.getCampo0().getPunteggio());
 						System.out.println(prec.toString());
 						System.out.print(tempo+"");
-						tempo += 3;
+						tempo += 4;
 						r.setTimecode(String.valueOf(tempo));
 						
 					} else {
-						tempo+=2;
+						tempo+=3;
 						r.setTimecode(String.valueOf(tempo));
 					}
+				} else if (prec.getCampo0().isRicezione() || prec.getCampo0().isServizio() || prec.isAlzataCP(getPrevious(righe, prec))) {
+					tempo+=4;
+					r.setTimecode(String.valueOf(tempo));
 				} else {
-					tempo+=2;
+					tempo+=3;
 					r.setTimecode(String.valueOf(tempo));
 				}
 				
