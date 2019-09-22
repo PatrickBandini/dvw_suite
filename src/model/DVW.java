@@ -149,7 +149,11 @@ public class DVW {
 	
 	public void rimuoviFrecce() {
 		for (Riga r: this.righe) {
-			if (r.getCampo0().isSkill(r.getCampo0().getSkill().charAt(0))) {
+			char c = ' ';
+			if (r.getCampo0().getMain().length() >=4) {
+				c = r.getCampo0().getSkill().charAt(0);
+			}
+			if (c != ' ' && r.getCampo0().isSkill(c)) {
 				r.setFrecciaA("");
 				r.setFrecciaB("");
 				r.setFrecciaC("");
