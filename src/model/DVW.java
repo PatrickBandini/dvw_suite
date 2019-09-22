@@ -180,10 +180,7 @@ public class DVW {
 						!prec.getCampo0().isServizio() && 
 						!prec.getCampo0().isPunto() && 
 						!prec.getCampo0().getStringa().contains("**")) {
-					if (null == prec) {
-						break;
-					}
-					
+					if (null == prec) break;
 					prec = getPrevious(righe, prec);
 				}
 				while (!p.getCampo0().isSkill(p.getCampo0().getSkill().charAt(0))) {
@@ -234,7 +231,7 @@ public class DVW {
 			if (r.getCampo0().isAlzata()) {
 				String comb = r.getCampo0().getCombination();
 				char end = r.getCampo0().getEnd();
-				if ("K1".equals(comb) || "K2".equals(comb) || "K7".equals(comb) || end == '4' || end == '3' || end == '2') {
+				if (r.isAlzataCP(getPrevious(righe, r)) || "K1".equals(comb) || "K2".equals(comb) || "K7".equals(comb) || end == '4' || end == '3' || end == '2') {
 					Campo0 primoTocco = getPrevious(righe, r).getCampo0();
 					if (primoTocco.isRicezione() || primoTocco.isFree()) {
 						Campo0 alzata = r.getCampo0();
