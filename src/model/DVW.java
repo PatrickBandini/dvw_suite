@@ -170,33 +170,34 @@ public class DVW {
 			if (r.getCampo0().isPunto()) {
 				Riga prec = getPrevious(righe, r);
 				Riga p = prec;
-				while (!prec.getCampo0().isAttacco() && !prec.getCampo0().isPunto() && !prec.getCampo0().getStringa().contains("**")) {
-					prec = getPrevious(righe, prec);
+				while (
+						!prec.getCampo0().isAttacco() && 
+						!prec.getCampo0().isRicezione() && 
+						!prec.getCampo0().isServizio() && 
+						!prec.getCampo0().isPunto() && 
+						!prec.getCampo0().getStringa().contains("**")) {
 					if (null == prec) {
 						break;
 					}
+					
+					prec = getPrevious(righe, prec);
 				}
 				while (!p.getCampo0().isSkill(p.getCampo0().getSkill().charAt(0))) {
 					p = getPrevious(righe, p);
 				}
 				Integer tempo = Integer.valueOf(p.getTimecode());
-				if (null!=prec && prec.getCampo0().isAttacco()) {
-					
-					
-					if (prec.getCampo0().getType().equals("H")) {
-						System.out.println(r.getSet() + ";" + r.getCampo0().getPunteggio());
-						System.out.println(prec.toString());
-						System.out.print(tempo+"");
+				if (null!=prec) {
+					if (prec.getCampo0().isAttacco() && prec.getCampo0().getType().equals("H")) {
 						tempo += 4;
 						r.setTimecode(String.valueOf(tempo));
-						
+					} else if (prec.getCampo0().isRicezione() || prec.isAlzataCP(getPrevious(righe, prec))) {
+						tempo+=4;
+						r.setTimecode(String.valueOf(tempo));
 					} else {
 						tempo+=3;
 						r.setTimecode(String.valueOf(tempo));
 					}
-				} else if (prec.getCampo0().isRicezione() || prec.getCampo0().isServizio() || prec.isAlzataCP(getPrevious(righe, prec))) {
-					tempo+=4;
-					r.setTimecode(String.valueOf(tempo));
+					
 				} else {
 					tempo+=3;
 					r.setTimecode(String.valueOf(tempo));
