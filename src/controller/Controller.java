@@ -102,9 +102,7 @@ public class Controller {
 						model.tempiRicezione();
 						model.aggiungiLatoRicezione();
 						model.aggiungiLatoRicettore();
-						model.tempiAttaccoCP();
-						model.tempiAttaccoContrattacco();
-						model.tempiAlzataCambioPalla();
+						model.tempiAlzata();
 						model.conteggioBattute();
 						model.differenzaPunteggio();
 						model.servizioDopoInterruzione();
@@ -140,8 +138,8 @@ public class Controller {
 					if (view.getCheckLatoRicettore().isSelected()) {
 						model.aggiungiLatoRicettore();
 					}
-					if (view.getCheckTempiAlzateCambioPalla().isSelected()) {
-						model.tempiAlzataCambioPalla();
+					if (view.getCheckTempiAlzata().isSelected()) {
+						model.tempiAlzata();
 					}
 					if (view.getCheckNumeroPersoneAMuro().isSelected()) {
 						model.numeroPersoneAMuro();
@@ -181,6 +179,9 @@ public class Controller {
 					}
 					if (view.getCheckTempiMuro().isSelected()) {
 						model.tempiMuro();
+					}
+					if (view.getCheckTempiDifesa().isSelected()) {
+						model.tempiDifesa();
 					}
 					if (view.getCheckSpecialErroreServizio().isSelected()) {
 						model.inserisciEstensioneErroreServizio();

@@ -39,10 +39,11 @@ public class View {
 	private JCheckBox checkStep2;
 	private JCheckBox checkStep3;
 	private JCheckBox checkTempiRicezione;
-	private JCheckBox checkTempiAlzateCambioPalla;
+	private JCheckBox checkTempiAlzata;
 	private JCheckBox checkLatoRicezione;
 	private JCheckBox checkLatoRicettore;
 	private JCheckBox checkTempiMuro;
+	private JCheckBox checkTempiDifesa;
 	private JCheckBox checkConteggioBattute;
 	private JCheckBox checkDifferenzaPunteggio;
 	private JCheckBox checkServizioDopoInterruzione;
@@ -288,8 +289,11 @@ public class View {
 			checkTempiAttacchiCP = new JCheckBox("Tempi Attacchi CP");
 			panelCenter.add(checkTempiAttacchiCP);
 			
-			checkTempiAlzateCambioPalla = new JCheckBox("Tempi Alzate CP");
-			panelCenter.add(checkTempiAlzateCambioPalla);
+			checkTempiAlzata = new JCheckBox("Tempi Alzata");
+			panelCenter.add(checkTempiAlzata);
+			
+			checkTempiDifesa = new JCheckBox("Tempi Difesa");
+			panelCenter.add(checkTempiDifesa);
 			
 			checkTempiMuro = new JCheckBox("Tempi Muro");
 			panelCenter.add(checkTempiMuro);
@@ -303,7 +307,7 @@ public class View {
 			checkMuroOpzioneLettura = new JCheckBox("+ Muro Opzione/Lettura");
 			panelCenter.add(checkMuroOpzioneLettura);
 			
-			checkInserisciDifese = new JCheckBox("+ Difese");
+			checkInserisciDifese = new JCheckBox("Aggiungi/Modifica Difese");
 			panelCenter.add(checkInserisciDifese);
 			
 			checkInserisciToccoAMuro = new JCheckBox("+ Tocchi a muro");
@@ -370,8 +374,8 @@ public class View {
 		return checkTempiRicezione;
 	}
 
-	public JCheckBox getCheckTempiAlzateCambioPalla() {
-		return checkTempiAlzateCambioPalla;
+	public JCheckBox getCheckTempiAlzata() {
+		return checkTempiAlzata;
 	}
 
 	public JCheckBox getCheckLatoRicezione() {
@@ -498,4 +502,7 @@ public class View {
 		return checkRimuoviFrecce;
 	}
 	
+	public JCheckBox getCheckTempiDifesa() {
+		return checkTempiDifesa;
+	}
 }

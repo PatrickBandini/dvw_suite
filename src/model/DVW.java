@@ -398,70 +398,59 @@ public class DVW {
 						next = nextR.getCampo0();
 						i++;
 					}
-					if (next.isAlzata() || next.isAttacco() || next.isFree() || ("#".equals(attacco.getCampo0().getVal()) && muro != null && !"=".equals(muro.getCampo0().getVal())) || ("#".equals(attacco.getCampo0().getVal()) && muro == null)) {
-						//inserisco difesa
-						Riga difesa = new Riga(attacco.toString());
+					if (next.isAlzata() || next.isAttacco() || next.isFree() || ("#".equals(attacco.getCampo0().getVal()) && muro != null && !"=".equals(muro.getCampo0().getVal())) || ("#".equals(attacco.getCampo0().getVal()) && muro == null) || next.isDifesa()) {
+						
+						Riga difesa;
+						boolean modifica = false;
 						char team;
 						String numero;
-						char skill;
+						char skill = 'D';
 						char type;
 						char val;
 						String advanced = "~~~";
 						String extended="";
-						difesa.setPuntoCambioPalla("");
-						difesa.setAttaccoDopoRicezioneDifesa("");
 						
-						//TEAM
-						if (attacco.getCampo0().getVal().equals("!")) {
-							team = attacco.getCampo0().getTeam().charAt(0);
-						} else {
-							if ("*".equals(teamAttacco)) {
-								team = 'a';
+						if (!next.isDifesa()) {
+							//inserisco difesa
+							difesa = new Riga(attacco.toString());
+							
+							//TEAM
+							if (attacco.getCampo0().getVal().equals("!")) {
+								team = attacco.getCampo0().getTeam().charAt(0);
 							} else {
-								team = '*';
-							}
-							if (attacco.getCampo0().getVal().equals("-") && null!=muro && "+".equals(muro.getCampo0().getVal())) {
-								Riga n2 = getNext(righe, muro);
-								if (n2.getCampo0().isFree() || (n2.getCampo0().isAttacco() && "PR".equals(n2.getCampo0().getCombination()))) {
-									team = attacco.getCampo0().getTeam().charAt(0);
+								if ("*".equals(teamAttacco)) {
+									team = 'a';
+								} else {
+									team = '*';
 								}
-							}
-						}
-						
-						//NUMERO
-						numero = "$$";
-						if (null != muro && muro.getCampo0().getVal().equals("!")) {
-							//da assegnare al libero della squadra che attacca
-						} else {
-							char end = attacco.getCampo0().getEnd();
-							if (team == '*') {
-								if (null == muro) {
-									if (end == '5' || end == '7') {
-										 //da assegnare al libero
-									} else if (end == '6' || end == '8') {
-										numero = difesa.getCasa().getZ6();
-									} else if (end == '9' || end == '1') {
-										numero = difesa.getCasa().getZ1();
-									}
-								}
-							} else {
-								if (null == muro) {
-									if (end == '5' || end == '7') {
-										 //da assegnare al libero
-									} else if (end == '6' || end == '8') {
-										numero = difesa.getOspite().getZ6();
-									} else if (end == '9' || end == '1') {
-										numero = difesa.getOspite().getZ1();
+								if (attacco.getCampo0().getVal().equals("-") && null!=muro && "+".equals(muro.getCampo0().getVal())) {
+									Riga n2 = getNext(righe, muro);
+									if (n2.getCampo0().isFree() || (n2.getCampo0().isAttacco() && "PR".equals(n2.getCampo0().getCombination()))) {
+										team = attacco.getCampo0().getTeam().charAt(0);
 									}
 								}
 							}
 							
+							//NUMERO
+							numero = "$$";
+							
+							difesa.setPuntoCambioPalla("");
+							difesa.setAttaccoDopoRicezioneDifesa("");
+							
+						} else {
+							//Modifico Difesa
+							modifica = true;
+							difesa = nextR;
+							team = difesa.getCampo0().getTeam().charAt(0);
+							numero = difesa.getCampo0().getNumero();
+							
+							nextR = getNext(righe, difesa);
+							next = nextR.getCampo0();
 						}
 						
-						
-						
-						skill = 'D';
 						type = attacco.getCampo0().getType().charAt(0);
+						
+						//VALORE
 						val = '+';
 						if (attacco.getCampo0().getVal().equals("#")) {
 							val = '=';
@@ -500,7 +489,9 @@ public class DVW {
 							advanced += "~";
 						}
 						extended = "S";
-						if (null != muro) {
+						if (attacco.getCampo0().getSkillType() == 'T') {
+							extended = "E";
+						} else if (null != muro) {
 							if (muro.getCampo0().getVal().equals("!")) {
 								extended = "C";
 							} else {
@@ -510,8 +501,11 @@ public class DVW {
 						
 						
 						difesa.setCampo0(team + numero + skill + type + val + advanced + extended);
-						i++;
-						this.righe.add(i, difesa);
+						
+						if (!modifica) {
+							i++;
+							this.righe.add(i, difesa);
+						}
 					}
 				}
 			}
@@ -684,14 +678,22 @@ public class DVW {
 		}
 	}
 	
-	public void tempiAlzataCambioPalla() {
+	public void tempiAlzata() {
 		for (Riga r: this.righe) {
-			Riga prev = getPrevious(righe, r);
-			if (r.isAlzataCP(prev)) {
-				r.setTimecode(prev.getTimecode());
+			if (r.getCampo0().isAlzata()) {
+				Riga prev = getPrevious(righe, r);
+				if (r.isAlzataCP(prev)) {
+					r.setTimecode(prev.getTimecode());
+				} else {
+					Riga next = getNext(righe, r);
+					if (next.getCampo0().isAttacco()) {
+						r.setTimecode(next.getTimecode());
+					}
+				}
 			}
+			
 		}
-		System.out.println("OK - Tempi Alzata Cambio Palla");
+		System.out.println("OK - Tempi Alzata");
 	}
 	
 	public void tempiRicezione() {
