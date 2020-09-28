@@ -71,6 +71,7 @@ public class View {
 	private JCheckBox checkSovrascriviDirezioneServizio;
 	private JCheckBox checkNormalizzaTempiFineAzione;
 	private JCheckBox checkRimuoviFrecce;
+	private JCheckBox checkCopiaDirezioneSuRicezione;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -268,6 +269,9 @@ public class View {
 			checkRimuoviFrecce = new JCheckBox("Rimuovi frecce");
 			panelLeft.add(checkRimuoviFrecce);
 			
+			checkCopiaDirezioneSuRicezione = new JCheckBox("Copia direzione Servizio sulla Ricezione");
+			panelLeft.add(checkCopiaDirezioneSuRicezione);
+			
 			
 			//MAIN
 			
@@ -464,6 +468,10 @@ public class View {
 	
 	public JCheckBox getCheckSovrascriviDirezioneServizio() {
 		return checkSovrascriviDirezioneServizio;
+	}
+	
+	public JCheckBox getCheckCopiaDirezioneSuRicezione() {
+		return checkCopiaDirezioneSuRicezione;
 	}
 	
 	public JCheckBox getCheckCopiaPersoneAMuro() {

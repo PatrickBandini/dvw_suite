@@ -174,6 +174,9 @@ public class Controller {
 					if (view.getCheckSovrascriviDirezioneServizio().isSelected()) {
 						model.completaDirezioneServizio();
 					}
+					if (view.getCheckCopiaDirezioneSuRicezione().isSelected()) {
+						model.copiaDirezioneSuRicezione();
+					}
 					if (view.getCheckCopiaPersoneAMuro().isSelected()) {
 						model.copiaPersoneAMuro();
 					}
@@ -258,6 +261,7 @@ public class Controller {
 				}
 				if (i >= model.getIndexFineIntestazione()) {
 					righe.add(new Riga(rows.get(i)));
+					System.out.println(rows.get(i).toString());
 				}
 			}
 			model.setRighe(righe);

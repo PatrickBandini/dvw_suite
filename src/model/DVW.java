@@ -188,11 +188,12 @@ public class DVW {
 				}
 				Integer tempo = Integer.valueOf(p.getTimecode());
 				if (null!=prec) {
-					if (prec.getCampo0().isAttacco() && prec.getCampo0().getType().equals("H")) {
+					if (
+							prec.getCampo0().getType().equals("H") ||
+							prec.getCampo0().isRicezione() || 
+							prec.isAlzataCP(getPrevious(righe, prec))
+						) {
 						tempo += 4;
-						r.setTimecode(String.valueOf(tempo));
-					} else if (prec.getCampo0().isRicezione() || prec.isAlzataCP(getPrevious(righe, prec))) {
-						tempo+=4;
 						r.setTimecode(String.valueOf(tempo));
 					} else {
 						tempo+=3;
@@ -382,6 +383,27 @@ public class DVW {
 		}
 	}
 	
+	/**
+	 * copia direzione servizio sulla ricezione
+	 */
+	public void copiaDirezioneSuRicezione() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isRicezione()) {
+				Campo0 ricezione = r.getCampo0();
+				Campo0 servizio = getPrevious(righe, r).getCampo0();
+				if (servizio.getStart() != ricezione.getStart()) {
+					ricezione.setStart(servizio.getStart(), true);
+				}
+				if (servizio.getEnd() != ricezione.getEnd()) {
+					ricezione.setEnd(servizio.getEnd(), true);
+				}
+				if (servizio.getSubEnd() != ricezione.getSubEnd()) {
+					ricezione.setSubEnd(servizio.getSubEnd(), true);
+				}
+ 			}
+		}
+	}
+	
 	public void inserisciDifese() {
 		for (int i=0;i<this.righe.size();i++) {
 			Riga r = this.righe.get(i);
@@ -398,7 +420,22 @@ public class DVW {
 						next = nextR.getCampo0();
 						i++;
 					}
-					if (next.isAlzata() || next.isAttacco() || next.isFree() || ("#".equals(attacco.getCampo0().getVal()) && muro != null && !"=".equals(muro.getCampo0().getVal())) || ("#".equals(attacco.getCampo0().getVal()) && muro == null) || next.isDifesa()) {
+					if (
+							next.isAlzata() || 
+							next.isAttacco() || 
+							next.isFree() || 
+							(
+									"#".equals(attacco.getCampo0().getVal()) && 
+									muro != null && 
+									!"=".equals(muro.getCampo0().getVal()) && 
+									!"/".equals(muro.getCampo0().getVal())
+							) || 
+							(
+									"#".equals(attacco.getCampo0().getVal()) && 
+									muro == null
+							) || 
+							next.isDifesa()
+					) {
 						
 						Riga difesa;
 						boolean modifica = false;
@@ -492,7 +529,7 @@ public class DVW {
 						if (attacco.getCampo0().getSkillType() == 'T') {
 							extended = "E";
 						} else if (null != muro) {
-							if (muro.getCampo0().getVal().equals("!")) {
+							if (muro.getCampo0().getVal().equals("!") || (muro.getCampo0().getVal().equals("+") && !next.isAlzata())) {
 								extended = "C";
 							} else {
 								extended = "B";
@@ -533,61 +570,75 @@ public class DVW {
 	}
 	
 	public void inserisciBasi() {
+		int i =0;
 		for (Riga r: this.righe) {
 			if (r.getCampo0().isAlzata()) {
 				Campo0 c = r.getCampo0();
 				Riga attacco = getNext(righe, r);
-				//Base
-				if (c.getType().equals("H")) {
-					c.setCombination("KE");
-				} else if (attacco.getCampo0().isAttacco()) {
-					String comb = attacco.getCampo0().getCombination();
-					if (comb.equals("X2")) {
-						c.setCombination("K2");
-					} else if (comb.equals("X7") || comb.equals("XD") || comb.equals("XP")) {
-						c.setCombination("K7");
+				System.out.println(c.toString());
+				if ("".equals(c.getCombination()) || "~~".equals(c.getCombination())) {
+					//Base
+					if (c.getType().equals("H")) {
+						c.setCombination("KE");
+					} else if (attacco.getCampo0().isAttacco()) {
+						String comb = attacco.getCampo0().getCombination();
+						if (comb.equals("X2") || comb.equals("C2") || comb.equals("Z2")) {
+							c.setCombination("K2");
+						} else if (comb.equals("X7") || comb.equals("XD") || comb.equals("XP")) {
+							c.setCombination("K7");
+						} else {
+							c.setCombination("K1");
+						}
 					} else {
 						c.setCombination("K1");
 					}
-				} else {
-					c.setCombination("K1");
+					System.out.println(c.toString());
 				}
-				//Distribuzione
-				if (attacco.getCampo0().isAttacco()) {
-					switch(attacco.getCampo0().getCombination()) {
-					case "X1":
-					case "X2":
-					case "XC":
-					case "XD":
-					case "X7":
-					case "V3":
-						c.setTarget('C');
-						break;
-					case "X5":
-					case "X9":
-					case "C5":
-					case "V5":
-					case "VE":
-						c.setTarget('F');
-						break;
-					case "X6":
-					case "X8":
-					case "C6":
-					case "C8":
-					case "X4":
-					case "V6":
-					case "V8":
-					case "VD":
-						c.setTarget('B');
-						break;
-					case "XP":
-					case "XR":
-					case "XB":
-					case "VP":
-						c.setTarget('P');
-						break;
-					case "PP":
-						c.setTarget('S');
+				i++;
+				System.out.println(""+ i);
+				
+				if (c.getTarget() == ' ' || c.getTarget() == '~') {
+					//Distribuzione
+					if (attacco.getCampo0().isAttacco()) {
+						switch(attacco.getCampo0().getCombination()) {
+						case "X1":
+						case "X2":
+						case "XC":
+						case "XD":
+						case "X7":
+						case "V3":
+						case "C1":
+						case "C2":
+						case "Z1":
+						case "Z2":
+							c.setTarget('C');
+							break;
+						case "X5":
+						case "X9":
+						case "C5":
+						case "V5":
+						case "VE":
+							c.setTarget('F');
+							break;
+						case "X6":
+						case "X8":
+						case "C6":
+						case "C8":
+						case "X4":
+						case "V6":
+						case "V8":
+						case "VD":
+							c.setTarget('B');
+							break;
+						case "XP":
+						case "XR":
+						case "XB":
+						case "VP":
+							c.setTarget('P');
+							break;
+						case "PP":
+							c.setTarget('S');
+						}
 					}
 				}
 			}
