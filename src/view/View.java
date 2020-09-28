@@ -80,7 +80,7 @@ public class View {
 	
 	public View() {
 		// Creo il frame e imposto titolo e layout
-		this.frame = new MyFrame("DVW Suite", new BorderLayout());
+		this.frame = new MyFrame("Volley Scout Customizer", new BorderLayout());
 		
 		//Creo pannello HEADER
 		header = new JPanel(new FlowLayout());
