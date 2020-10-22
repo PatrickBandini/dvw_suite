@@ -72,6 +72,15 @@ public class Controller {
 			}
 		});
 		
+		view.getButtonLogin().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		view.getButtonEsegui().addActionListener(new ActionListener() {
 			
 			@Override

@@ -34,6 +34,11 @@ public class View {
 	private JPanel header, panelCenter, panelBottom, panelRight, panelLeft;
 	private String lastOpenDir = "";
 	
+	private JLabel licenza = new JLabel("Licenza: ---");
+	private JLabel scadenza = new JLabel("Scadenza: ---");
+	private JPanel panelLogin;
+	private JButton btnLogin;
+	
 	//step by step
 	private JCheckBox checkStep1;
 	private JCheckBox checkStep2;
@@ -95,7 +100,19 @@ public class View {
 		panelBottom = new JPanel();
 		panelBottom.setBorder(new TitledBorder("ELABORA"));
 		panelBottom.setSize(800, 200);
-		panelBottom.setLayout(new BoxLayout(panelBottom, BoxLayout.Y_AXIS));
+		panelBottom.setLayout(new BorderLayout());
+		
+		//Creo pannello Login
+		panelLogin = new JPanel();
+		panelLogin.setLayout(new BoxLayout(panelLogin, BoxLayout.Y_AXIS));
+		panelLogin.add(licenza);
+		panelLogin.add(scadenza);
+		if (licenza.getText().contains("---") && scadenza.getText().contains("---")) {
+			btnLogin = new JButton();
+			btnLogin.setText("Login");
+			panelLogin.add(btnLogin);
+		}
+		panelBottom.add(panelLogin, BorderLayout.EAST);
 		
 		//Creo pannello Custom • right
 		panelRight = new JPanel();
@@ -175,7 +192,7 @@ public class View {
 						buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + ext3);
 						buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
 						initCheckbox();
-						panelBottom.add(buttonPre);
+						panelBottom.add(buttonPre, BorderLayout.WEST);
 					}
 				} else if (ext3.contains("casa")) {
 					casaName.setText(file.getName());
@@ -242,6 +259,10 @@ public class View {
 	
 	public JButton getButtonEsegui() {
 		return buttonPre;
+	}
+	
+	public JButton getButtonLogin() {
+		return btnLogin;
 	}
 	
 	private void initCheckbox() {
