@@ -77,6 +77,9 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					if (view.getTrasformaVelocita().isSelected()) {
+						model.trasformaVelocitaServizio();
+					}
 					if (view.getCheckPulisciCustomServizio().isSelected()) {
 						model.pulisciCustom(Campo0.SERVIZIO);
 					}
@@ -98,7 +101,7 @@ public class Controller {
 					if (view.getCheckPulisciCustomFree().isSelected()) {
 						model.pulisciCustom(Campo0.FREE);
 					}
-					if (view.getCheckStep1().isSelected()) {
+					/*if (view.getCheckStep1().isSelected()) {
 						model.tempiRicezione();
 						model.aggiungiLatoRicezione();
 						model.aggiungiLatoRicettore();
@@ -121,7 +124,7 @@ public class Controller {
 						model.inserisciPuntiRete();
 						model.tempiMuro();
 						model.inserisciDifese();
-					}
+					}*/
 					if (view.getCheckTempiAttacchi().isSelected()) {
 						model.tempiAttaccoContrattacco();
 					}
@@ -195,9 +198,9 @@ public class Controller {
 					if (view.getCheckNumeroLettera().isSelected()) {
 						model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
 					}
-					if (view.getInserisciVelocita().isSelected()) {
+					/*if (view.getInserisciVelocita().isSelected()) {
 						model.inserisciVelocitaServizio(velocita);
-					}
+					}*/
 					if (view.getNormalizzaTempiFineAzione().isSelected()) {
 						model.normalizzaTempiFineAzione();
 					}

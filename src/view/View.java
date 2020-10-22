@@ -59,6 +59,7 @@ public class View {
 	private JCheckBox checkPuntiRete;
 	private JCheckBox checkNumeroLettera;
 	private JCheckBox checkInserisciVelocita;
+	private JCheckBox checkTrasformaVelocita;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -323,6 +324,10 @@ public class View {
 			
 			
 			//CUSTOM
+			
+			checkTrasformaVelocita = new JCheckBox("Trasforma velocita servizio in lettere");
+			panelRight.add(checkTrasformaVelocita);
+			
 			checkConteggioBattute = new JCheckBox("Conteggio Battute");
 			panelRight.add(checkConteggioBattute);
 			
@@ -344,8 +349,8 @@ public class View {
 			checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
 			panelRight.add(checkNumeroLettera);
 			
-			checkInserisciVelocita = new JCheckBox("Inserisci velocita servizio");
-			panelRight.add(checkInserisciVelocita);
+			//checkInserisciVelocita = new JCheckBox("Inserisci velocita servizio");
+			//panelRight.add(checkInserisciVelocita);
 			
 			
 			//STEP BY STEP
@@ -499,6 +504,10 @@ public class View {
 	
 	public JCheckBox getInserisciVelocita() {
 		return checkInserisciVelocita;
+	}
+	
+	public JCheckBox getTrasformaVelocita() {
+		return checkTrasformaVelocita;
 	}
 	
 	public JCheckBox getNormalizzaTempiFineAzione() {

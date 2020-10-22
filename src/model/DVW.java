@@ -93,6 +93,27 @@ public class DVW {
 		}
 	}
 	
+	public void trasformaVelocitaServizio() {
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isServizio()) {
+				Riga punto = getPunto(righe, r);
+				if (null == punto) {
+					punto = r;
+				}
+				Integer vel = -1;
+				try {
+					String strvel = r.getCampo0().getCustom().substring(0, 2);
+					vel = Integer.parseInt(strvel);
+				} catch (Exception ex) {
+					
+				}
+				if (vel != -1) {
+					r.getCampo0().updateCustom(4, 1, rangeVelocita(vel));
+				}
+			}
+		}
+	}
+	
 	private char findVelocita(List<Velocita> lista, Riga punto) {
 		String punteggio;
 		char set;
@@ -109,34 +130,39 @@ public class DVW {
 		for (Velocita v:lista) {
 			if (v.getSet()==set && punteggio.equals(v.getPunteggio())) {
 				Integer vel = Integer.parseInt(v.getVelocita());
-				if (isBetween(vel, 40, 43)) return 'A';
-				if (isBetween(vel, 44, 47)) return 'B';
-				if (isBetween(vel, 48, 51)) return 'C';
-				if (isBetween(vel, 52, 55)) return 'D';
-				if (isBetween(vel, 56, 59)) return 'E';
-				if (isBetween(vel, 60, 63)) return 'F';
-				if (isBetween(vel, 64, 67)) return 'G';
-				if (isBetween(vel, 68, 71)) return 'H';
-				if (isBetween(vel, 72, 75)) return 'J';
-				if (isBetween(vel, 76, 79)) return 'K';
-				if (isBetween(vel, 80, 83)) return 'L';
-				if (isBetween(vel, 84, 87)) return 'M';
-				if (isBetween(vel, 88, 91)) return 'N';
-				if (isBetween(vel, 92, 95)) return 'O';
-				if (isBetween(vel, 96, 99)) return 'P';
-				if (isBetween(vel, 100, 103)) return 'Q';
-				if (isBetween(vel, 104, 107)) return 'R';
-				if (isBetween(vel, 108, 111)) return 'S';
-				if (isBetween(vel, 112, 115)) return 'T';
-				if (isBetween(vel, 116, 119)) return 'U';
-				if (isBetween(vel, 120, 123)) return 'V';
-				if (isBetween(vel, 124, 127)) return 'W';
-				if (isBetween(vel, 128, 131)) return 'X';
-				if (isBetween(vel, 132, 135)) return 'Y';
-				if (isBetween(vel, 136, 139)) return 'Z';
+				rangeVelocita(vel);
 			}
 		}
 		return '~';
+	}
+	
+	private char rangeVelocita(Integer vel) {
+		if (isBetween(vel, 40, 43)) return 'A';
+		if (isBetween(vel, 44, 47)) return 'B';
+		if (isBetween(vel, 48, 51)) return 'C';
+		if (isBetween(vel, 52, 55)) return 'D';
+		if (isBetween(vel, 56, 59)) return 'E';
+		if (isBetween(vel, 60, 63)) return 'F';
+		if (isBetween(vel, 64, 67)) return 'G';
+		if (isBetween(vel, 68, 71)) return 'H';
+		if (isBetween(vel, 72, 75)) return 'J';
+		if (isBetween(vel, 76, 79)) return 'K';
+		if (isBetween(vel, 80, 83)) return 'L';
+		if (isBetween(vel, 84, 87)) return 'M';
+		if (isBetween(vel, 88, 91)) return 'N';
+		if (isBetween(vel, 92, 95)) return 'O';
+		if (isBetween(vel, 96, 99)) return 'P';
+		if (isBetween(vel, 100, 103)) return 'Q';
+		if (isBetween(vel, 104, 107)) return 'R';
+		if (isBetween(vel, 108, 111)) return 'S';
+		if (isBetween(vel, 112, 115)) return 'T';
+		if (isBetween(vel, 116, 119)) return 'U';
+		if (isBetween(vel, 120, 123)) return 'V';
+		if (isBetween(vel, 124, 127)) return 'W';
+		if (isBetween(vel, 128, 131)) return 'X';
+		if (isBetween(vel, 132, 135)) return 'Y';
+		if (isBetween(vel, 136, 139)) return 'Z';
+		return '0';
 	}
 	
 	private boolean isBetween(int x, int lower, int upper) {
