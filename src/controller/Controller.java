@@ -195,10 +195,10 @@ public class Controller {
 					if (view.getCheckPuntiRete().isSelected()) {
 						model.inserisciPuntiRete();
 					}
-					if (view.getCheckNumeroLettera().isSelected()) {
+					/*if (view.getCheckNumeroLettera().isSelected()) {
 						model.inserisciCustomGiocatoriAMuro(letteraCasa, letteraOspite);
 					}
-					/*if (view.getInserisciVelocita().isSelected()) {
+					if (view.getInserisciVelocita().isSelected()) {
 						model.inserisciVelocitaServizio(velocita);
 					}*/
 					if (view.getNormalizzaTempiFineAzione().isSelected()) {

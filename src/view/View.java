@@ -346,8 +346,8 @@ public class View {
 			checkPuntiRete = new JCheckBox("Inserisci Punti Rete");
 			panelRight.add(checkPuntiRete);
 			
-			checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
-			panelRight.add(checkNumeroLettera);
+			//checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
+			//panelRight.add(checkNumeroLettera);
 			
 			//checkInserisciVelocita = new JCheckBox("Inserisci velocita servizio");
 			//panelRight.add(checkInserisciVelocita);
