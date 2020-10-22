@@ -92,7 +92,7 @@ public class View {
 		
 		//Creo pannello STEP
 		panelBottom = new JPanel();
-		panelBottom.setBorder(new TitledBorder("STEP BY STEP"));
+		panelBottom.setBorder(new TitledBorder("ELABORA"));
 		panelBottom.setSize(800, 200);
 		panelBottom.setLayout(new BoxLayout(panelBottom, BoxLayout.Y_AXIS));
 		
@@ -131,14 +131,15 @@ public class View {
 		header.add(open);
 		header.add(filename);
 		
-		panelLeft.add(letteraCasa);
+		/*
+		panelLeft.add(letteraCasa); 
 		panelLeft.add(letteraOspite);
 		panelLeft.add(casaName);
 		panelLeft.add(ospiteName);
 		
 		panelRight.add(buttonVelocita);
 		panelRight.add(velocitaName);
-		
+		*/
 		frame.setVisible(true);
 	}
 	
@@ -169,8 +170,8 @@ public class View {
 				if (ext3.contains("dvw")) {
 					filename.setText(file.getName());
 					if ("---" != filename.getText()) {
-						float seconds = System.currentTimeMillis() / 1000F;
-						buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + "_" + seconds + ext3);
+						//float seconds = System.currentTimeMillis() / 1000F;
+						buttonPre.setText("Elabora " + filename.getText().substring(0, filename.getText().length()-4) + ext3);
 						buttonPre.setAlignmentX(Component.CENTER_ALIGNMENT);
 						initCheckbox();
 						panelBottom.add(buttonPre);
@@ -348,6 +349,7 @@ public class View {
 			
 			
 			//STEP BY STEP
+			/*
 			checkStep1 = new JCheckBox("ESEGUI STEP 1");
 			checkStep1.setAlignmentX(Component.CENTER_ALIGNMENT);
 			panelBottom.add(checkStep1);
@@ -357,6 +359,7 @@ public class View {
 			checkStep3 = new JCheckBox("ESEGUI STEP 3");
 			checkStep3.setAlignmentX(Component.CENTER_ALIGNMENT);
 			panelBottom.add(checkStep3);
+			*/
 			View.inizializzati = true;
 		}
 		
