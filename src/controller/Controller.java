@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,9 +18,15 @@ import model.DVW;
 import model.NumeroLettera;
 import model.Riga;
 import model.Velocita;
+import view.LoginFrame;
+import view.LoginView;
+import view.MyFrame;
 import view.View;
 
 public class Controller {
+	
+	private LoginFrame loginFrame;
+	
 	private View view;
 	private DVW model;
 	private List<NumeroLettera> letteraCasa = new ArrayList<NumeroLettera>();
@@ -76,8 +83,7 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				new LoginView();
 			}
 		});
 		
