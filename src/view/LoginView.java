@@ -3,12 +3,25 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import model.SHA;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LoginView implements ActionListener {
 	
@@ -49,9 +62,49 @@ public class LoginView implements ActionListener {
 		if (!email.matches(EMAIL_PATTERN)) {
 			message.setText("Errore: username non valido");
 		} else {
-			String psw = this.password.getText();
+			char[] psw = this.password.getPassword();
+			
+			try {
+				String chiperText = SHA.SHA1(new String(psw));
+				callLogin(email, chiperText, main.main.SIGLA, main.main.VERSIONE);
+			} catch (NoSuchAlgorithmException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
+	}
+	
+	private void callLogin(String mail, String chiper, String sigla, String versione) {
+		HttpClient client = HttpClient.newHttpClient();
+		
+		var values = new HashMap<String, String>() {{
+            put("mail", mail);
+            put("psw", chiper);
+            put("sigla", sigla);
+            put("versione", versione);
+        }};
+        
+		try {
+			var objectMapper = new ObjectMapper();
+	        String requestBody = objectMapper.writeValueAsString(values);
+			
+	        HttpRequest request = HttpRequest.newBuilder()
+	        		.uri(URI.create("http://www.allaroundvolley.com/abbonamento.php"))
+	        		.timeout(Duration.ofMinutes(1))
+	        	    .header("Content-Type", "application/x-www-form-urlencoded")
+	        	    .POST(BodyPublishers.ofString(requestBody))
+	        	    .build();
+
+	        HttpResponse<String> response;
+	        
+			response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			//risponde auth:Negato account di test: prova@prova.it psw: prova
+			System.out.println(response.body());
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+
+        
 	}
 	
 
