@@ -11,7 +11,10 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,9 +22,16 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.SHA;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import model.SHA;
 
 public class LoginView implements ActionListener {
 	
@@ -29,6 +39,8 @@ public class LoginView implements ActionListener {
 		    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+	private final CloseableHttpClient httpClient = HttpClients.createDefault();
+	
 	private LoginFrame loginFrame;
 	private JLabel labelUsername = new JLabel("Username:");
 	private JLabel labelPassword = new JLabel("Password:");
@@ -66,46 +78,44 @@ public class LoginView implements ActionListener {
 			
 			try {
 				String chiperText = SHA.SHA1(new String(psw));
-				callLogin(email, chiperText, main.main.SIGLA, main.main.VERSIONE);
-			} catch (NoSuchAlgorithmException e1) {
+				this.callLogin(email, chiperText, main.main.SIGLA, main.main.VERSIONE);
+				
+			} catch (Exception e1) {
 				e1.printStackTrace();
+			} finally {
+				try {
+					this.close();
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
 			}
 		}
 		
 	}
 	
-	private void callLogin(String mail, String chiper, String sigla, String versione) {
-		HttpClient client = HttpClient.newHttpClient();
-		
-		var values = new HashMap<String, String>() {{
-            put("mail", mail);
-            put("psw", chiper);
-            put("sigla", sigla);
-            put("versione", versione);
-        }};
-        
-		try {
-			var objectMapper = new ObjectMapper();
-	        String requestBody = objectMapper.writeValueAsString(values);
-			
-	        HttpRequest request = HttpRequest.newBuilder()
-	        		.uri(URI.create("http://www.allaroundvolley.com/abbonamento.php"))
-	        		.timeout(Duration.ofMinutes(1))
-	        	    .header("Content-Type", "application/x-www-form-urlencoded")
-	        	    .POST(BodyPublishers.ofString(requestBody))
-	        	    .build();
+	private void callLogin(String mail, String chiper, String sigla, String versione) throws Exception {
+		HttpPost post = new HttpPost("http://www.allaroundvolley.com/abbonamento.php");
 
-	        HttpResponse<String> response;
-	        
-			response = client.send(request, HttpResponse.BodyHandlers.ofString());
-			//risponde auth:Negato account di test: prova@prova.it psw: prova
-			System.out.println(response.body());
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+        // add request parameter, form parameters
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("mail", mail));
+        urlParameters.add(new BasicNameValuePair("psw", chiper));
+        urlParameters.add(new BasicNameValuePair("sigla", sigla));
+        urlParameters.add(new BasicNameValuePair("versione", versione));
 
-        
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+             CloseableHttpResponse response = httpClient.execute(post)) {
+
+            System.out.println(EntityUtils.toString(response.getEntity()));
+            //Risponde: {"auth":"InApprovazione","codice":"35","key":"MIGfMA0G..."}
+        }
 	}
+	
+	private void close() throws IOException {
+        httpClient.close();
+    }
 	
 
 }
