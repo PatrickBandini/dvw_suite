@@ -218,6 +218,8 @@ public class Controller {
 						str += s.toString() + "\n";
 					}
 					view.showError(str);
+				} finally {
+					verificaAbbonamento();
 				}
 				
 			}
