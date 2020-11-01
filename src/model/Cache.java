@@ -11,7 +11,6 @@ public class Cache {
 	
 	public static final String USER = "user";
 	public static final String CODICE = "codice";
-	public static final String STATO = "stato";
 	public static final String PUBLIC_KEY_SERVER = "publicKeyServer";
 	public static final String PUBLIC_KEY = "publicKey";
 	public static final String PRIVATE_KEY = "privateKey";
@@ -20,14 +19,6 @@ public class Cache {
 	
 	private Properties prop;
 	private String path;
-	
-	//Properties:
-	private String user;
-	private String stato;
-	private String codice;
-	private String publicKeyServer;
-	private String publicKey;
-	private String privateKey;
 	
 	private Cache() {
 		try {
@@ -75,11 +66,6 @@ public class Cache {
 		write(); 
 	}
 	
-	public void setStato(String stato) {
-		prop.setProperty(STATO, stato);
-		write(); 
-	}
-	
 	public void setPublicKeyServer(String key) {
 		prop.setProperty(PUBLIC_KEY_SERVER, key);
 		write();
@@ -95,16 +81,30 @@ public class Cache {
 		write();
 	}
 	
-	public boolean isValido() {
-		return null!=stato && main.main.VALIDO.equals(stato);
+	public String getUsername() {
+		read();
+		try {
+			return prop.getProperty(USER);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 	
-	public boolean isInApprovazione() {
-		return null!=stato && main.main.IN_APPROVAZIONE.equals(stato);
+	public String getCodice() {
+		read();
+		try {
+			return prop.getProperty(CODICE);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 	
-	public boolean isNegato() {
-		return !isValido() && !isInApprovazione();
+	public String getPrivateKey() {
+		read();
+		try {
+			return prop.getProperty(PRIVATE_KEY);
+		} catch (Exception e) {
+			return "";
+		}
 	}
-	
 }

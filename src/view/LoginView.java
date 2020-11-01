@@ -121,7 +121,7 @@ public class LoginView implements ActionListener {
         	
         	if (null != auth && auth.equals(main.main.IN_APPROVAZIONE)) {
         		if (null != codice && !"".equals(codice) && null != key && !"".equals(key)) {
-                    this.cache.setStato(auth);
+        			Controller.setAbbonamento(auth);
                     this.cache.setCodice(codice);
                     this.cache.setPublicKeyServer(key);
             		KeyPair pair = RSA.generateKeyPair();
@@ -153,24 +153,24 @@ public class LoginView implements ActionListener {
                         String authCripted = response2.getString("auth");
                         String responseAuth = RSA.decrypt(authCripted, prvKey);
                         if (responseAuth.equals(main.main.IN_APPROVAZIONE) || responseAuth.equals(main.main.VALIDO)) {
-                        	this.cache.setStato(responseAuth);
+                        	Controller.setAbbonamento(responseAuth);
                         	this.cache.setUsername(mail);
-                        	controller.refreshFromLogin();
+                        	controller.refreshAbbonamento();
                         	loginFrame.dispose();
                         } else {
-                        	this.cache.setStato(main.main.NEGATO);
-                        	controller.refreshFromLogin();
+                        	Controller.setAbbonamento(main.main.NEGATO);
+                        	controller.refreshAbbonamento();
                         }
             		} catch (Exception ex) {
             			ex.printStackTrace();
             		}
             	} else {
-            		this.cache.setStato(main.main.NEGATO);
-            		controller.refreshFromLogin();
+            		Controller.setAbbonamento(main.main.NEGATO);
+            		controller.refreshAbbonamento();
             	}
         	} else {
-        		this.cache.setStato(main.main.NEGATO);
-        		controller.refreshFromLogin();
+        		Controller.setAbbonamento(main.main.NEGATO);
+        		controller.refreshAbbonamento();
         	}    	
         } catch (Exception e) {
         	e.printStackTrace();

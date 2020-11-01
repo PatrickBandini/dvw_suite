@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.FileChooserUI;
 
 import main.main;
+import model.Cache;
 
 public class View {
 	
@@ -107,9 +108,9 @@ public class View {
 		panelLogin.setLayout(new BoxLayout(panelLogin, BoxLayout.Y_AXIS));
 		panelLogin.add(licenza);
 		panelLogin.add(scadenza);
+		btnLogin = new JButton();
+		btnLogin.setText("Login");
 		if (licenza.getText().contains("---") && scadenza.getText().contains("---")) {
-			btnLogin = new JButton();
-			btnLogin.setText("Login");
 			panelLogin.add(btnLogin);
 		}
 		panelBottom.add(panelLogin, BorderLayout.EAST);
@@ -545,5 +546,17 @@ public class View {
 	
 	public JCheckBox getCheckTempiDifesa() {
 		return checkTempiDifesa;
+	}
+	
+	public void refreshAbbonamento(String lic, String stato) {
+		if (stato.equals(main.VALIDO) || stato.equals(main.IN_APPROVAZIONE)) {
+			licenza.setText("Licenza: "+ lic);
+			scadenza.setText("Stato: "+ stato);
+		}
+		if (licenza.getText().contains("---") && scadenza.getText().contains("---")) {
+			panelLogin.add(btnLogin);
+		} else {
+			panelLogin.remove(btnLogin);
+		}
 	}
 }
