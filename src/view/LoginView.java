@@ -9,9 +9,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
+import model.RSA;
 import model.SHA;
 
 public class LoginView implements ActionListener {
@@ -105,11 +109,51 @@ public class LoginView implements ActionListener {
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
-        try (CloseableHttpClient httpClient = HttpClients.createDefault();
-             CloseableHttpResponse response = httpClient.execute(post)) {
-
-            System.out.println(EntityUtils.toString(response.getEntity()));
-            //Risponde: {"auth":"InApprovazione","codice":"35","key":"MIGfMA0G..."}
+        try (CloseableHttpClient httpClient = HttpClients.createDefault(); 
+        		CloseableHttpResponse response = httpClient.execute(post)) {
+        	//Risponde: {"auth":"InApprovazione","codice":"35","key":"MIGfMA0G..."}
+        	
+        	JSONObject responseLogin = new JSONObject(EntityUtils.toString(response.getEntity()));
+        	String auth = responseLogin.getString("auth");
+        	String codice = responseLogin.getString("codice");
+        	String key = responseLogin.getString("key");
+        	
+        	if (null != codice && !"".equals(codice) && null != key && !"".equals(key)) {
+        		KeyPair pair = RSA.generateKeyPair();
+        		HttpPost postSendKey = new HttpPost("http://www.allaroundvolley.com/controlloperiodico.php");
+        		
+        		byte[] publicKeyBytes = Base64.getEncoder().encode(pair.getPublic().getEncoded());
+                String pubKey = new String(publicKeyBytes);
+                pubKey = pubKey.replace("\n", "");
+        		
+        		List<NameValuePair> urlParametersSendKey = new ArrayList<>();
+        		urlParametersSendKey.add(new BasicNameValuePair("key", pubKey));
+        		urlParametersSendKey.add(new BasicNameValuePair("codice", codice));
+        		urlParametersSendKey.add(new BasicNameValuePair("sigla", sigla));
+        		urlParametersSendKey.add(new BasicNameValuePair("versione", versione));
+        		
+        		postSendKey.setEntity(new UrlEncodedFormEntity(urlParametersSendKey));
+        		
+        		try (CloseableHttpClient httpClientSendKey = HttpClients.createDefault(); 
+        				CloseableHttpResponse responseSendKey = httpClientSendKey.execute(postSendKey)) {
+        			//Risponde: {"auth":"Luft..."}
+        			
+        			byte[] privateKeyBytes = Base64.getEncoder().encode(pair.getPrivate().getEncoded());
+                    String prvKey = new String(privateKeyBytes);
+                    prvKey = prvKey.replace("\n", "");
+                    
+                    JSONObject response2 = new JSONObject(EntityUtils.toString(responseSendKey.getEntity()));
+                    String authCripted = response2.getString("auth");
+                    
+                    String responseAuth = RSA.decrypt(authCripted, prvKey);
+                    if (responseAuth.equals(main.main.IN_APPROVAZIONE) || responseAuth.equals(main.main.VALIDO)) {
+                    	//login corretto
+                    	//disableLogin + textView in approvazione
+                    }
+        		}
+        		
+        	}
+            
         }
 	}
 	
