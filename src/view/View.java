@@ -134,7 +134,7 @@ public class View {
 		frame.getMainPanel().add(panelLeft, BorderLayout.WEST);
 		
 		
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/prc.png"));
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/vsc.png"));
 		Image image = icon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		icon = new ImageIcon(newimg);

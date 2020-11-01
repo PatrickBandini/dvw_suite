@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,9 +23,14 @@ public class Cache {
 	
 	private Cache() {
 		try {
-			String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-			this.path = rootPath + "config.properties";
-			 
+			File rootDir = new File("C:/VSC/");
+			if (!rootDir.exists()){
+				rootDir.mkdirs();
+			}
+			this.path = rootDir.getPath() + "/config.properties";
+			File config = new File(this.path);
+			config.createNewFile();
+			
 			this.prop = new Properties();
 			this.prop.load(new FileInputStream(this.path));
 		} catch (Exception ex) {
