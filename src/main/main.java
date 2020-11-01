@@ -15,11 +15,10 @@ public class main {
 	
     public static void main(String[] args) {
         View view = new View();
-        
         Controller controller = new Controller(view, null);
-        
-        new Cache();
-        
+        Cache.getInstance();
     }
+    
+    
     
 }

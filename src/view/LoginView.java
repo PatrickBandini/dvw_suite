@@ -34,6 +34,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import controller.Controller;
+import model.Cache;
 import model.RSA;
 import model.SHA;
 
@@ -45,6 +47,9 @@ public class LoginView implements ActionListener {
 
 	private final CloseableHttpClient httpClient = HttpClients.createDefault();
 	
+	private Cache cache;
+	private Controller controller;
+	
 	private LoginFrame loginFrame;
 	private JLabel labelUsername = new JLabel("Username:");
 	private JLabel labelPassword = new JLabel("Password:");
@@ -53,7 +58,7 @@ public class LoginView implements ActionListener {
 	private JTextField username;
 	private JPasswordField password;
 	
-	public LoginView() {
+	public LoginView(Controller controller) {
 		this.loginFrame = new LoginFrame("Login", new GridLayout(3, 1));
 		
 		this.buttonLogin = new JButton("Submit");
@@ -70,6 +75,9 @@ public class LoginView implements ActionListener {
 		this.buttonLogin.addActionListener(this);
 		
 		this.loginFrame.setVisible(true);
+		
+		this.cache = Cache.getInstance();
+		this.controller = controller;
 	}
 
 	@Override
@@ -83,15 +91,8 @@ public class LoginView implements ActionListener {
 			try {
 				String chiperText = SHA.SHA1(new String(psw));
 				this.callLogin(email, chiperText, main.main.SIGLA, main.main.VERSIONE);
-				
 			} catch (Exception e1) {
 				e1.printStackTrace();
-			} finally {
-				try {
-					this.close();
-				} catch (IOException e2) {
-					e2.printStackTrace();
-				}
 			}
 		}
 		
@@ -118,48 +119,63 @@ public class LoginView implements ActionListener {
         	String codice = responseLogin.getString("codice");
         	String key = responseLogin.getString("key");
         	
-        	if (null != codice && !"".equals(codice) && null != key && !"".equals(key)) {
-        		KeyPair pair = RSA.generateKeyPair();
-        		HttpPost postSendKey = new HttpPost("http://www.allaroundvolley.com/controlloperiodico.php");
-        		
-        		byte[] publicKeyBytes = Base64.getEncoder().encode(pair.getPublic().getEncoded());
-                String pubKey = new String(publicKeyBytes);
-                pubKey = pubKey.replace("\n", "");
-        		
-        		List<NameValuePair> urlParametersSendKey = new ArrayList<>();
-        		urlParametersSendKey.add(new BasicNameValuePair("key", pubKey));
-        		urlParametersSendKey.add(new BasicNameValuePair("codice", codice));
-        		urlParametersSendKey.add(new BasicNameValuePair("sigla", sigla));
-        		urlParametersSendKey.add(new BasicNameValuePair("versione", versione));
-        		
-        		postSendKey.setEntity(new UrlEncodedFormEntity(urlParametersSendKey));
-        		
-        		try (CloseableHttpClient httpClientSendKey = HttpClients.createDefault(); 
-        				CloseableHttpResponse responseSendKey = httpClientSendKey.execute(postSendKey)) {
-        			//Risponde: {"auth":"Luft..."}
-        			
-        			byte[] privateKeyBytes = Base64.getEncoder().encode(pair.getPrivate().getEncoded());
+        	if (null != auth && auth.equals(main.main.IN_APPROVAZIONE)) {
+        		if (null != codice && !"".equals(codice) && null != key && !"".equals(key)) {
+                    this.cache.setStato(auth);
+                    this.cache.setCodice(codice);
+                    this.cache.setPublicKeyServer(key);
+            		KeyPair pair = RSA.generateKeyPair();
+            		HttpPost postSendKey = new HttpPost("http://www.allaroundvolley.com/controlloperiodico.php");
+            		
+            		byte[] publicKeyBytes = Base64.getEncoder().encode(pair.getPublic().getEncoded());
+                    String pubKey = new String(publicKeyBytes);
+                    pubKey = pubKey.replace("\n", "");
+                    
+                    byte[] privateKeyBytes = Base64.getEncoder().encode(pair.getPrivate().getEncoded());
                     String prvKey = new String(privateKeyBytes);
                     prvKey = prvKey.replace("\n", "");
                     
-                    JSONObject response2 = new JSONObject(EntityUtils.toString(responseSendKey.getEntity()));
-                    String authCripted = response2.getString("auth");
-                    
-                    String responseAuth = RSA.decrypt(authCripted, prvKey);
-                    if (responseAuth.equals(main.main.IN_APPROVAZIONE) || responseAuth.equals(main.main.VALIDO)) {
-                    	//login corretto
-                    	//disableLogin + textView in approvazione
-                    }
-        		}
-        		
-        	}
-            
+                    this.cache.setPublicKey(pubKey);
+                    this.cache.setPrivateKey(prvKey);
+            		
+            		List<NameValuePair> urlParametersSendKey = new ArrayList<>();
+            		urlParametersSendKey.add(new BasicNameValuePair("key", pubKey));
+            		urlParametersSendKey.add(new BasicNameValuePair("codice", codice));
+            		urlParametersSendKey.add(new BasicNameValuePair("sigla", sigla));
+            		urlParametersSendKey.add(new BasicNameValuePair("versione", versione));
+            		
+            		postSendKey.setEntity(new UrlEncodedFormEntity(urlParametersSendKey));
+            		
+            		try (CloseableHttpClient httpClientSendKey = HttpClients.createDefault(); 
+            				CloseableHttpResponse responseSendKey = httpClientSendKey.execute(postSendKey)) {
+            			//Risponde: {"auth":"Luft..."}
+                        JSONObject response2 = new JSONObject(EntityUtils.toString(responseSendKey.getEntity()));
+                        String authCripted = response2.getString("auth");
+                        String responseAuth = RSA.decrypt(authCripted, prvKey);
+                        if (responseAuth.equals(main.main.IN_APPROVAZIONE) || responseAuth.equals(main.main.VALIDO)) {
+                        	this.cache.setStato(responseAuth);
+                        	this.cache.setUsername(mail);
+                        	controller.refreshFromLogin();
+                        	loginFrame.dispose();
+                        } else {
+                        	this.cache.setStato(main.main.NEGATO);
+                        	controller.refreshFromLogin();
+                        }
+            		} catch (Exception ex) {
+            			ex.printStackTrace();
+            		}
+            	} else {
+            		this.cache.setStato(main.main.NEGATO);
+            		controller.refreshFromLogin();
+            	}
+        	} else {
+        		this.cache.setStato(main.main.NEGATO);
+        		controller.refreshFromLogin();
+        	}    	
+        } catch (Exception e) {
+        	e.printStackTrace();
         }
 	}
-	
-	private void close() throws IOException {
-        httpClient.close();
-    }
 	
 
 }

@@ -35,7 +35,7 @@ public class View {
 	private String lastOpenDir = "";
 	
 	private JLabel licenza = new JLabel("Licenza: ---");
-	private JLabel scadenza = new JLabel("Scadenza: ---");
+	private JLabel scadenza = new JLabel("Stato: ---");
 	private JPanel panelLogin;
 	private JButton btnLogin;
 	

@@ -83,7 +83,7 @@ public class Controller {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new LoginView();
+				new LoginView(Controller.this);
 			}
 		});
 		
@@ -237,6 +237,10 @@ public class Controller {
 				
 			}
 		});
+		
+	}
+	
+	public void refreshFromLogin() {
 		
 	}
 	
