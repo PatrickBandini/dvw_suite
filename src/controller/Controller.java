@@ -6,10 +6,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.NetworkInterface;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.KeyPair;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Enumeration;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -305,6 +309,7 @@ public class Controller {
 		urlParametersSendKey.add(new BasicNameValuePair("codice", codice));
 		urlParametersSendKey.add(new BasicNameValuePair("sigla", sigla));
 		urlParametersSendKey.add(new BasicNameValuePair("versione", versione));
+		urlParametersSendKey.add(new BasicNameValuePair("mac", Controller.getMacAddress()));
 		
 		try {
 			postSendKey.setEntity(new UrlEncodedFormEntity(urlParametersSendKey));
@@ -340,6 +345,29 @@ public class Controller {
 	
 	public static boolean isAbbonamentoValido() {
 		return abbonamento.equals(main.main.VALIDO);
+	}
+	
+	public static String getMacAddress() {
+		String mac = "";
+		try {
+			Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+			while (networkInterfaces.hasMoreElements()) {
+			    NetworkInterface ni = networkInterfaces.nextElement();
+			    byte[] hardwareAddress = ni.getHardwareAddress();
+			    if (hardwareAddress != null) {
+			        String[] hexadecimalFormat = new String[hardwareAddress.length];
+			        for (int i = 0; i < hardwareAddress.length; i++) {
+			            hexadecimalFormat[i] = String.format("%02X", hardwareAddress[i]);
+			        }
+			        mac += String.join("-", hexadecimalFormat);
+			        mac += ";";
+			    }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mac;
+		
 	}
 
 }

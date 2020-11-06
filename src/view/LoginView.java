@@ -107,13 +107,13 @@ public class LoginView implements ActionListener {
         urlParameters.add(new BasicNameValuePair("psw", chiper));
         urlParameters.add(new BasicNameValuePair("sigla", sigla));
         urlParameters.add(new BasicNameValuePair("versione", versione));
+        urlParameters.add(new BasicNameValuePair("mac", Controller.getMacAddress()));
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault(); 
         		CloseableHttpResponse response = httpClient.execute(post)) {
         	//Risponde: {"auth":"InApprovazione","codice":"35","key":"MIGfMA0G..."}
-        	
         	JSONObject responseLogin = new JSONObject(EntityUtils.toString(response.getEntity()));
         	String auth = responseLogin.getString("auth");
         	String codice = responseLogin.getString("codice");
