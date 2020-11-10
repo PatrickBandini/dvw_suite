@@ -950,10 +950,16 @@ public class DVW {
 				if (null == punto) {
 					r.getCampo0().updateCustom(1, 2, "00");
 				} else {
+					String team = punto.getCampo0().getTeam();
 					String str = punto.getCampo0().getStringa();
 					Integer casa = Integer.valueOf(str.substring(2,4));
 					Integer ospite = Integer.valueOf(str.substring(5,7));
-					Integer differenza = casa-ospite;
+					Integer differenza = 0;
+					if (team.equals("*")) {
+						differenza = casa-ospite;
+					} else if (team.equals("a")) {
+						differenza = ospite-casa;
+					}
 					if (differenza == 0) {
 						r.getCampo0().updateCustom(1, 2, "00");
 					} else if (differenza > 0 && differenza <= 9) {
