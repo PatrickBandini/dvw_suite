@@ -102,11 +102,17 @@ public class DVW {
 				}
 				Integer vel = -1;
 				try {
-					String strvel = r.getCampo0().getCustom().substring(0, 2);
+					String strvel = r.getCampo0().getCustom().substring(0, 3);
 					vel = Integer.parseInt(strvel);
 				} catch (Exception ex) {
-					
+					try {
+						String strvel = r.getCampo0().getCustom().substring(0, 2);
+						vel = Integer.parseInt(strvel);
+					} catch(Exception ex2) {
+						
+					}
 				}
+				System.out.println(vel);
 				if (vel != -1) {
 					r.getCampo0().updateCustom(4, 1, rangeVelocita(vel));
 				}
@@ -145,23 +151,24 @@ public class DVW {
 		if (isBetween(vel, 60, 63)) return 'F';
 		if (isBetween(vel, 64, 67)) return 'G';
 		if (isBetween(vel, 68, 71)) return 'H';
-		if (isBetween(vel, 72, 75)) return 'J';
-		if (isBetween(vel, 76, 79)) return 'K';
-		if (isBetween(vel, 80, 83)) return 'L';
-		if (isBetween(vel, 84, 87)) return 'M';
-		if (isBetween(vel, 88, 91)) return 'N';
-		if (isBetween(vel, 92, 95)) return 'O';
-		if (isBetween(vel, 96, 99)) return 'P';
-		if (isBetween(vel, 100, 103)) return 'Q';
-		if (isBetween(vel, 104, 107)) return 'R';
-		if (isBetween(vel, 108, 111)) return 'S';
-		if (isBetween(vel, 112, 115)) return 'T';
-		if (isBetween(vel, 116, 119)) return 'U';
-		if (isBetween(vel, 120, 123)) return 'V';
-		if (isBetween(vel, 124, 127)) return 'W';
-		if (isBetween(vel, 128, 131)) return 'X';
-		if (isBetween(vel, 132, 135)) return 'Y';
-		if (isBetween(vel, 136, 139)) return 'Z';
+		if (isBetween(vel, 72, 75)) return 'I';
+		if (isBetween(vel, 76, 79)) return 'J';
+		if (isBetween(vel, 80, 83)) return 'K';
+		if (isBetween(vel, 84, 87)) return 'L';
+		if (isBetween(vel, 88, 91)) return 'M';
+		if (isBetween(vel, 92, 95)) return 'N';
+		if (isBetween(vel, 96, 99)) return 'O';
+		if (isBetween(vel, 100, 103)) return 'P';
+		if (isBetween(vel, 104, 107)) return 'Q';
+		if (isBetween(vel, 108, 111)) return 'R';
+		if (isBetween(vel, 112, 115)) return 'S';
+		if (isBetween(vel, 116, 119)) return 'T';
+		if (isBetween(vel, 120, 123)) return 'U';
+		if (isBetween(vel, 124, 127)) return 'V';
+		if (isBetween(vel, 128, 131)) return 'W';
+		if (isBetween(vel, 132, 135)) return 'X';
+		if (isBetween(vel, 136, 139)) return 'Y';
+		if (isBetween(vel, 140, 143)) return 'Z';
 		return '0';
 	}
 	
@@ -219,15 +226,15 @@ public class DVW {
 							prec.getCampo0().isRicezione() || 
 							prec.isAlzataCP(getPrevious(righe, prec))
 						) {
-						tempo += 4;
+						tempo += 5;
 						r.setTimecode(String.valueOf(tempo));
 					} else {
-						tempo+=3;
+						tempo+=4;
 						r.setTimecode(String.valueOf(tempo));
 					}
 					
 				} else {
-					tempo+=3;
+					tempo+=4;
 					r.setTimecode(String.valueOf(tempo));
 				}
 				
