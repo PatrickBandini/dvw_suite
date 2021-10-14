@@ -933,7 +933,7 @@ public class DVW {
 			Integer cont;
 			if (p != null) {
 				Campo0 prev = p.getCampo0();
-				if (r.getCampo0().getNumero().equals(prev.getNumero())) {
+				if (r.getCampo0().getNumero().equals(prev.getNumero()) && r.getCampo0().getTeam().equals(prev.getTeam())) {
 					cont = Integer.valueOf(prev.getCustom().substring(0, 1));
 					cont++;
 				} else {
@@ -988,6 +988,35 @@ public class DVW {
 	 * modifica il 4° custom del servizio
 	 */
 	public void servizioDopoInterruzione() {
+		//Servizio dopo errore precedente
+		List<Riga> battute = new ArrayList<Riga>();
+		for (Riga r: this.righe) {
+			if (r.getCampo0().isServizio()) {
+				battute.add(r);
+			}
+		}
+		for (Riga r: battute) {
+			Riga p = null;
+			do {
+				if (null != p) {
+					p = getPrevious(battute, p);
+				} else {
+					p = getPrevious(battute, r);
+				}
+				if (null==p) {
+					break;
+				}
+			} while (!p.getCampo0().getTeam().equals(r.getCampo0().getTeam()));
+			if (p != null) {
+				if (p.getCampo0().getVal().equals("=") && p.getCampo0().getTeam().equals(r.getCampo0().getTeam())) {
+					r.getCampo0().updateCustom(3, 1, "E");
+				}
+				
+			} 
+			
+		}
+		
+		//Servizio dopo interruzione
 		for (Riga r: this.righe) {
 			Riga servizio;
 			if (r.getCampo0().isTempo()) {
