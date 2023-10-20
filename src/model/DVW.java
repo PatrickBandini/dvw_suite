@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class DVW {
 	
@@ -1176,6 +1177,61 @@ public class DVW {
 					}
 				}
 			}
+		}
+	}
+	
+	public void inserisciAlzate() {
+		Integer alzatoreCasa = 0;
+		Integer alzatoreOspite = 0;
+		ListIterator<Riga> iterator = this.righe.listIterator(0);
+		while (iterator.hasNext()) {
+			Riga r = iterator.next();
+			Campo0 c = r.getCampo0();
+			if (c.toString().contains("*P")) {
+				alzatoreCasa = this.getNumeroAlzatore(c.toString());
+			}
+			if (c.toString().contains("aP")) {
+				alzatoreOspite = this.getNumeroAlzatore(c.toString());
+			}
+			if (c.isAttacco()) {
+				if (!"PR".equals(c.getCombination()) && !"P2".equals(c.getCombination()) && !"P6".equals(c.getCombination())) {
+					String alzata = "";
+					alzata += c.getTeam();
+					if ("*".equals(c.getTeam())) {
+						alzata += String.format("%02d", alzatoreCasa);
+					} else {
+						alzata += String.format("%02d", alzatoreOspite);
+					}
+					alzata += "E";
+					alzata += c.getType();
+					alzata += "#;";
+					alzata += ";;;;;;";
+					alzata += r.getTempoRilevazione() + ";";
+					alzata += r.getSet() +";";
+					alzata += r.getpCasa() + ";";
+					alzata += r.getpOspite() + ";";
+					alzata += r.getFilmato() + ";";
+					alzata += r.getTimecode() + ";";
+					alzata += r.getCasa().toString();
+					alzata += r.getOspite().toString();
+					Riga a = new Riga(alzata);
+					iterator.previous();
+					iterator.add(a);
+					iterator.next();
+				}
+			}
+		}
+	}
+	
+	private Integer getNumeroAlzatore(String riga) {
+		String str = riga.substring(2);
+		try {
+			if (str.contains(">")) {
+				return Integer.valueOf(str.substring(0,2));
+			} 
+			return Integer.valueOf(str);
+		} catch (NumberFormatException e) {
+			return 0;
 		}
 	}
 

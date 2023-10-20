@@ -137,6 +137,9 @@ public class Controller {
 						if (view.getInserisciCombinazioniAttacco().isSelected()) {
 							model.inserisciCombinazioniAttacco();
 						}
+						if (view.getInserisciAlzate().isSelected()) {
+							model.inserisciAlzate();
+						}
 						if (view.getCheckTempiAttacchi().isSelected()) {
 							model.tempiAttaccoContrattacco();
 						}

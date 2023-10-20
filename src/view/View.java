@@ -68,6 +68,7 @@ public class View {
 	private JCheckBox checkTrasformaVelocita;
 	private JCheckBox checkNormalizzaBattutaRicezione;
 	private JCheckBox checkInserisciCombinazioniAttacco;
+	private JCheckBox checkInserisciAlzate;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -352,6 +353,9 @@ public class View {
 			checkInserisciCombinazioniAttacco = new JCheckBox("Inserisci combinazioni attacco");
 			panelCenter.add(checkInserisciCombinazioniAttacco);
 			
+			checkInserisciAlzate = new JCheckBox("Inserisci Alzate");
+			panelCenter.add(checkInserisciAlzate);
+			
 			
 			//CUSTOM
 			
@@ -562,6 +566,10 @@ public class View {
 	
 	public JCheckBox getInserisciCombinazioniAttacco() {
 		return checkInserisciCombinazioniAttacco;
+	}
+	
+	public JCheckBox getInserisciAlzate() {
+		return checkInserisciAlzate;
 	}
 	
 	public void refreshAbbonamento(String lic, String stato) {
