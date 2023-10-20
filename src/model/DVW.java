@@ -187,7 +187,6 @@ public class DVW {
 				c = r.getCampo0().getSkill().charAt(0);
 			}
 			if (c != ' ' && r.getCampo0().isSkill(c)) {
-				System.out.println(r.toString());
 				String val = r.getCampo0().getVal();
 				boolean murato = c == 'A' && (val.equals("/") || val.equals("!"));
 				if (!murato) {
@@ -1114,5 +1113,70 @@ public class DVW {
 		System.out.println("OK - normalizza Battuta-Ricezione");
 	}
 	
+	
+	public void inserisciCombinazioniAttacco() {
+		for (Riga r: this.righe) {
+			Campo0 c = r.getCampo0();
+			if (c.isAttacco()) {
+				//se palleggiatore --> PP
+				Formazione f = r.getCasa();;
+				int p = Integer.valueOf(r.getpCasa());
+				if (c.getTeam().equals("a")) {
+					f = r.getOspite();
+					p = Integer.valueOf(r.getpOspite());
+				}
+				String numero = c.getNumero();
+				if (f.isPalleggiatore(numero, p)) {
+					c.setCombination("PP");
+				} else {
+					//se la provenienza è da zona 3
+					if (c.getStart() == '3') {
+						c.setCombination("X1");
+					} else {
+						//se è attacco di cambio palla dopo R#,+,!
+						Riga ricezione = getPrevious(this.righe, r);
+						Campo0 rice0 = ricezione.getCampo0();
+						boolean positiva = false;
+						if (rice0.isRicezione()) {
+							positiva = "#".equals(rice0.getVal()) || "+".equals(rice0.getVal()) || "!".equals(rice0.getVal());
+						}
+						if (positiva) {
+							switch (c.getStart()) {
+								case '4':
+									c.setCombination("X5");
+									break;
+								case '2':
+									c.setCombination("X6");
+									break;
+								case '9':
+									c.setCombination("X8");
+									break;
+								case '8':
+									c.setCombination("XP");
+									break;
+							}
+							
+						} else {
+							//contrattacco o R-
+							switch (c.getStart()) {
+							case '4':
+								c.setCombination("V5");
+								break;
+							case '2':
+								c.setCombination("V6");
+								break;
+							case '9':
+								c.setCombination("V8");
+								break;
+							case '8':
+								c.setCombination("VP");
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 }

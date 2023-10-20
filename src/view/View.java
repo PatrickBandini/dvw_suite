@@ -67,6 +67,7 @@ public class View {
 	private JCheckBox checkInserisciVelocita;
 	private JCheckBox checkTrasformaVelocita;
 	private JCheckBox checkNormalizzaBattutaRicezione;
+	private JCheckBox checkInserisciCombinazioniAttacco;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -348,6 +349,9 @@ public class View {
 			checkCopiaPersoneAMuro = new JCheckBox("Copia numero persone a muro (sul muro, dall'attacco)");
 			panelCenter.add(checkCopiaPersoneAMuro);
 			
+			checkInserisciCombinazioniAttacco = new JCheckBox("Inserisci combinazioni attacco");
+			panelCenter.add(checkInserisciCombinazioniAttacco);
+			
 			
 			//CUSTOM
 			
@@ -554,6 +558,10 @@ public class View {
 	
 	public JCheckBox getNormalizzaBattutaRicezione() {
 		return checkNormalizzaBattutaRicezione;
+	}
+	
+	public JCheckBox getInserisciCombinazioniAttacco() {
+		return checkInserisciCombinazioniAttacco;
 	}
 	
 	public void refreshAbbonamento(String lic, String stato) {

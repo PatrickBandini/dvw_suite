@@ -131,6 +131,12 @@ public class Controller {
 						if (view.getCheckPulisciCustomFree().isSelected()) {
 							model.pulisciCustom(Campo0.FREE);
 						}
+						if (view.getNormalizzaBattutaRicezione().isSelected()) {
+							model.normalizzaBattutaRicezione();
+						}
+						if (view.getInserisciCombinazioniAttacco().isSelected()) {
+							model.inserisciCombinazioniAttacco();
+						}
 						if (view.getCheckTempiAttacchi().isSelected()) {
 							model.tempiAttaccoContrattacco();
 						}
@@ -206,9 +212,6 @@ public class Controller {
 						}
 						if (view.getCheckRimuoviFrecce().isSelected()) {
 							model.rimuoviFrecce();
-						}
-						if (view.getNormalizzaBattutaRicezione().isSelected()) {
-							model.normalizzaBattutaRicezione();
 						}
 						String filename = view.getButtonEsegui().getText().substring(8);
 						File toSave = view.saveFile(filename);
