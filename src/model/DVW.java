@@ -1073,5 +1073,41 @@ public class DVW {
 		System.out.println("OK - ricezione estranei");
 	}
 	
+	/**
+	 * R/ --> B/
+	 * R- --> B+
+	 * R! --> B!
+	 * R+ --> B-
+	 * R# --> B-
+	 */
+	public void normalizzaBattutaRicezione() {
+		for (Riga r: this.righe) {
+			Campo0 c = r.getCampo0();
+			if (c.isRicezione()) {
+				Riga battuta = getPrevious(this.righe, r);
+				Campo0 b = battuta.getCampo0();
+				char val = c.getVal().charAt(0);
+				switch(val) {
+				case '/':
+					b.setVal('/');
+					break;
+				case '-':
+					b.setVal('+');
+					break;
+				case '!':
+					b.setVal('!');
+					break;
+				case '+':
+					b.setVal('-');
+					break;
+				case '#':
+					b.setVal('-');
+					break;
+				}
+			}
+		}
+		System.out.println("OK - normalizza Battuta-Ricezione");
+	}
+	
 
 }

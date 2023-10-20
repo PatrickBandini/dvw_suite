@@ -207,6 +207,9 @@ public class Controller {
 						if (view.getCheckRimuoviFrecce().isSelected()) {
 							model.rimuoviFrecce();
 						}
+						if (view.getNormalizzaBattutaRicezione().isSelected()) {
+							model.normalizzaBattutaRicezione();
+						}
 						String filename = view.getButtonEsegui().getText().substring(8);
 						File toSave = view.saveFile(filename);
 						writeFile(toSave);

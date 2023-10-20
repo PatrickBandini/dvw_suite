@@ -66,6 +66,7 @@ public class View {
 	private JCheckBox checkNumeroLettera;
 	private JCheckBox checkInserisciVelocita;
 	private JCheckBox checkTrasformaVelocita;
+	private JCheckBox checkNormalizzaBattutaRicezione;
 	
 	//Indipendenti
 	private JCheckBox checkPulisciCustomServizio;
@@ -311,6 +312,9 @@ public class View {
 			checkLatoRicettore = new JCheckBox("+ Lato ricettore (3-4-5)");
 			panelCenter.add(checkLatoRicettore);
 			
+			checkNormalizzaBattutaRicezione = new JCheckBox("Normalizza Battuta-Ricezione");
+			panelCenter.add(checkNormalizzaBattutaRicezione);
+			
 			checkTempiAttacchi = new JCheckBox("Tempi Attacchi di contrattacco");
 			panelCenter.add(checkTempiAttacchi);
 			
@@ -546,6 +550,10 @@ public class View {
 	
 	public JCheckBox getCheckTempiDifesa() {
 		return checkTempiDifesa;
+	}
+	
+	public JCheckBox getNormalizzaBattutaRicezione() {
+		return checkNormalizzaBattutaRicezione;
 	}
 	
 	public void refreshAbbonamento(String lic, String stato) {

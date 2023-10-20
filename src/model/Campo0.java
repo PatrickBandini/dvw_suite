@@ -135,6 +135,10 @@ public class Campo0 {
 	
 	// MAIN
 	
+	private void setMain(char team, String numero, char skill, char type, char val) {
+		this.main = team + numero + skill + type + val;
+	}
+	
 	public String getTeam() {
 		return String.valueOf(this.main.charAt(0));
 	}
@@ -180,9 +184,8 @@ public class Campo0 {
 	}
 	
 	public void setVal(char c) {
-		if (' ' == c || '~' == c) {
-			this.val = c;
-		}
+		this.val = c;
+		this.setMain(this.team, this.numero, this.skill, this.type, c);
 	}
 	
 	// ADVANCED
