@@ -441,7 +441,7 @@ public class DVW {
 		for (int i=0;i<this.righe.size();i++) {
 			Riga r = this.righe.get(i);
 			if (r.getCampo0().isAttacco()) {
-				if (r.getCampo0().getSpecial() != 'X') {
+				if (!r.getCampo0().getVal().equals("#")) {
 					Riga attacco = r;
 					Riga muro = null;
 					String teamAttacco = r.getCampo0().getTeam();
@@ -637,6 +637,7 @@ public class DVW {
 						case "X1":
 						case "X2":
 						case "XC":
+						case "XE":
 						case "XD":
 						case "X7":
 						case "V3":
@@ -644,6 +645,10 @@ public class DVW {
 						case "C2":
 						case "Z1":
 						case "Z2":
+						case "CF":
+						case "CB":
+						case "XS":
+						case "XG":
 							c.setTarget('C');
 							break;
 						case "X5":
@@ -651,6 +656,7 @@ public class DVW {
 						case "C5":
 						case "V5":
 						case "VE":
+						case "XT":
 							c.setTarget('F');
 							break;
 						case "X6":
@@ -661,6 +667,8 @@ public class DVW {
 						case "V6":
 						case "V8":
 						case "VD":
+						case "GA":
+						case "XX":
 							c.setTarget('B');
 							break;
 						case "XP":
