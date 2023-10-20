@@ -156,7 +156,11 @@ public class Campo0 {
 	}
 	
 	public String getVal() {
-		return String.valueOf(this.main.charAt(5));
+		try {
+			return String.valueOf(this.main.charAt(5));
+		} catch (StringIndexOutOfBoundsException e) {
+			return "";
+		}
 	}
 	
 	public void setTeam(char c) {

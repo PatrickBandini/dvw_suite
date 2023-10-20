@@ -187,9 +187,14 @@ public class DVW {
 				c = r.getCampo0().getSkill().charAt(0);
 			}
 			if (c != ' ' && r.getCampo0().isSkill(c)) {
-				r.setFrecciaA("");
-				r.setFrecciaB("");
-				r.setFrecciaC("");
+				System.out.println(r.toString());
+				String val = r.getCampo0().getVal();
+				boolean murato = c == 'A' && (val.equals("/") || val.equals("!"));
+				if (!murato) {
+					r.setFrecciaA("");
+					r.setFrecciaB("");
+					r.setFrecciaC("");
+				}
 			}
 		}
 	}
