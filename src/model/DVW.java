@@ -630,7 +630,6 @@ public class DVW {
 					} else {
 						c.setCombination("K1");
 					}
-					System.out.println(c.toString());
 				}
 				i++;
 				System.out.println(""+ i);
@@ -1128,10 +1127,12 @@ public class DVW {
 				}
 				String numero = c.getNumero();
 				if (f.isPalleggiatore(numero, p)) {
+					c.setType('O');
 					c.setCombination("PP");
 				} else {
 					//se la provenienza è da zona 3
 					if (c.getStart() == '3') {
+						c.setType('Q');
 						c.setCombination("X1");
 					} else {
 						//se è attacco di cambio palla dopo R#,+,!
@@ -1144,15 +1145,19 @@ public class DVW {
 						if (positiva) {
 							switch (c.getStart()) {
 								case '4':
+									c.setType('T');
 									c.setCombination("X5");
 									break;
 								case '2':
+									c.setType('T');
 									c.setCombination("X6");
 									break;
 								case '9':
+									c.setType('T');
 									c.setCombination("X8");
 									break;
 								case '8':
+									c.setType('M');
 									c.setCombination("XP");
 									break;
 							}
@@ -1161,15 +1166,19 @@ public class DVW {
 							//contrattacco o R-
 							switch (c.getStart()) {
 							case '4':
+								c.setType('H');
 								c.setCombination("V5");
 								break;
 							case '2':
+								c.setType('H');
 								c.setCombination("V6");
 								break;
 							case '9':
+								c.setType('H');
 								c.setCombination("V8");
 								break;
 							case '8':
+								c.setType('H');
 								c.setCombination("VP");
 								break;
 							}
@@ -1195,29 +1204,31 @@ public class DVW {
 			}
 			if (c.isAttacco()) {
 				if (!"PR".equals(c.getCombination()) && !"P2".equals(c.getCombination()) && !"P6".equals(c.getCombination())) {
-					String alzata = "";
-					alzata += c.getTeam();
-					if ("*".equals(c.getTeam())) {
-						alzata += String.format("%02d", alzatoreCasa);
-					} else {
-						alzata += String.format("%02d", alzatoreOspite);
+					Riga a = iterator.previous();
+					if (!a.getCampo0().isAlzata()) {
+						String alzata = "";
+						alzata += c.getTeam();
+						if ("*".equals(c.getTeam())) {
+							alzata += String.format("%02d", alzatoreCasa);
+						} else {
+							alzata += String.format("%02d", alzatoreOspite);
+						}
+						alzata += "E";
+						alzata += c.getType();
+						alzata += "#;";
+						alzata += ";;;;;;";
+						alzata += r.getTempoRilevazione() + ";";
+						alzata += r.getSet() +";";
+						alzata += r.getpCasa() + ";";
+						alzata += r.getpOspite() + ";";
+						alzata += r.getFilmato() + ";";
+						alzata += r.getTimecode() + ";";
+						alzata += r.getCasa().toString();
+						alzata += r.getOspite().toString();
+						a = new Riga(alzata);
+						iterator.add(a);
+						iterator.next();
 					}
-					alzata += "E";
-					alzata += c.getType();
-					alzata += "#;";
-					alzata += ";;;;;;";
-					alzata += r.getTempoRilevazione() + ";";
-					alzata += r.getSet() +";";
-					alzata += r.getpCasa() + ";";
-					alzata += r.getpOspite() + ";";
-					alzata += r.getFilmato() + ";";
-					alzata += r.getTimecode() + ";";
-					alzata += r.getCasa().toString();
-					alzata += r.getOspite().toString();
-					Riga a = new Riga(alzata);
-					iterator.previous();
-					iterator.add(a);
-					iterator.next();
 				}
 			}
 		}

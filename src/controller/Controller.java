@@ -131,6 +131,14 @@ public class Controller {
 						if (view.getCheckPulisciCustomFree().isSelected()) {
 							model.pulisciCustom(Campo0.FREE);
 						}
+						if (view.getCheckImportaFileClickAndScout().isSelected()) {
+							model.normalizzaBattutaRicezione();
+							model.inserisciCombinazioniAttacco();
+							model.rimuoviFrecce();
+							model.inserisciAlzate();
+							model.inserisciBasi();
+							model.inserisciPuntiRete();
+						}
 						if (view.getNormalizzaBattutaRicezione().isSelected()) {
 							model.normalizzaBattutaRicezione();
 						}

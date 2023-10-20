@@ -182,9 +182,8 @@ public class Campo0 {
 	}
 	
 	public void setType(char c) {
-		if (' ' == c || '~' == c) {
-			this.type = c;
-		}
+		this.type = c;
+		this.setMain(this.team, this.numero, this.skill, c, this.val);
 	}
 	
 	public void setVal(char c) {

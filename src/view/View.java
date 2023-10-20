@@ -82,6 +82,7 @@ public class View {
 	private JCheckBox checkNormalizzaTempiFineAzione;
 	private JCheckBox checkRimuoviFrecce;
 	private JCheckBox checkCopiaDirezioneSuRicezione;
+	private JCheckBox checkImportaFileClickAndScout;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -298,6 +299,9 @@ public class View {
 			
 			checkCopiaDirezioneSuRicezione = new JCheckBox("Copia direzione Servizio sulla Ricezione");
 			panelLeft.add(checkCopiaDirezioneSuRicezione);
+			
+			checkImportaFileClickAndScout = new JCheckBox("Importa File da Click&Scout");
+			panelLeft.add(checkImportaFileClickAndScout);
 			
 			
 			//MAIN
@@ -570,6 +574,10 @@ public class View {
 	
 	public JCheckBox getInserisciAlzate() {
 		return checkInserisciAlzate;
+	}
+	
+	public JCheckBox getCheckImportaFileClickAndScout() {
+		return checkImportaFileClickAndScout;
 	}
 	
 	public void refreshAbbonamento(String lic, String stato) {
