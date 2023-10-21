@@ -224,6 +224,9 @@ public class Controller {
 						if (view.getCheckRimuoviFrecce().isSelected()) {
 							model.rimuoviFrecce();
 						}
+						if (view.getCheckProvenienzaAlzata().isSelected()) {
+							model.provenienzaAlzata();
+						}
 						String filename = view.getButtonEsegui().getText().substring(8);
 						File toSave = view.saveFile(filename);
 						writeFile(toSave);

@@ -83,6 +83,7 @@ public class View {
 	private JCheckBox checkRimuoviFrecce;
 	private JCheckBox checkCopiaDirezioneSuRicezione;
 	private JCheckBox checkImportaFileClickAndScout;
+	private JCheckBox checkProvenienzaAlzata;
 	
 	private JCheckBox checkTempiAttacchi;
 	private JCheckBox checkTempiAttacchiCP;
@@ -384,6 +385,9 @@ public class View {
 			checkPuntiRete = new JCheckBox("Inserisci Punti Rete");
 			panelRight.add(checkPuntiRete);
 			
+			checkProvenienzaAlzata = new JCheckBox("Provenienza Alzata");
+			panelRight.add(checkProvenienzaAlzata);
+			
 			//checkNumeroLettera = new JCheckBox("Aggiungi persone a muro (LETTERE su Alzata)");
 			//panelRight.add(checkNumeroLettera);
 			
@@ -578,6 +582,10 @@ public class View {
 	
 	public JCheckBox getCheckImportaFileClickAndScout() {
 		return checkImportaFileClickAndScout;
+	}
+	
+	public JCheckBox getCheckProvenienzaAlzata() {
+		return checkProvenienzaAlzata;
 	}
 	
 	public void refreshAbbonamento(String lic, String stato) {

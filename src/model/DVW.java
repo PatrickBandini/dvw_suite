@@ -1245,5 +1245,57 @@ public class DVW {
 			return 0;
 		}
 	}
+	
+	public void provenienzaAlzata() {
+		for(int i=0; i<this.righe.size(); i++) {
+			Riga r = this.righe.get(i);
+			Campo0 c = r.getCampo0();
+			if (c.isAlzata()) {
+				Riga prec = this.righe.get(i-1);
+				Campo0 p = prec.getCampo0();
+				if (p.isRicezione()) {
+					switch (p.getVal()) {
+						case "#":
+						case "+":
+							c.updateCustom(3, 2, "C+");
+							break;
+						case "!":
+							c.updateCustom(3,2, "C!");
+							break;
+						case "-":
+							c.updateCustom(3,2, "C-");
+							break;
+					}
+				} else if (p.isDifesa()) {
+					switch (p.getVal()) {
+						case "#":
+						case "+":
+							c.updateCustom(3, 2, "D+");
+							break;
+						case "!":
+							c.updateCustom(3,2, "D!");
+							break;
+						case "-":
+							c.updateCustom(3,2, "D-");
+							break;
+					}
+				} else if (p.isFree()) {
+					switch (p.getVal()) {
+						case "#":
+						case "+":
+							c.updateCustom(3, 2, "F+");
+							break;
+						case "!":
+							c.updateCustom(3,2, "F!");
+							break;
+						case "-":
+							c.updateCustom(3,2, "F-");
+							break;
+					}
+				}
+			}
+		}
+		
+	}
 
 }
